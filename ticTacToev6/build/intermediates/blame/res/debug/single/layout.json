@@ -1,0 +1,34 @@
+[
+    {
+        "merged": "/Users/DylanWight/Developer/CS4520/ticTacToev6/build/intermediates/res/merged/debug/layout/fragment_control.xml",
+        "source": "/Users/DylanWight/Developer/CS4520/ticTacToev6/src/main/res/layout/fragment_control.xml"
+    },
+    {
+        "merged": "/Users/DylanWight/Developer/CS4520/ticTacToev6/build/intermediates/res/merged/debug/layout/fragment_game.xml",
+        "source": "/Users/DylanWight/Developer/CS4520/ticTacToev6/src/main/res/layout/fragment_game.xml"
+    },
+    {
+        "merged": "/Users/DylanWight/Developer/CS4520/ticTacToev6/build/intermediates/res/merged/debug/layout/thinking.xml",
+        "source": "/Users/DylanWight/Developer/CS4520/ticTacToev6/src/main/res/layout/thinking.xml"
+    },
+    {
+        "merged": "/Users/DylanWight/Developer/CS4520/ticTacToev6/build/intermediates/res/merged/debug/layout/activity_game.xml",
+        "source": "/Users/DylanWight/Developer/CS4520/ticTacToev6/src/main/res/layout/activity_game.xml"
+    },
+    {
+        "merged": "/Users/DylanWight/Developer/CS4520/ticTacToev6/build/intermediates/res/merged/debug/layout/large_board.xml",
+        "source": "/Users/DylanWight/Developer/CS4520/ticTacToev6/src/main/res/layout/large_board.xml"
+    },
+    {
+        "merged": "/Users/DylanWight/Developer/CS4520/ticTacToev6/build/intermediates/res/merged/debug/layout/fragment_main.xml",
+        "source": "/Users/DylanWight/Developer/CS4520/ticTacToev6/src/main/res/layout/fragment_main.xml"
+    },
+    {
+        "merged": "/Users/DylanWight/Developer/CS4520/ticTacToev6/build/intermediates/res/merged/debug/layout/ativity_main.xml",
+        "source": "/Users/DylanWight/Developer/CS4520/ticTacToev6/src/main/res/layout/ativity_main.xml"
+    },
+    {
+        "merged": "/Users/DylanWight/Developer/CS4520/ticTacToev6/build/intermediates/res/merged/debug/layout/small_board.xml",
+        "source": "/Users/DylanWight/Developer/CS4520/ticTacToev6/src/main/res/layout/small_board.xml"
+    }
+]
