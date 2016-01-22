@@ -27,7 +27,7 @@
 
       <fragment
          android:id="@+id/fragment_game"
-         class="org.example.tictactoe.GameFragment"
+         class="dylanwight.madcourse.neu.edu.numad16s_dylanwight.GameFragment"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          tools:layout="@layout/fragment_game"/>
@@ -35,7 +35,7 @@
 
       <fragment
          android:id="@+id/fragment_game_controls"
-         class="org.example.tictactoe.ControlFragment"
+         class="dylanwight.madcourse.neu.edu.numad16s_dylanwight.ControlFragment"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          tools:layout="@layout/fragment_control"/>

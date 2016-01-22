@@ -15,15 +15,15 @@
    android:clipChildren="false"
    tools:context=".TicTacToeActivity">
 
-   <org.example.tictactoe.ScrollingView
+   <dylanwight.madcourse.neu.edu.numad16s_dylanwight.drawable.ScrollingView
       android:id="@+id/main_background"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      app:scrollingDrawable="@drawable/xando_background"/>
+      android:layout_height="match_parent"/>
+      //app:scrollingDrawable="@drawable/xando_background"/>
 
    <fragment
       android:id="@+id/main_fragment"
-      class="org.example.tictactoe.TicTacToeFragment"
+      class="dylanwight.madcourse.neu.edu.numad16s_dylanwight.TicTacToeFragment"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="center"

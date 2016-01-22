@@ -101,10 +101,10 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     }
     public static final class layout {
         public static final int activity_game=0x7f040000;
-        public static final int ativity_main=0x7f040001;
+        public static final int ativity_tictactoe =0x7f040001;
         public static final int fragment_control=0x7f040002;
         public static final int fragment_game=0x7f040003;
-        public static final int fragment_main=0x7f040004;
+        public static final int fragment_tictactoe =0x7f040004;
         public static final int large_board=0x7f040005;
         public static final int small_board=0x7f040006;
         public static final int thinking=0x7f040007;

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="dylanwight.madcourse.neu.edu.numad16s_dylanwight.MainActivity">
+    tools:context="dylanwight.madcourse.neu.edu.numad16s_dylanwight.MainActivity"
+    tools:showIn="@layout/fragment_main">
 
     <include layout="@layout/content_main" />
 

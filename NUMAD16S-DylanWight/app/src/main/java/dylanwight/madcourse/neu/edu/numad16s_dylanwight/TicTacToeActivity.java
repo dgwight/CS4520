@@ -18,8 +18,8 @@ public class TicTacToeActivity extends Activity {
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
-      super.onCreate(savedInstanceState);
-      setContentView(R.layout.ativity_tictactoe);
+      super.onCreate(new Bundle());
+      setContentView(R.layout.activity_tictactoe);
    }
 
    @Override

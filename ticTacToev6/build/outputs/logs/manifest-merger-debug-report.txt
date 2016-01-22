@@ -23,12 +23,12 @@ ADDED from /Users/DylanWight/Developer/CS4520/ticTacToev6/src/main/AndroidManife
 		ADDED from /Users/DylanWight/Developer/CS4520/ticTacToev6/src/main/AndroidManifest.xml:16:7-41
 	android:theme
 		ADDED from /Users/DylanWight/Developer/CS4520/ticTacToev6/src/main/AndroidManifest.xml:18:7-38
-activity#org.example.tictactoe.MainActivity
+activity#org.example.tictactoe.TicTacToeActivity
 ADDED from /Users/DylanWight/Developer/CS4520/ticTacToev6/src/main/AndroidManifest.xml:19:7-26:18
 	android:label
 		ADDED from /Users/DylanWight/Developer/CS4520/ticTacToev6/src/main/AndroidManifest.xml:21:10-42
 	android:name
-		ADDED from /Users/DylanWight/Developer/CS4520/ticTacToev6/src/main/AndroidManifest.xml:20:10-38
+		ADDED from /Users/DylanWight/Developer/CS4520/ticTacToev6/src/main/AndroidManifest.xml:20:10-43
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
 ADDED from /Users/DylanWight/Developer/CS4520/ticTacToev6/src/main/AndroidManifest.xml:22:10-25:26
 action#android.intent.action.MAIN
