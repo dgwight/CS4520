@@ -17,7 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class MainFragment extends Fragment {
+public class TicTacToeFragment extends Fragment {
 
    private AlertDialog mDialog;
 
@@ -25,7 +25,7 @@ public class MainFragment extends Fragment {
    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                             Bundle savedInstanceState) {
       View rootView =
-            inflater.inflate(R.layout.fragment_main, container, false);
+            inflater.inflate(R.layout.fragment_tictactoe, container, false);
       // Handle buttons here...
       View newButton = rootView.findViewById(R.id.new_button);
       View continueButton = rootView.findViewById(R.id.continue_button);

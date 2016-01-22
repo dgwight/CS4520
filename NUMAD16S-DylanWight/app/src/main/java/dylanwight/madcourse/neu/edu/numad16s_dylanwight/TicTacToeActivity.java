@@ -6,20 +6,20 @@
  * We make no guarantees that this code is fit for any purpose. 
  * Visit http://www.pragmaticprogrammer.com/titles/eband4 for more book information.
 ***/
-package org.example.tictactoe;
+package dylanwight.madcourse.neu.edu.numad16s_dylanwight;
 
 import android.app.Activity;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 
-public class MainActivity extends Activity {
+public class TicTacToeActivity extends Activity {
    MediaPlayer mMediaPlayer;
    // ...
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
-      setContentView(R.layout.ativity_main);
+      setContentView(R.layout.ativity_tictactoe);
    }
 
    @Override
