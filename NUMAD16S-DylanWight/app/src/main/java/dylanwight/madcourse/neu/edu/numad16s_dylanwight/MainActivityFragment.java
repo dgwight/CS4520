@@ -3,11 +3,14 @@ package dylanwight.madcourse.neu.edu.numad16s_dylanwight;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.provider.Settings.Secure;
+
 
 /**
  * A placeholder fragment containing a simple view.
@@ -19,6 +22,9 @@ public class MainActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
+
         View rootView =
                 inflater.inflate(R.layout.fragment_main, container, false);
         // Handle buttons here...
@@ -30,15 +36,22 @@ public class MainActivityFragment extends Fragment {
         aboutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                String android_id =  Secure.getString(getContext().getContentResolver(),Secure.ANDROID_ID);
+                String message = getString(R.string.about_dylan);
+                message = message + android_id;
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("Dylan Wight");
-                builder.setMessage(R.string.about_dylan);
+                builder.setTitle(R.string.my_name);
                 builder.setIcon(R.drawable.dylan_wight_id);
+                builder.setMessage(message);
+
                 builder.setCancelable(false);
                 builder.setPositiveButton(R.string.ok_label,
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
+                                // nothing
                             }
                         });
                 mDialog = builder.show();

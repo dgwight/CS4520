@@ -40,7 +40,6 @@ public class ScrollingView extends View {
    private void init(AttributeSet attrs, int defStyle) {
       // Load custom view attributes
 
-      /*
       final TypedArray a = getContext().obtainStyledAttributes(
             attrs, R.styleable.ScrollingView, defStyle, 0);
 
@@ -53,7 +52,6 @@ public class ScrollingView extends View {
 
       // Done with attributes
       a.recycle();
-      */
    }
 
    @Override

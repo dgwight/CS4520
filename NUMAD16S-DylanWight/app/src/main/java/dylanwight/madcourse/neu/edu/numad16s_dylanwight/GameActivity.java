@@ -93,7 +93,7 @@ public class GameActivity extends Activity {
    @Override
    protected void onResume() {
       super.onResume();
-      mMediaPlayer = MediaPlayer.create(this, R.raw.frankum_loop001e);
+      mMediaPlayer = MediaPlayer.create(this, R.raw.into_battle_4);
       mMediaPlayer.setLooping(true);
       mMediaPlayer.start();
    }

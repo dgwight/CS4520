@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="dylanwight.madcourse.neu.edu.numad16s_dylanwight">
+    package="dylanwight.madcourse.neu.edu.numad16s_dylanwight"
+    android:versionCode="2"
+    android:versionName="1.1">
+
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -19,15 +24,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".TicTacToeActivity"
-            android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+            android:name=".TicTacToeActivity">
         </activity>
         <activity
             android:name=".GameActivity">
+        </activity>
+        <activity
+            android:name=".AboutActivity">
         </activity>
     </application>
 

@@ -3,16 +3,21 @@
     <string name="action_settings">Settings</string>
     <string name="ok_label">OK</string>
     <string name="my_name">Dylan Wight</string>
-    <string name="about_dylan">Dylan Wight\ndylangwight@gmail.com\nJunior\nBS in Computer Science\n</string>
     <string name="device_id">android.telephony.TelephonyManager.getDeviceId()</string>
     <string name="long_app_name">Ultimate Tic Tac Toe</string>
     <string name="restart_label">Restart</string>
     <string name="main_menu_label">Main Menu</string>
+    <string name="tictactoe_menu_label">TicTacToe Menu</string>
+    tictactoe_menu_label
     <string name="declare_winner">%1$s is the winner</string>
     <string name="continue_label">Continue</string>
     <string name="new_game_label">New Game</string>
     <string name="about_title">About Ultimate Tic Tac Toe</string>
     <string name="about_label">About</string>
+    <string name="about_dylan">
+        Junior in Computer Science\n
+        <i><u>dylangwight@gmail.com</u></i>\n
+    </string>
     <string name="about_text">\
 This game is played just like
 regular Tic Tac Toe with one difference: to win a tile

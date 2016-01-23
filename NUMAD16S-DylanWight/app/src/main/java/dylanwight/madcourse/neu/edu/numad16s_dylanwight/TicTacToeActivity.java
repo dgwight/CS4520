@@ -25,7 +25,8 @@ public class TicTacToeActivity extends Activity {
    @Override
    protected void onResume() {
       super.onResume();
-      mMediaPlayer = MediaPlayer.create(this, R.raw.a_guy_1_epicbuilduploop);
+      // music credits to Composer: Jake LaVallee, owner of http://uncopyrightedmusic.net
+      mMediaPlayer = MediaPlayer.create(this, R.raw.into_battle_4);
       mMediaPlayer.setVolume(0.5f, 0.5f);
       mMediaPlayer.setLooping(true);
       mMediaPlayer.start();

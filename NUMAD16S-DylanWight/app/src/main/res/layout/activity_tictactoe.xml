@@ -15,11 +15,11 @@
    android:clipChildren="false"
    tools:context=".TicTacToeActivity">
 
-   <dylanwight.madcourse.neu.edu.numad16s_dylanwight.drawable.ScrollingView
+   <dylanwight.madcourse.neu.edu.numad16s_dylanwight.ScrollingView
       android:id="@+id/main_background"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"/>
-      //app:scrollingDrawable="@drawable/xando_background"/>
+      android:layout_height="match_parent"
+      app:scrollingDrawable="@drawable/xando_background"/>
 
    <fragment
       android:id="@+id/main_fragment"
