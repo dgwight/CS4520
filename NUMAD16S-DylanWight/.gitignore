@@ -33,6 +33,7 @@ captures/
 
 # Additional files to ignore
 .idea/
+.idea
 *.iml*.iml
 .gradle
 /local.properties
