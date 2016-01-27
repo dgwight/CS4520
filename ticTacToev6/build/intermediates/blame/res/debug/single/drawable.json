@@ -1,0 +1,46 @@
+[
+    {
+        "merged": "/Users/DylanWight/Developer/CS4520/ticTacToev6/build/intermediates/res/merged/debug/drawable/tile_empty.xml",
+        "source": "/Users/DylanWight/Developer/CS4520/ticTacToev6/src/main/res/drawable/tile_empty.xml"
+    },
+    {
+        "merged": "/Users/DylanWight/Developer/CS4520/ticTacToev6/build/intermediates/res/merged/debug/drawable/tile_blue.xml",
+        "source": "/Users/DylanWight/Developer/CS4520/ticTacToev6/src/main/res/drawable/tile_blue.xml"
+    },
+    {
+        "merged": "/Users/DylanWight/Developer/CS4520/ticTacToev6/build/intermediates/res/merged/debug/drawable/tile_background.xml",
+        "source": "/Users/DylanWight/Developer/CS4520/ticTacToev6/src/main/res/drawable/tile_background.xml"
+    },
+    {
+        "merged": "/Users/DylanWight/Developer/CS4520/ticTacToev6/build/intermediates/res/merged/debug/drawable/menu_background.xml",
+        "source": "/Users/DylanWight/Developer/CS4520/ticTacToev6/src/main/res/drawable/menu_background.xml"
+    },
+    {
+        "merged": "/Users/DylanWight/Developer/CS4520/ticTacToev6/build/intermediates/res/merged/debug/drawable/tile_purple.xml",
+        "source": "/Users/DylanWight/Developer/CS4520/ticTacToev6/src/main/res/drawable/tile_purple.xml"
+    },
+    {
+        "merged": "/Users/DylanWight/Developer/CS4520/ticTacToev6/build/intermediates/res/merged/debug/drawable/tile_gray.xml",
+        "source": "/Users/DylanWight/Developer/CS4520/ticTacToev6/src/main/res/drawable/tile_gray.xml"
+    },
+    {
+        "merged": "/Users/DylanWight/Developer/CS4520/ticTacToev6/build/intermediates/res/merged/debug/drawable/tile_available.xml",
+        "source": "/Users/DylanWight/Developer/CS4520/ticTacToev6/src/main/res/drawable/tile_available.xml"
+    },
+    {
+        "merged": "/Users/DylanWight/Developer/CS4520/ticTacToev6/build/intermediates/res/merged/debug/drawable/tile.xml",
+        "source": "/Users/DylanWight/Developer/CS4520/ticTacToev6/src/main/res/drawable/tile.xml"
+    },
+    {
+        "merged": "/Users/DylanWight/Developer/CS4520/ticTacToev6/build/intermediates/res/merged/debug/drawable/thinking_background.xml",
+        "source": "/Users/DylanWight/Developer/CS4520/ticTacToev6/src/main/res/drawable/thinking_background.xml"
+    },
+    {
+        "merged": "/Users/DylanWight/Developer/CS4520/ticTacToev6/build/intermediates/res/merged/debug/drawable/xando_background.xml",
+        "source": "/Users/DylanWight/Developer/CS4520/ticTacToev6/src/main/res/drawable/xando_background.xml"
+    },
+    {
+        "merged": "/Users/DylanWight/Developer/CS4520/ticTacToev6/build/intermediates/res/merged/debug/drawable/tile_red.xml",
+        "source": "/Users/DylanWight/Developer/CS4520/ticTacToev6/src/main/res/drawable/tile_red.xml"
+    }
+]

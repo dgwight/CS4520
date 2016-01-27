@@ -1,0 +1,121 @@
+[
+    {
+        "outputFile": "/Users/DylanWight/Developer/CS4520/ticTacToev6/build/intermediates/res/merged/debug/values-sw600dp-v13/values-sw600dp-v13.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 57,
+                    "endOffset": 108
+                },
+                "from": {
+                    "file": "/Users/DylanWight/Developer/CS4520/ticTacToev6/src/main/res/values-sw600dp/dimens.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 3,
+                        "startOffset": 480,
+                        "endColumn": 56,
+                        "endOffset": 533
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 113,
+                    "endColumn": 55,
+                    "endOffset": 164
+                },
+                "from": {
+                    "file": "/Users/DylanWight/Developer/CS4520/ticTacToev6/src/main/res/values-sw600dp/dimens.xml",
+                    "position": {
+                        "startLine": 11,
+                        "startColumn": 3,
+                        "startOffset": 537,
+                        "endColumn": 54,
+                        "endOffset": 588
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 169,
+                    "endColumn": 48,
+                    "endOffset": 213
+                },
+                "from": {
+                    "file": "/Users/DylanWight/Developer/CS4520/ticTacToev6/src/main/res/values-sw600dp/dimens.xml",
+                    "position": {
+                        "startLine": 16,
+                        "startColumn": 3,
+                        "startOffset": 724,
+                        "endColumn": 47,
+                        "endOffset": 768
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 218,
+                    "endColumn": 49,
+                    "endOffset": 263
+                },
+                "from": {
+                    "file": "/Users/DylanWight/Developer/CS4520/ticTacToev6/src/main/res/values-sw600dp/dimens.xml",
+                    "position": {
+                        "startLine": 15,
+                        "startColumn": 3,
+                        "startOffset": 675,
+                        "endColumn": 48,
+                        "endOffset": 720
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 268,
+                    "endColumn": 42,
+                    "endOffset": 306
+                },
+                "from": {
+                    "file": "/Users/DylanWight/Developer/CS4520/ticTacToev6/src/main/res/values-sw600dp/dimens.xml",
+                    "position": {
+                        "startLine": 14,
+                        "startColumn": 3,
+                        "startOffset": 633,
+                        "endColumn": 41,
+                        "endOffset": 671
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 7,
+                    "startColumn": 4,
+                    "startOffset": 311,
+                    "endColumn": 40,
+                    "endOffset": 347
+                },
+                "from": {
+                    "file": "/Users/DylanWight/Developer/CS4520/ticTacToev6/src/main/res/values-sw600dp/dimens.xml",
+                    "position": {
+                        "startLine": 13,
+                        "startColumn": 3,
+                        "startOffset": 593,
+                        "endColumn": 39,
+                        "endOffset": 629
+                    }
+                }
+            }
+        ]
+    }
+]
