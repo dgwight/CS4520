@@ -35,18 +35,19 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int activity_vertical_margin=0x7f070002;
         public static final int control_padding=0x7f070006;
         public static final int corner_radius=0x7f070007;
-        public static final int elevation_high=0x7f070008;
-        public static final int elevation_low=0x7f070009;
-        public static final int menu_button_margin=0x7f07000a;
-        public static final int menu_button_padding=0x7f07000b;
-        public static final int menu_padding=0x7f07000c;
-        public static final int menu_space=0x7f07000d;
-        public static final int menu_text_size=0x7f07000e;
+        public static final int corner_radius_tile=0x7f070008;
+        public static final int elevation_high=0x7f070009;
+        public static final int elevation_low=0x7f07000a;
+        public static final int menu_button_margin=0x7f07000b;
+        public static final int menu_button_padding=0x7f07000c;
+        public static final int menu_padding=0x7f07000d;
+        public static final int menu_space=0x7f07000e;
+        public static final int menu_text_size=0x7f07000f;
         public static final int small_board_margin=0x7f070003;
         public static final int small_board_padding=0x7f070004;
-        public static final int stroke_width=0x7f07000f;
-        public static final int thinking_progress_size=0x7f070010;
-        public static final int tile_margin=0x7f070011;
+        public static final int stroke_width=0x7f070010;
+        public static final int thinking_progress_size=0x7f070011;
+        public static final int tile_margin=0x7f070012;
         public static final int tile_padding=0x7f070005;
         public static final int tile_size=0x7f070000;
     }
@@ -74,8 +75,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int button_main=0x7f0b0005;
         public static final int button_restart=0x7f0b0004;
         public static final int continue_button=0x7f0b0006;
-        public static final int fragment_game=0x7f0b0000;
-        public static final int fragment_game_controls=0x7f0b0001;
+        public static final int fragment_game=0x7f0b0001;
+        public static final int fragment_game_controls=0x7f0b0000;
         public static final int large1=0x7f0b0009;
         public static final int large2=0x7f0b000a;
         public static final int large3=0x7f0b000b;
@@ -101,10 +102,10 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     }
     public static final class layout {
         public static final int activity_game=0x7f040000;
-        public static final int ativity_tictactoe =0x7f040001;
+        public static final int ativity_tictactoe=0x7f040001;
         public static final int fragment_control=0x7f040002;
         public static final int fragment_game=0x7f040003;
-        public static final int fragment_tictactoe =0x7f040004;
+        public static final int fragment_tictactoe=0x7f040004;
         public static final int large_board=0x7f040005;
         public static final int small_board=0x7f040006;
         public static final int thinking=0x7f040007;

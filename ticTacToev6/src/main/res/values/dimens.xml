@@ -20,6 +20,7 @@
    <dimen name="thinking_progress_size">50dp</dimen>
    <dimen name="stroke_width">1dp</dimen>
    <dimen name="corner_radius">4dp</dimen>
+    <dimen name="corner_radius_tile">32dp</dimen>
 
    <dimen name="menu_padding">10dp</dimen>
    <dimen name="menu_space">10dp</dimen>

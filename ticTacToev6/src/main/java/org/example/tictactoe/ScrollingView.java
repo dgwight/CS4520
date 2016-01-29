@@ -66,11 +66,11 @@ public class ScrollingView extends View {
          // Make the background bigger than it needs to be
          int max = Math.max(mBackground.getIntrinsicHeight(),
                mBackground.getIntrinsicWidth());
-         mBackground.setBounds(0, 0, contentWidth * 4, contentHeight * 4);
+         mBackground.setBounds(0, 0, -contentWidth * 4, -contentHeight * 4);
 
          // Shift where the image will be drawn
          mScrollPos += 2;
-         if (mScrollPos >= max) mScrollPos -= max;
+         if (mScrollPos <= max) mScrollPos += max;
          canvas.translate(-mScrollPos, -mScrollPos);
 
          // Draw it and indicate it should be drawn next time too
