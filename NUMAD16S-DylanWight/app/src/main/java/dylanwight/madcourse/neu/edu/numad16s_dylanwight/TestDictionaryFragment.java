@@ -1,10 +1,6 @@
 package dylanwight.madcourse.neu.edu.numad16s_dylanwight;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,12 +15,19 @@ public class TestDictionaryFragment extends Fragment {
 
     private String words = "";
 
-    public void setWords(String text) {
-        this.words = text;
+    public void addWord(String word) {
+        if (!this.words.equals("")) {
+            this.words += ", ";
+        }
+        this.words += word;
     }
 
     public String getWords() {
         return this.words;
+    }
+
+    public void clearWords() {
+        this.words = "";
     }
 
     @Override
@@ -42,7 +45,9 @@ public class TestDictionaryFragment extends Fragment {
                                              @Override
                                              public void onTextChanged(CharSequence s, int start, int before, int count) {
                                                  //here is your code
-                                                 wordList.setText(wordInput.getText());
+
+                                                 addWord(wordInput.getText().toString());
+                                                 wordList.setText(getWords());
                                              }
                                              @Override
                                              public void beforeTextChanged(CharSequence s, int start, int count,
@@ -56,10 +61,11 @@ public class TestDictionaryFragment extends Fragment {
                 clearButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        clearWords();
+                        wordInput.setText("", TextView.BufferType.EDITABLE);
                         wordList.setText("");
                     }
                 });
-
 
         return rootView;
     }
