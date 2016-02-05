@@ -14,6 +14,7 @@ import android.widget.TextView;
 public class TestDictionaryFragment extends Fragment {
 
     private String words = "";
+    private WordDictionary dictionary = new WordDictionary();
 
     public void addWord(String word) {
         if (!this.words.equals("")) {
@@ -46,9 +47,10 @@ public class TestDictionaryFragment extends Fragment {
                                              public void onTextChanged(CharSequence s, int start, int before, int count) {
                                                  //here is your code
 
-                                                 if (WordDictionary.isWord(wordInput.getText().toString())) {
+                                                 if (dictionary.checkIfWord(wordInput.getText().toString())) {
                                                      addWord(wordInput.getText().toString());
                                                      wordList.setText(getWords());
+                                                     // TODO add beep
                                                  }
                                              }
                                              @Override
