@@ -46,16 +46,15 @@ public class TestDictionaryFragment extends Fragment {
                                              public void onTextChanged(CharSequence s, int start, int before, int count) {
                                                  //here is your code
 
-                                                 addWord(wordInput.getText().toString());
-                                                 wordList.setText(getWords());
+                                                 if (WordDictionary.isWord(wordInput.getText().toString())) {
+                                                     addWord(wordInput.getText().toString());
+                                                     wordList.setText(getWords());
+                                                 }
                                              }
                                              @Override
-                                             public void beforeTextChanged(CharSequence s, int start, int count,
-                                                                           int after) {
-                                             }
+                                             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
                                              @Override
-                                             public void afterTextChanged(Editable s) {
-                                             }
+                                             public void afterTextChanged(Editable s) {}
                                          });
 
                 clearButton.setOnClickListener(new View.OnClickListener() {
