@@ -1,8 +1,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="dylanwight.madcourse.neu.edu.numad16s_dylanwight.MainActivityFragment"
-    tools:showIn="@layout/activity_main"
+    tools:context="dylanwight.madcourse.neu.edu.numad16s_dylanwight.TestDictionaryActivity"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/menu_background"
@@ -14,15 +13,14 @@
         android:layout_width="@dimen/menu_width"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/menu_space"
-        android:text="@string/my_name"
+        android:text="@string/test_dictionary"
         android:layout_gravity="center"
         android:gravity="center"
         android:textAppearance="?android:textAppearanceLarge"
         android:textSize="@dimen/menu_text_size"/>
 
-    <Button
-        android:id="@+id/about"
-        android:text="About"
+    <EditText
+        android:id="@+id/wordInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/menu_button_margin"
@@ -30,39 +28,22 @@
         android:layout_gravity="center"/>
 
     <Button
-        android:id="@+id/generate_error"
-        android:text="Generate Error"
+        android:id="@+id/clearButton"
+        android:text="@string/clear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/menu_button_margin"
         android:padding="@dimen/menu_button_padding"
         android:layout_gravity="center"/>
 
-    <Button
-        android:id="@+id/tictactoe"
-        android:text="TicTacToe"
+    <TextView
+        android:text="New Text"
+        android:id="@+id/wordList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/menu_button_margin"
         android:padding="@dimen/menu_button_padding"
         android:layout_gravity="center"/>
 
-    <Button
-        android:id="@+id/dictionary"
-        android:text="@string/dictionary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/menu_button_margin"
-        android:padding="@dimen/menu_button_padding"
-        android:layout_gravity="center"/>
-
-    <Button
-        android:id="@+id/quit"
-        android:text="Quit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/menu_button_margin"
-        android:padding="@dimen/menu_button_padding"
-        android:layout_gravity="center"/>
 </LinearLayout>
 

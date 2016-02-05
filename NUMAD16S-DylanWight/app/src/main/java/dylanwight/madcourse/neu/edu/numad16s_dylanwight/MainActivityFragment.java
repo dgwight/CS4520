@@ -3,7 +3,6 @@ package dylanwight.madcourse.neu.edu.numad16s_dylanwight;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,14 +22,13 @@ public class MainActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
-
         View rootView =
                 inflater.inflate(R.layout.fragment_main, container, false);
         // Handle buttons here...
         View aboutButton = rootView.findViewById(R.id.about);
         View errorButton = rootView.findViewById(R.id.generate_error);
         View tictactoeButton = rootView.findViewById(R.id.tictactoe);
+        View dictionaryButton = rootView.findViewById(R.id.dictionary);
         View quitButton = rootView.findViewById(R.id.quit);
 
         aboutButton.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +65,13 @@ public class MainActivityFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), TicTacToeActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
+        dictionaryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), TestDictionaryActivity.class);
                 getActivity().startActivity(intent);
             }
         });

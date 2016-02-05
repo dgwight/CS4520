@@ -24,10 +24,10 @@
 
 
     <fragment
-        android:id="@+id/main_fragment"
-        class="dylanwight.madcourse.neu.edu.numad16s_dylanwight.MainActivityFragment"
+        android:id="@+id/test_dictionary_fragment"
+        class="dylanwight.madcourse.neu.edu.numad16s_dylanwight.TestDictionaryFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        tools:layout="@layout/fragment_main"/>
+        tools:layout="@layout/fragment_test_dictionary"/>
 </FrameLayout>
