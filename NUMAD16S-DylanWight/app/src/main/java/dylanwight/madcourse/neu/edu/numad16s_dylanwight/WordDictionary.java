@@ -36,15 +36,16 @@ public class WordDictionary {
     }
 
     public final Boolean checkIfWord(String word) {
-        if (word.length() > 2) {
-            String prefix = word.substring(0, 3);
+        String wordLower = word.toLowerCase();
+        if (wordLower.length() > 2) {
+            String prefix = wordLower.substring(0, 3);
             for (String storedWord : wordMap.get(prefix)) {
-                if (storedWord.equals(word)) {
+                if (storedWord.equals(wordLower)) {
                     return true;
                 }
             }
         }
-    return false;
+        return false;
     }
 
     public final void addDictionary() {
