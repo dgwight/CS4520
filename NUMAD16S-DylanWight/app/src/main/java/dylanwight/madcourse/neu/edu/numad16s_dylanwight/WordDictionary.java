@@ -18,7 +18,19 @@ public class WordDictionary {
 
     private final Map<String, List<String>> wordMap;
 
-    WordDictionary() {
+    /**
+     * SingletonHolder is loaded on the first execution of WordDictionary.getInstance()
+     * or the first access to SingletonHolder.INSTANCE, not before.
+     */
+    private static class SingletonHolder {
+        private static final WordDictionary INSTANCE = new WordDictionary();
+    }
+
+    public static WordDictionary getInstance() {
+        return SingletonHolder.INSTANCE;
+    }
+
+    private WordDictionary() {
         this.wordMap = new TreeMap<>();
         this.addDictionary();
     }

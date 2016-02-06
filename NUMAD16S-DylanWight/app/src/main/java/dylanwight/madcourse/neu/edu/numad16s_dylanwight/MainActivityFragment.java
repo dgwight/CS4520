@@ -22,6 +22,8 @@ public class MainActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        WordDictionary.getInstance();
+
         View rootView =
                 inflater.inflate(R.layout.fragment_main, container, false);
         // Handle buttons here...
@@ -82,6 +84,7 @@ public class MainActivityFragment extends Fragment {
                 System.exit(0);
             }
         });
+
         return rootView;
     }
 

@@ -3,11 +3,12 @@ package dylanwight.madcourse.neu.edu.numad16s_dylanwight;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
+import android.media.SoundPool;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -21,9 +22,11 @@ import android.widget.TextView;
 public class TestDictionaryFragment extends Fragment {
 
     private AlertDialog mDialog;
+    private SoundPool mSoundPool;
+    private int mSoundX;
 
     private String words = "";
-    private WordDictionary dictionary = new WordDictionary();
+    private WordDictionary dictionary = WordDictionary.getInstance();
 
     public void addWord(String word) {
         if (!this.words.equals("")) {
@@ -47,6 +50,8 @@ public class TestDictionaryFragment extends Fragment {
         View rootView =
                 inflater.inflate(R.layout.fragment_test_dictionary, container, false);
 
+        mSoundPool = new SoundPool(3, AudioManager.STREAM_MUSIC, 0);
+        mSoundX = mSoundPool.load(getActivity(), R.raw.sergenious_movex, 1);
 
         final EditText wordInput = (EditText) rootView.findViewById(R.id.wordInput);
         View clearButton = rootView.findViewById(R.id.clearButton);
@@ -62,15 +67,8 @@ public class TestDictionaryFragment extends Fragment {
 
                 if (dictionary.checkIfWord(wordInput.getText().toString())) {
                     addWord(wordInput.getText().toString());
-                    wordList.setText(getWords());
-
-                    try {
-                        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                        Ringtone r = RingtoneManager.getRingtone(getContext(), notification);
-                        r.play();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    wordList.setText(getWords() + "\n");
+                    mSoundPool.play(mSoundX, 1f, 1f, 1, 0, 1f);
                 }
             }
 
@@ -96,9 +94,6 @@ public class TestDictionaryFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 getActivity().finish();
-                System.exit(0);
-                Intent intent = new Intent(getActivity(), TestDictionaryActivity.class);
-                getActivity().startActivity(intent);
             }
         });
 
