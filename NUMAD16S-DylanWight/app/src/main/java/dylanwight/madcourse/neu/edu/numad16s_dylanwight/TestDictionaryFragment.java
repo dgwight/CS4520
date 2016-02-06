@@ -1,9 +1,13 @@
 package dylanwight.madcourse.neu.edu.numad16s_dylanwight;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -15,6 +19,8 @@ import android.widget.TextView;
 
 
 public class TestDictionaryFragment extends Fragment {
+
+    private AlertDialog mDialog;
 
     private String words = "";
     private WordDictionary dictionary = new WordDictionary();
@@ -45,6 +51,8 @@ public class TestDictionaryFragment extends Fragment {
         final EditText wordInput = (EditText) rootView.findViewById(R.id.wordInput);
         View clearButton = rootView.findViewById(R.id.clearButton);
         View returnButton = rootView.findViewById(R.id.returnToMenu);
+        View acknowledgementsButton = rootView.findViewById(R.id.acknowledgements);
+
         final TextView wordList = (TextView) rootView.findViewById(R.id.wordList);
 
         wordInput.addTextChangedListener(new TextWatcher() {
@@ -87,10 +95,39 @@ public class TestDictionaryFragment extends Fragment {
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                getActivity().finish();
+                System.exit(0);
+                Intent intent = new Intent(getActivity(), TestDictionaryActivity.class);
+                getActivity().startActivity(intent);
             }
         });
 
+        acknowledgementsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle(R.string.acknowledgements);
+                builder.setMessage(R.string.ack_contents);
+
+                builder.setCancelable(false);
+                builder.setPositiveButton(R.string.ok_label,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                // nothing
+                            }
+                        });
+                mDialog = builder.show();
+            }
+        });
         return rootView;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        // Get rid of the about dialog if it's still up
+        if (mDialog != null)
+            mDialog.dismiss();
     }
 }
