@@ -2,12 +2,8 @@ package dylanwight.madcourse.neu.edu.numad16s_dylanwight;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.media.AudioManager;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
 import android.media.SoundPool;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
