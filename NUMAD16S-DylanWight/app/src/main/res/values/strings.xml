@@ -30,4 +30,15 @@ A tie happens when there are no further moves.
 In the case of a tie in a small board, that will count as a win for
 both sides in the larger game.
 </string>
+    <string name="acknowledgements">Acknowledgements</string>
+    <string name="return_to_menu">Return to menu</string>
+
+    <string name="ack_contents">
+        http://stackoverflow.com/questions/7117209/how-to-know-key-presses-in-edittext\n
+        http://stackoverflow.com/questions/4590957/how-to-set-text-in-an-edittext\n
+        http://stackoverflow.com/questions/3432970/import-textfile-and-read-line-by-line-in-java\n
+        https://en.wikipedia.org/wiki/Trie\n
+        http://stackoverflow.com/questions/6462105/how-do-i-access-androids-default-beep-sound
+    </string>
+
 </resources>

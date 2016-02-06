@@ -1,60 +1,64 @@
 package dylanwight.madcourse.neu.edu.numad16s_dylanwight;
 
+import android.content.res.AssetManager;
+
 import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by DylanWight on 2/5/16.
  */
 public class WordDictionary {
 
-    private final LetterNode wordTreeHead;
+    private final Map<String, List<String>> wordMap;
 
     WordDictionary() {
-        this.wordTreeHead = new LetterNode(false);
-        this.addDictionary("wordlist.txt");
+        this.wordMap = new TreeMap<>();
+        this.addDictionary();
     }
 
     public final Boolean checkIfWord(String word) {
-        LetterNode curentLetterNode = this.wordTreeHead;
-        for(char c : word.toCharArray()) {
-            curentLetterNode = curentLetterNode.getNextNode(c);
+        if (word.length() > 2) {
+            String prefix = word.substring(0, 3);
+            for (String storedWord : wordMap.get(prefix)) {
+                if (storedWord.equals(word)) {
+                    return true;
+                }
+            }
         }
-        return curentLetterNode.getIsFullWord();
+    return false;
     }
 
-    public final void addDictionary(String fileName) {
-        BufferedReader br = null;
+    public final void addDictionary() {
+        AssetManager am = NUMAD16s_DylanWight.getContext().getAssets();
+        String word;
+
         try {
-            br = new BufferedReader(
-                    new InputStreamReader(new FileInputStream(fileName)));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        try {
-            String word;
+            BufferedReader br = new BufferedReader(new InputStreamReader(am.open("wordlist.txt")));
             while ((word = br.readLine()) != null) {
                 this.addWord(word);
             }
+            br.close();
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                br.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 
     public final void addWord(String word) {
-        LetterNode curentLetterNode = this.wordTreeHead;
-        for(char c : word.toCharArray()) {
-            curentLetterNode = curentLetterNode.getNextNode(c);
+        String prefix = word.substring(0, 3);
+
+        if (wordMap.containsKey(prefix)) {
+            List wordList = wordMap.get(prefix);
+            wordList.add(word);
+            wordMap.put(prefix, wordList);
+        } else {
+            wordMap.put(prefix, new ArrayList<>(Arrays.asList(word)));
         }
-        curentLetterNode.isFullWord();
     }
 }
