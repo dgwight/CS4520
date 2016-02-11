@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,6 @@ public class TestDictionaryFragment extends Fragment {
     private int mSoundX;
 
     private String words = "";
-    private WordDictionary dictionary = WordDictionary.getInstance();
 
     public void addWord(String word) {
         if (!this.words.equals("")) {
@@ -61,7 +61,7 @@ public class TestDictionaryFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 //here is your code
 
-                if (dictionary.checkIfWord(wordInput.getText().toString())) {
+                if (WordDictionary.checkIfWord(wordInput.getText().toString())) {
                     addWord(wordInput.getText().toString());
                     wordList.setText(getWords() + "\n");
                     mSoundPool.play(mSoundX, 1f, 1f, 1, 0, 1f);
