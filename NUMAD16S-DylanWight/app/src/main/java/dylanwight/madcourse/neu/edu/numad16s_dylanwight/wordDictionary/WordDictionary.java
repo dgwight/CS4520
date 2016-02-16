@@ -1,11 +1,12 @@
-package dylanwight.madcourse.neu.edu.numad16s_dylanwight;
+package dylanwight.madcourse.neu.edu.numad16s_dylanwight.wordDictionary;
 
 import android.content.res.AssetManager;
-import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
+import dylanwight.madcourse.neu.edu.numad16s_dylanwight.mainMenu.NUMAD16s_DylanWight;
 
 
 /**

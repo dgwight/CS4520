@@ -1,4 +1,4 @@
-package dylanwight.madcourse.neu.edu.numad16s_dylanwight;
+package dylanwight.madcourse.neu.edu.numad16s_dylanwight.wordDictionary;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import dylanwight.madcourse.neu.edu.numad16s_dylanwight.R;
 
 public class TestDictionaryActivity extends AppCompatActivity {
 

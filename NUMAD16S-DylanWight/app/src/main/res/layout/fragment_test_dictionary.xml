@@ -1,7 +1,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="dylanwight.madcourse.neu.edu.numad16s_dylanwight.TestDictionaryActivity"
+    tools:context=".wordDictionary.TestDictionaryActivity"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/menu_background"

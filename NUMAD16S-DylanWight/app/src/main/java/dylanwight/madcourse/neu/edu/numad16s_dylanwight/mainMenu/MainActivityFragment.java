@@ -1,4 +1,4 @@
-package dylanwight.madcourse.neu.edu.numad16s_dylanwight;
+package dylanwight.madcourse.neu.edu.numad16s_dylanwight.mainMenu;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -9,6 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.provider.Settings.Secure;
+
+import dylanwight.madcourse.neu.edu.numad16s_dylanwight.R;
+import dylanwight.madcourse.neu.edu.numad16s_dylanwight.wordDictionary.TestDictionaryActivity;
+import dylanwight.madcourse.neu.edu.numad16s_dylanwight.tictactoe.TicTacToeActivity;
 
 
 /**

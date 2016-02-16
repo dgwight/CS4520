@@ -1,4 +1,4 @@
-package dylanwight.madcourse.neu.edu.numad16s_dylanwight;
+package dylanwight.madcourse.neu.edu.numad16s_dylanwight.wordDictionary;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import dylanwight.madcourse.neu.edu.numad16s_dylanwight.R;
 
 
 public class TestDictionaryFragment extends Fragment {

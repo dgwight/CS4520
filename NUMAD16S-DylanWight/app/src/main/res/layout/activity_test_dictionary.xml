@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:clipChildren="false"
     android:background="@color/colorPrimary"
-    tools:context=".MainActivity">
+    tools:context=".mainMenu.MainActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/test_dictionary_fragment"
-        class="dylanwight.madcourse.neu.edu.numad16s_dylanwight.TestDictionaryFragment"
+        class="dylanwight.madcourse.neu.edu.numad16s_dylanwight.wordDictionary.TestDictionaryFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

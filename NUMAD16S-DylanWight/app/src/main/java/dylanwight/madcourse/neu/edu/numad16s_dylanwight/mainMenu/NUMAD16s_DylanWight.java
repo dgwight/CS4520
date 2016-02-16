@@ -1,4 +1,4 @@
-package dylanwight.madcourse.neu.edu.numad16s_dylanwight;
+package dylanwight.madcourse.neu.edu.numad16s_dylanwight.mainMenu;
 
 import android.app.Application;
 import android.content.Context;
