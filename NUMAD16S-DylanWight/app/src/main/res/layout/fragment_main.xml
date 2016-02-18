@@ -13,7 +13,6 @@
     <TextView
         android:layout_width="@dimen/menu_width"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/menu_space"
         android:text="@string/my_name"
         android:layout_gravity="center"
         android:gravity="center"
@@ -25,8 +24,6 @@
         android:text="About"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/menu_button_margin"
-        android:padding="@dimen/menu_button_padding"
         android:layout_gravity="center"/>
 
     <Button
@@ -34,8 +31,6 @@
         android:text="Generate Error"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/menu_button_margin"
-        android:padding="@dimen/menu_button_padding"
         android:layout_gravity="center"/>
 
     <Button
@@ -43,8 +38,6 @@
         android:text="TicTacToe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/menu_button_margin"
-        android:padding="@dimen/menu_button_padding"
         android:layout_gravity="center"/>
 
     <Button
@@ -52,8 +45,13 @@
         android:text="@string/dictionary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/menu_button_margin"
-        android:padding="@dimen/menu_button_padding"
+        android:layout_gravity="center"/>
+
+    <Button
+        android:id="@+id/scraggle"
+        android:text="@string/scraggle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"/>
 
     <Button
@@ -61,8 +59,6 @@
         android:text="Quit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/menu_button_margin"
-        android:padding="@dimen/menu_button_padding"
         android:layout_gravity="center"/>
 </LinearLayout>
 

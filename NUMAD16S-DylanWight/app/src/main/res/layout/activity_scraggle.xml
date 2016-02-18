@@ -11,7 +11,7 @@
    xmlns:tools="http://schemas.android.com/tools"
    android:layout_width="match_parent"
    android:layout_height="match_parent"
-   tools:context=".tictactoe.TicTacToeActivity">
+   tools:context=".scraggle.ScraggleActivity">
 
    <ImageView
       android:layout_width="match_parent"
@@ -26,19 +26,12 @@
       android:orientation="vertical">
 
       <fragment
-         android:id="@+id/fragment_game"
-         class="dylanwight.madcourse.neu.edu.numad16s_dylanwight.tictactoe.GameFragment"
+         android:id="@+id/fragment_scraggle"
+         class="dylanwight.madcourse.neu.edu.numad16s_dylanwight.scraggle.ScraggleFragment"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          tools:layout="@layout/fragment_game"/>
-      <!-- Control fragment goes here... -->
 
-      <fragment
-         android:id="@+id/fragment_game_controls"
-         class="dylanwight.madcourse.neu.edu.numad16s_dylanwight.tictactoe.ControlFragment"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         tools:layout="@layout/fragment_control"/>
 
    </LinearLayout>
 

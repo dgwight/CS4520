@@ -35,7 +35,7 @@ public class GameFragment extends Fragment {
    private Tile mEntireBoard = new Tile(this);
    private Tile mLargeTiles[] = new Tile[9];
    private Tile mSmallTiles[][] = new Tile[9][9];
-   private Tile.Owner mPlayer = Tile.Owner.X;
+   private Tile.Owner mPlayer = Tile.Owner.E;
    private Set<Tile> mAvailable = new HashSet<Tile>();
    private int mSoundX, mSoundO, mSoundMiss, mSoundRewind;
    private SoundPool mSoundPool;
@@ -135,8 +135,8 @@ public class GameFragment extends Fragment {
    }
 
    private void pickMove(int move[]) {
-      Tile.Owner opponent = mPlayer == Tile.Owner.X ? Tile.Owner.O : Tile
-            .Owner.X;
+      Tile.Owner opponent = mPlayer == Tile.Owner.E ? Tile.Owner.O : Tile
+            .Owner.E;
       int bestLarge = -1;
       int bestSmall = -1;
       int bestValue = Integer.MAX_VALUE;
@@ -167,8 +167,8 @@ public class GameFragment extends Fragment {
    }
 
    private void switchTurns() {
-      mPlayer = mPlayer == Tile.Owner.X ? Tile.Owner.O : Tile
-            .Owner.X;
+      mPlayer = mPlayer == Tile.Owner.E ? Tile.Owner.O : Tile
+            .Owner.E;
    }
 
    private void makeMove(int large, int small) {

@@ -69,7 +69,7 @@ public class GameActivity extends Activity {
          @Override
          public void run() {
             mMediaPlayer = MediaPlayer.create(GameActivity.this,
-                    winner == Tile.Owner.X ? R.raw.oldedgar_winner
+                    winner == Tile.Owner.E ? R.raw.oldedgar_winner
                             : winner == Tile.Owner.O ? R.raw.notr_loser
                             : R.raw.department64_draw
             );

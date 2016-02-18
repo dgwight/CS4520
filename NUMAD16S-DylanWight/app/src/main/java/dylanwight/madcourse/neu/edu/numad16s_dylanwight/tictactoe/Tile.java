@@ -19,7 +19,7 @@ import dylanwight.madcourse.neu.edu.numad16s_dylanwight.R;
 public class Tile {
 
    public enum Owner {
-      X, O /* letter O */, NEITHER, BOTH
+      E, O /* letter O */, NEITHER, BOTH
    }
 
    // These levels are defined in the drawable definitions
@@ -91,7 +91,7 @@ public class Tile {
    private int getLevel() {
       int level = LEVEL_BLANK;
       switch (mOwner) {
-         case X:
+         case E:
             level = LEVEL_X;
             break;
          case O: // letter O
@@ -114,7 +114,7 @@ public class Tile {
          capturedX = capturedO = 0;
          for (int col = 0; col < 3; col++) {
             Owner owner = mSubTiles[3 * row + col].getOwner();
-            if (owner == Owner.X || owner == Owner.BOTH) capturedX++;
+            if (owner == Owner.E || owner == Owner.BOTH) capturedX++;
             if (owner == Owner.O || owner == Owner.BOTH) capturedO++;
          }
          totalX[capturedX]++;
@@ -126,7 +126,7 @@ public class Tile {
          capturedX = capturedO = 0;
          for (int row = 0; row < 3; row++) {
             Owner owner = mSubTiles[3 * row + col].getOwner();
-            if (owner == Owner.X || owner == Owner.BOTH) capturedX++;
+            if (owner == Owner.E || owner == Owner.BOTH) capturedX++;
             if (owner == Owner.O || owner == Owner.BOTH) capturedO++;
          }
          totalX[capturedX]++;
@@ -137,7 +137,7 @@ public class Tile {
       capturedX = capturedO = 0;
       for (int diag = 0; diag < 3; diag++) {
          Owner owner = mSubTiles[3 * diag + diag].getOwner();
-         if (owner == Owner.X || owner == Owner.BOTH) capturedX++;
+         if (owner == Owner.E || owner == Owner.BOTH) capturedX++;
          if (owner == Owner.O || owner == Owner.BOTH) capturedO++;
       }
       totalX[capturedX]++;
@@ -145,7 +145,7 @@ public class Tile {
       capturedX = capturedO = 0;
       for (int diag = 0; diag < 3; diag++) {
          Owner owner = mSubTiles[3 * diag + (2 - diag)].getOwner();
-         if (owner == Owner.X || owner == Owner.BOTH) capturedX++;
+         if (owner == Owner.E || owner == Owner.BOTH) capturedX++;
          if (owner == Owner.O || owner == Owner.BOTH) capturedO++;
       }
       totalX[capturedX]++;
@@ -160,7 +160,7 @@ public class Tile {
       int totalX[] = new int[4];
       int totalO[] = new int[4];
       countCaptures(totalX, totalO);
-      if (totalX[3] > 0) return Owner.X;
+      if (totalX[3] > 0) return Owner.E;
       if (totalO[3] > 0) return Owner.O;
 
       // Check for a draw
@@ -179,7 +179,7 @@ public class Tile {
 
    public int evaluate() {
       switch (getOwner()) {
-         case X:
+         case E:
             return 100;
          case O:
             return -100;

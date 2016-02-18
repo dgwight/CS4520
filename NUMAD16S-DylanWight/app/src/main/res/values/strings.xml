@@ -1,4 +1,7 @@
 <resources>
+    <string name="about_scraggle">About Scraggle</string>
+    <string name="resume_game">Resume Game</string>
+    <string name="scraggle">Scraggle</string>
     <string name="test_dictionary">Test Dictionary</string>
     <string name="dictionary">Dictionary</string>
     <string name="clear">Clear</string>

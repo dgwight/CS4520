@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.provider.Settings.Secure;
 
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.R;
+import dylanwight.madcourse.neu.edu.numad16s_dylanwight.scraggle.ScraggleMenuActivity;
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.wordDictionary.TestDictionaryActivity;
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.tictactoe.TicTacToeActivity;
 
@@ -33,7 +34,9 @@ public class MainActivityFragment extends Fragment {
         View errorButton = rootView.findViewById(R.id.generate_error);
         View tictactoeButton = rootView.findViewById(R.id.tictactoe);
         View dictionaryButton = rootView.findViewById(R.id.dictionary);
+        View scraggleButton = rootView.findViewById(R.id.scraggle);
         View quitButton = rootView.findViewById(R.id.quit);
+
 
         aboutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +79,13 @@ public class MainActivityFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), TestDictionaryActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
+        scraggleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ScraggleMenuActivity.class);
                 getActivity().startActivity(intent);
             }
         });

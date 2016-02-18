@@ -29,6 +29,12 @@
         <activity
             android:name=".tictactoe.GameActivity">
         </activity>
+        <activity
+            android:name=".scraggle.ScraggleMenuActivity">
+        </activity>
+        <activity
+            android:name=".scraggle.ScraggleActivity">
+        </activity>a
 
     </application>
 
