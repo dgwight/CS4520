@@ -30,11 +30,9 @@
          class="dylanwight.madcourse.neu.edu.numad16s_dylanwight.scraggle.ScraggleFragment"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         tools:layout="@layout/fragment_game"/>
+         tools:layout="@layout/fragment_scraggle"/>
 
 
    </LinearLayout>
-
-   <include layout="@layout/thinking"/>
 
 </FrameLayout>

@@ -1,7 +1,8 @@
 
-<RelativeLayout
+<LinearLayout
    xmlns:android="http://schemas.android.com/apk/res/android"
    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
    android:layout_width="wrap_content"
    android:layout_height="wrap_content"
    tools:context=".scraggle.ScraggleActivity">
@@ -11,4 +12,34 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"/>
 
-</RelativeLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Word"
+        android:id="@+id/addWord"
+        android:visibility="invisible"/>
+
+   <TextView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:textAppearance="?android:attr/textAppearanceLarge"
+       android:text=""
+       android:id="@+id/wordDisplay" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/timer"
+        android:layout_gravity="left" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/foundWordsList"
+        android:layout_gravity="left" />
+
+
+
+</LinearLayout>
