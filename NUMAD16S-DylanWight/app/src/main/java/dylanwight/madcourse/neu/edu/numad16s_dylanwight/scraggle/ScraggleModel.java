@@ -20,6 +20,8 @@ import dylanwight.madcourse.neu.edu.numad16s_dylanwight.wordDictionary.WordDicti
  */
 public class ScraggleModel {
 
+
+    private Boolean gameOver = false;
     private Boolean[] finishedGrids = { false, false, false, false, false, false, false, false, false };
     public Boolean isWord = false;
     long secondsLeft;
@@ -105,6 +107,11 @@ public class ScraggleModel {
     }
 
     public final void clickTile(Integer tileIndex) {
+
+        if (gameOver) {
+            return;
+        }
+
         ScraggleTile tile = lettersOnBoard[tileIndex];
         switch (tile.state) {
             case AVAILABLE:
@@ -131,11 +138,13 @@ public class ScraggleModel {
     }
 
     public final void checkWord() {
-        if (!foundWords.contains(currentWord)) {
-            this.isWord = dictionary.checkIfWord(currentWord);
-        } else {
-            this.isWord = false;
+        for (FoundWord foundWord : foundWords) {
+            if (foundWord.word.equals(currentWord)) {
+                this.isWord = false;
+                return;
+            }
         }
+        this.isWord = dictionary.checkIfWord(currentWord);
     }
 
     public final void addWord() {
@@ -236,14 +245,35 @@ public class ScraggleModel {
     }
 
     public final String getFoundWordsString() {
-        String getFoundWordsString = "Total: " + this.getScore();
+        String getFoundWordsString = "Score: " + this.getScore() + "\n";
         for (FoundWord foundWord : foundWords) {
-            getFoundWordsString = getFoundWordsString + "\n" + foundWord.word + "\t" + foundWord.score;
+            getFoundWordsString += foundWord.word + " " + foundWord.score + ", ";
         }
         return getFoundWordsString;
     }
 
     public final String getCurrentWord() {
         return this.currentWord;
+    }
+
+    public final void endGame() {
+        gameOver = true;
+    }
+
+    public final String gameStateToString() {
+        String gameState = "time: " + secondsLeft + "phase2" + phaseTwo;
+        for (FoundWord foundWord : foundWords) {
+            gameState += foundWord.word + "\n";
+        }
+
+        for (ScraggleTile scraggleTile : lettersOnBoard) {
+            gameState += scraggleTile.letter + scraggleTile.state.toString() + "\n";
+        }
+
+        return gameState;
+    }
+
+    public final Boolean isPhaseTwo() {
+        return phaseTwo;
     }
 }

@@ -20,9 +20,14 @@ public class ScraggleFragment extends Fragment {
     List<ScraggleTileButton> scraggleTileButtons = new ArrayList<>();
     final ScraggleModel model = new ScraggleModel();
     TextView wordDisplay;
-    TextView foundWords;
     TextView timer;
     Button addWord;
+    Button pauseButton;
+    Button resumeButton;
+    TextView foundWords;
+
+
+    private CountDownTimer countDownTimer;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,8 +37,26 @@ public class ScraggleFragment extends Fragment {
 
         timer = (TextView) rootView.findViewById(R.id.timer);
         wordDisplay = (TextView) rootView.findViewById(R.id.wordDisplay);
-        foundWords = (TextView) rootView.findViewById(R.id.foundWordsList);
         addWord = (Button) rootView.findViewById(R.id.addWord);
+        pauseButton = (Button) rootView.findViewById(R.id.pause);
+        resumeButton = (Button) rootView.findViewById(R.id.resume);
+        foundWords = (TextView) rootView.findViewById(R.id.foundWordsList);
+
+        this.countDownTimer = this.newCountDown(90000);
+
+        pauseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pause();
+            }
+        });
+
+        resumeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                resume();
+            }
+        });
 
         addWord.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,18 +76,7 @@ public class ScraggleFragment extends Fragment {
         addLetterButtons(rootView.findViewById(R.id.large8), 7);
         addLetterButtons(rootView.findViewById(R.id.large9), 8);
 
-        new CountDownTimer(90000, 1000) {
-            public void onTick(long millisUntilFinished) {
-                model.secondsLeft = millisUntilFinished / 1000;
-                timer.setText("" + model.secondsLeft);
-            }
 
-            public void onFinish() {
-                model.toPhaseTwo();
-                timer.setVisibility(View.GONE);
-                update();
-            }
-        }.start();
 
         this.update();
 
@@ -100,6 +112,59 @@ public class ScraggleFragment extends Fragment {
             this.addWord.setVisibility(View.VISIBLE);
         } else {
             this.addWord.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private final void pause() {
+        for (ScraggleTileButton scraggleTileButton : scraggleTileButtons) {
+            scraggleTileButton.button.setText("");
+            scraggleTileButton.button.setClickable(false);
+        }
+        this.countDownTimer.cancel();
+        resumeButton.setVisibility(View.VISIBLE);
+        pauseButton.setVisibility(View.GONE);
+    }
+
+    private final void resume() {
+        for (Integer i = 0; i < scraggleTileButtons.size(); i++) {
+            scraggleTileButtons.get(i).setButton((model.getScraggleTileAt(i)));
+        }
+        this.countDownTimer = this.newCountDown(model.secondsLeft * 1000);
+        resumeButton.setVisibility(View.GONE);
+        pauseButton.setVisibility(View.VISIBLE);
+    }
+
+    private final CountDownTimer newCountDown(long timeLeft) {
+        if (this.countDownTimer != null) {
+            this.countDownTimer.cancel();
+        }
+
+        if (model.isPhaseTwo()) {
+            return this.countDownTimer = new CountDownTimer(timeLeft, 1000) {
+                public void onTick(long millisUntilFinished) {
+                    model.secondsLeft = millisUntilFinished / 1000;
+                    timer.setText("Phase Two: " + model.secondsLeft);
+                }
+
+                public void onFinish() {
+                    timer.setText("Game Over!");
+                    model.endGame();
+                    update();
+                }
+            }.start();
+        } else {
+            return this.countDownTimer = new CountDownTimer(timeLeft, 1000) {
+                public void onTick(long millisUntilFinished) {
+                    model.secondsLeft = millisUntilFinished / 1000;
+                    timer.setText("Phase One: " + model.secondsLeft);
+                }
+
+                public void onFinish() {
+                    model.toPhaseTwo();
+                    update();
+                    newCountDown(90000);
+                }
+            }.start();
         }
     }
 }
