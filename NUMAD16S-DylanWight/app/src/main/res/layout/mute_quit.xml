@@ -5,21 +5,25 @@
     android:layout_height="wrap_content">
 
     <Button
+        android:textSize="@dimen/scraggle_button_text"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/scraggle_button_height"
         android:text="Mute"
         android:id="@+id/mute"/>
 
     <Button
+        android:textSize="@dimen/scraggle_button_text"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/scraggle_button_height"
         android:text="Unmute"
         android:id="@+id/unmute"
         android:visibility="gone"/>
 
     <Button
+        android:textSize="@dimen/scraggle_button_text"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/scraggle_button_height"
+
         android:text="Quit"
         android:id="@+id/quit"/>
 

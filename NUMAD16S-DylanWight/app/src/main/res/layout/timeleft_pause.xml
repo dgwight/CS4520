@@ -5,6 +5,7 @@
     android:layout_height="wrap_content">
 
     <TextView
+        android:textSize="@dimen/scraggle_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -12,17 +13,18 @@
         android:layout_gravity="left" />
 
     <Button
+        android:textSize="@dimen/scraggle_button_text"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/scraggle_button_height"
         android:text="Pause"
         android:id="@+id/pause"/>
 
     <Button
+        android:textSize="@dimen/scraggle_button_text"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/scraggle_button_height"
         android:text="Resume"
         android:id="@+id/resume"
         android:visibility="gone"/>
-
 
 </LinearLayout>
