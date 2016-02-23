@@ -7,10 +7,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.mainMenu.NUMAD16s_DylanWight;
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.wordDictionary.WordDictionary;
@@ -25,19 +23,21 @@ public class ScraggleModel {
     private Boolean[] finishedGrids = { false, false, false, false, false, false, false, false, false };
     public Boolean isWord = false;
     long secondsLeft;
-    private Boolean phaseTwo = false;
-    private Set<FoundWord> foundWords = new HashSet<>();
+    private Boolean phaseTwo;
+    private List<FoundWord> foundWords = new ArrayList<>();
     private String currentWord = "";
     private ScraggleTile[] lettersOnBoard = new ScraggleTile[81];
     private WordDictionary dictionary = new WordDictionary();
 
-
     public ScraggleModel() {
+        this.secondsLeft = 90;
+        this.phaseTwo = false;
         AssetManager am = NUMAD16s_DylanWight.getContext().getAssets();
         List <String> nineLetterWordList = new ArrayList<>();
+        Random random = new Random();
 
         try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(am.open("NineLetterList.txt")));
+            BufferedReader br = new BufferedReader(new InputStreamReader(am.open("NineLetterList" + random.nextInt()%10 + ".txt")));
             String nineLetterWord;
             while ((nineLetterWord = br.readLine()) != null) {
                 nineLetterWordList.add(nineLetterWord);
@@ -48,7 +48,6 @@ public class ScraggleModel {
             e.printStackTrace();
         }
 
-        Random random = new Random();
 
         for (Integer board = 0; board < 9; board++) {
             String randomWord = nineLetterWordList.get(
@@ -61,9 +60,85 @@ public class ScraggleModel {
             Collections.shuffle(characterList);
 
             for (Integer tile = 0; tile < 9; tile++) {
-                this.lettersOnBoard[tile + 9 * board] = new ScraggleTile(characterList.get(tile), board);
+                this.lettersOnBoard[tile + 9 * board] = new ScraggleTile(characterList.get(tile), board, ScraggleTileState.AVAILABLE);
             }
         }
+    }
+
+    public ScraggleModel(String gameState) {
+        String[] readState = gameState.split("\n");
+        if (readState[0].toLowerCase().equals("true")) {
+            this.phaseTwo = true;
+        } else {
+            this.phaseTwo = false;
+        }
+
+        this.secondsLeft = Long.parseLong(readState[1], 10);
+
+        this.currentWord = readState[2];
+
+        for (Integer grid = 0; grid < 9; grid++) {
+            if(readState[3].charAt(grid) == 't') {
+                finishedGrids[grid] = true;
+            } else {
+                finishedGrids[grid] = false;
+            }
+        }
+
+        for (Integer tileIndex = 0; tileIndex < 81; tileIndex++) {
+            lettersOnBoard[tileIndex] = new ScraggleTile(readState[4 + tileIndex], tileIndex / 9);
+        }
+
+        for (Integer wordIndex = 85; wordIndex < readState.length - 1; wordIndex++) {
+            foundWords.add(new FoundWord(readState[wordIndex]));
+        }
+
+        this.checkWord();
+    }
+
+    public final String gameStateToString() {
+        if (gameOver) {
+            return "NoGame";
+        }
+
+        String gameState = phaseTwo + "\n" + secondsLeft + "\n";
+
+        gameState += currentWord + "\n";
+
+        for (Boolean grid : finishedGrids) {
+            if (grid) {
+                gameState += "t";
+            } else {
+                gameState += "f";
+            }
+        }
+        gameState += "\n";
+
+        for (ScraggleTile scraggleTile : lettersOnBoard) {
+            gameState += scraggleTile.letter + stateToSting(scraggleTile.state) + "\n";
+        }
+
+        for (FoundWord foundWord : foundWords) {
+            gameState += foundWord.word + "\n";
+        }
+
+        return gameState;
+    }
+
+    private String stateToSting (ScraggleTileState state) {
+        switch (state) {
+            case UNAVAILABLE:
+                return "u";
+            case AVAILABLE:
+                return "a";
+            case WORD:
+                return "w";
+            case INVISIBLE:
+                return "i";
+            case SELECTED:
+                return "s";
+        }
+        return "a";
     }
 
     private final void makeUnavailable(Integer letterButtonIndex) {
@@ -99,6 +174,7 @@ public class ScraggleModel {
                         }
                         break;
                     case UNAVAILABLE:
+                        tile.setState(ScraggleTileState.AVAILABLE);
                     case INVISIBLE:
                     case SELECTED:
                 }
@@ -171,7 +247,7 @@ public class ScraggleModel {
                 }
             }
         } else {
-            foundWords.add(new FoundWord(currentWord));
+            foundWords.add(0, new FoundWord(currentWord));
             for (ScraggleTile tile : lettersOnBoard) {
                 switch (tile.state) {
                     case SELECTED:
@@ -208,7 +284,7 @@ public class ScraggleModel {
                     break;
                 case AVAILABLE:
                 case UNAVAILABLE:
-                    if (!finishedGrids[tile.gridId]) {
+                    if (!finishedGrids[tile.gridId] || this.isPhaseTwo()) {
                         tile.setState(ScraggleTileState.AVAILABLE);
                     }
                     break;
@@ -218,6 +294,7 @@ public class ScraggleModel {
     }
 
     public final void toPhaseTwo() {
+        this.isWord = false;
         this.currentWord = "";
         this.phaseTwo = true;
         for (ScraggleTile tile : lettersOnBoard) {
@@ -249,6 +326,7 @@ public class ScraggleModel {
         for (FoundWord foundWord : foundWords) {
             getFoundWordsString += foundWord.word + " " + foundWord.score + ", ";
         }
+        getFoundWordsString += "\b";
         return getFoundWordsString;
     }
 
@@ -258,19 +336,6 @@ public class ScraggleModel {
 
     public final void endGame() {
         gameOver = true;
-    }
-
-    public final String gameStateToString() {
-        String gameState = "time: " + secondsLeft + "phase2" + phaseTwo;
-        for (FoundWord foundWord : foundWords) {
-            gameState += foundWord.word + "\n";
-        }
-
-        for (ScraggleTile scraggleTile : lettersOnBoard) {
-            gameState += scraggleTile.letter + scraggleTile.state.toString() + "\n";
-        }
-
-        return gameState;
     }
 
     public final Boolean isPhaseTwo() {

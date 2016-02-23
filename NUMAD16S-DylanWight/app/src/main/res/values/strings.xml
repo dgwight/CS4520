@@ -1,7 +1,7 @@
 <resources>
-    <string name="about_scraggle">About Scraggle</string>
+    <string name="about_scraggle">How To Play</string>
     <string name="resume_game">Resume Game</string>
-    <string name="scraggle">Scraggle</string>
+    <string name="word_game">Word Game</string>
     <string name="test_dictionary">Test Dictionary</string>
     <string name="dictionary">Dictionary</string>
     <string name="clear">Clear</string>
@@ -36,7 +36,7 @@ both sides in the larger game.
     <string name="acknowledgements">Acknowledgements</string>
     <string name="return_to_menu">Return to menu</string>
 
-    <string name="ack_contents">
+    <string name="ack_dictionary">
         http://stackoverflow.com/questions/7117209/how-to-know-key-presses-in-edittext\n
         http://stackoverflow.com/questions/4590957/how-to-set-text-in-an-edittext\n
         http://stackoverflow.com/questions/3432970/import-textfile-and-read-line-by-line-in-java\n
@@ -44,8 +44,20 @@ both sides in the larger game.
         http://stackoverflow.com/questions/6462105/how-do-i-access-androids-default-beep-sound\n
         https://sourcemaking.com/design_patterns/singleton/java/1
     </string>
+    <string name="scraggle_how_to">
+        In the first phase, select the longest scrambled word you can find in each grid.
+        You will get to keep the letters you use in the second phase.
+        You can clear your current word by clicking on a selected tile.
+        \n\n
+        In the second phase, make words by selecting letters in different grids.
+        You will score points for each word you add. Rarer letters are worth more points!
+    </string>
 
-
-    http://windrealm.org/tutorials/android/android-listview.php
+        <string name="ack_scraggle">
+            I used www.stackoverflow.com and http://developer.android.com for genral java and android help.
+            I tried to use www.androiddesignpatterns.com/2012/05/using-newinstance-to-instantiate.html
+            to pass arguments into Fragments/Activities.
+            The Background image and the sounds are taken from the Ultimate Tictactoe game.
+        </string>
 
 </resources>

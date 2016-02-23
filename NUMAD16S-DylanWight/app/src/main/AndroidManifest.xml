@@ -33,7 +33,8 @@
             android:name=".scraggle.ScraggleMenuActivity">
         </activity>
         <activity
-            android:name=".scraggle.ScraggleActivity">
+            android:name=".scraggle.ScraggleActivity"
+            android:screenOrientation="portrait">
         </activity>a
 
     </application>

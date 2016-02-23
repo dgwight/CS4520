@@ -13,6 +13,6 @@ public class ScraggleMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scraggle_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.scraggle);
+        toolbar.setTitle(R.string.word_game);
     }
 }

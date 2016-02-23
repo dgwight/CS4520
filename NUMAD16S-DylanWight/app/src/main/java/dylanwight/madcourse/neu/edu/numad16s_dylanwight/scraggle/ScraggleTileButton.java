@@ -45,7 +45,7 @@ public class ScraggleTileButton {
                 button.setClickable(true);
                 break;
             case INVISIBLE:
-                button.setVisibility(View.GONE);
+                button.setVisibility(View.INVISIBLE);
                 break;
             case WORD:
                 button.setBackgroundColor(0xff0ff000);

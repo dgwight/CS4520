@@ -1,6 +1,10 @@
 package dylanwight.madcourse.neu.edu.numad16s_dylanwight.scraggle;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
@@ -17,21 +21,35 @@ import dylanwight.madcourse.neu.edu.numad16s_dylanwight.R;
 
 public class ScraggleFragment extends Fragment {
 
-    List<ScraggleTileButton> scraggleTileButtons = new ArrayList<>();
-    final ScraggleModel model = new ScraggleModel();
-    TextView wordDisplay;
-    TextView timer;
-    Button addWord;
-    Button pauseButton;
-    Button resumeButton;
-    TextView foundWords;
-
-
+    private List<ScraggleTileButton> scraggleTileButtons = new ArrayList<>();
+    private ScraggleModel model;
+    private TextView wordDisplay;
+    private TextView timer;
+    private Button addWord;
+    private Button pauseButton;
+    private Button resumeButton;
+    private Button quitButton;
+    private Button muteButton;
+    private Button unMuteButton;
+    private TextView foundWords;
     private CountDownTimer countDownTimer;
+
+    private int mSoundO, mSoundRewind;
+    private SoundPool mSoundPool;
+    private float mVolume = 1f;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        SharedPreferences preferences = getContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        String gameState = preferences.getString("scraggleGameState", "NoGame");
+        if (gameState.equals("NoGame")) {
+            this.model = new ScraggleModel();
+        } else {
+            this.model = new ScraggleModel(gameState);
+        }
 
         View rootView = inflater.inflate(R.layout.fragment_scraggle, container, false);
 
@@ -40,9 +58,22 @@ public class ScraggleFragment extends Fragment {
         addWord = (Button) rootView.findViewById(R.id.addWord);
         pauseButton = (Button) rootView.findViewById(R.id.pause);
         resumeButton = (Button) rootView.findViewById(R.id.resume);
+        quitButton = (Button) rootView.findViewById(R.id.quit);
+        muteButton = (Button) rootView.findViewById(R.id.mute);
+        unMuteButton = (Button) rootView.findViewById(R.id.unmute);
+
         foundWords = (TextView) rootView.findViewById(R.id.foundWordsList);
 
-        this.countDownTimer = this.newCountDown(90000);
+        this.countDownTimer = this.newCountDown(model.secondsLeft * 1000);
+
+        foundWords.setText("");
+
+        quitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                quitGame();
+            }
+        });
 
         pauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +97,19 @@ public class ScraggleFragment extends Fragment {
             }
         });
 
+        muteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mute();
+            }
+        });
+        unMuteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                unmute();
+            }
+        });
+
         addLetterButtons(rootView.findViewById(R.id.large1), 0);
         addLetterButtons(rootView.findViewById(R.id.large2), 1);
         addLetterButtons(rootView.findViewById(R.id.large3), 2);
@@ -76,9 +120,11 @@ public class ScraggleFragment extends Fragment {
         addLetterButtons(rootView.findViewById(R.id.large8), 7);
         addLetterButtons(rootView.findViewById(R.id.large9), 8);
 
-
-
         this.update();
+
+        mSoundPool = new SoundPool(3, AudioManager.STREAM_MUSIC, 0);
+        mSoundO = mSoundPool.load(getActivity(), R.raw.sergenious_moveo, 1);
+        mSoundRewind = mSoundPool.load(getActivity(), R.raw.joanne_rewind, 1);
 
         return rootView;
     }
@@ -99,6 +145,7 @@ public class ScraggleFragment extends Fragment {
     public void tileClicked(Integer letterButtonIndex) {
         model.clickTile(letterButtonIndex);
         update();
+        mSoundPool.play(mSoundO, mVolume, mVolume, 1, 0, 1f);
     }
 
     private final void update() {
@@ -106,7 +153,9 @@ public class ScraggleFragment extends Fragment {
             scraggleTileButtons.get(i).setButton((model.getScraggleTileAt(i)));
         }
         this.wordDisplay.setText(model.getCurrentWord());
-        this.foundWords.setText(model.getFoundWordsString());
+        if (model.isPhaseTwo()) {
+            this.foundWords.setText(model.getFoundWordsString());
+        }
 
         if (model.isWord) {
             this.addWord.setVisibility(View.VISIBLE);
@@ -123,18 +172,30 @@ public class ScraggleFragment extends Fragment {
         this.countDownTimer.cancel();
         resumeButton.setVisibility(View.VISIBLE);
         pauseButton.setVisibility(View.GONE);
+        mSoundPool.play(mSoundRewind, mVolume, mVolume, 1, 0, 1f);
     }
 
     private final void resume() {
+
         for (Integer i = 0; i < scraggleTileButtons.size(); i++) {
             scraggleTileButtons.get(i).setButton((model.getScraggleTileAt(i)));
         }
         this.countDownTimer = this.newCountDown(model.secondsLeft * 1000);
         resumeButton.setVisibility(View.GONE);
         pauseButton.setVisibility(View.VISIBLE);
+        mSoundPool.play(mSoundRewind, mVolume, mVolume, 1, 0, 1f);
     }
 
-    private final CountDownTimer newCountDown(long timeLeft) {
+    private final void quitGame() {
+        SharedPreferences preferences = getContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("scraggleGameState", model.gameStateToString());
+        editor.commit();
+        getActivity().finish();
+        System.exit(0);
+    }
+
+    private final CountDownTimer newCountDown(final long timeLeft) {
         if (this.countDownTimer != null) {
             this.countDownTimer.cancel();
         }
@@ -144,11 +205,16 @@ public class ScraggleFragment extends Fragment {
                 public void onTick(long millisUntilFinished) {
                     model.secondsLeft = millisUntilFinished / 1000;
                     timer.setText("Phase Two: " + model.secondsLeft);
+
+                    if (millisUntilFinished < 10000) {
+                        timer.setTextColor(0xffff0000);
+                    }
                 }
 
                 public void onFinish() {
                     timer.setText("Game Over!");
                     model.endGame();
+                    timer.setTextColor(0xff000000);
                     update();
                 }
             }.start();
@@ -157,14 +223,30 @@ public class ScraggleFragment extends Fragment {
                 public void onTick(long millisUntilFinished) {
                     model.secondsLeft = millisUntilFinished / 1000;
                     timer.setText("Phase One: " + model.secondsLeft);
+                    if (millisUntilFinished < 10000) {
+                        timer.setTextColor(0xffff0000);
+                    }
                 }
 
                 public void onFinish() {
                     model.toPhaseTwo();
+                    timer.setTextColor(0xff000000);
                     update();
                     newCountDown(90000);
                 }
             }.start();
         }
+    }
+
+    private final void mute() {
+        mVolume = 0f;
+        muteButton.setVisibility(View.GONE);
+        unMuteButton.setVisibility(View.VISIBLE);
+    }
+
+    private  final void unmute() {
+        mVolume = 1f;
+        muteButton.setVisibility(View.VISIBLE);
+        unMuteButton.setVisibility(View.GONE);
     }
 }

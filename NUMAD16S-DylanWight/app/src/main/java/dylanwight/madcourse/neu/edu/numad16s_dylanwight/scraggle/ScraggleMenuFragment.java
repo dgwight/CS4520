@@ -1,18 +1,17 @@
 package dylanwight.madcourse.neu.edu.numad16s_dylanwight.scraggle;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.provider.Settings.Secure;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.R;
-import dylanwight.madcourse.neu.edu.numad16s_dylanwight.tictactoe.TicTacToeActivity;
-import dylanwight.madcourse.neu.edu.numad16s_dylanwight.wordDictionary.TestDictionaryActivity;
 
 
 /**
@@ -35,9 +34,21 @@ public class ScraggleMenuFragment extends Fragment {
         View acknowledgementsButton = rootView.findViewById(R.id.acknowledgements);
         View quitButton = rootView.findViewById(R.id.quit);
 
+        final SharedPreferences preferences = getContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        String gameState = preferences.getString("scraggleGameState", "NoGame");
+
+        if (gameState.equals("NoGame")) {
+            resumeGameButton.setVisibility(View.GONE);
+        }
+
         newGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("scraggleGameState", "NoGame");
+                editor.commit();
+
                 Intent intent = new Intent(getActivity(), ScraggleActivity.class);
                 getActivity().startActivity(intent);
             }
@@ -45,6 +56,8 @@ public class ScraggleMenuFragment extends Fragment {
         resumeGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ScraggleActivity.class);
+                getActivity().startActivity(intent);
             }
         });
         aboutScraggleButton.setOnClickListener(new View.OnClickListener() {
@@ -52,7 +65,7 @@ public class ScraggleMenuFragment extends Fragment {
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle(R.string.about_scraggle);
-                builder.setMessage(R.string.ack_contents);
+                builder.setMessage(R.string.scraggle_how_to);
 
                 builder.setCancelable(false);
                 builder.setPositiveButton(R.string.ok_label,
@@ -71,7 +84,7 @@ public class ScraggleMenuFragment extends Fragment {
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle(R.string.acknowledgements);
-                builder.setMessage(R.string.ack_contents);
+                builder.setMessage(R.string.ack_scraggle);
 
                 builder.setCancelable(false);
                 builder.setPositiveButton(R.string.ok_label,

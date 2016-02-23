@@ -49,7 +49,7 @@
 
     <Button
         android:id="@+id/scraggle"
-        android:text="@string/scraggle"
+        android:text="@string/word_game"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"/>

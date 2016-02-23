@@ -8,6 +8,12 @@
    tools:context=".scraggle.ScraggleActivity">
 
     <include
+        layout="@layout/mute_quit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
+
+    <include
         layout="@layout/current_word"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

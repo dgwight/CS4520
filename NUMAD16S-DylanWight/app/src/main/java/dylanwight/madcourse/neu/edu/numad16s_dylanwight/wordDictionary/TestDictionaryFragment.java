@@ -100,7 +100,7 @@ public class TestDictionaryFragment extends Fragment {
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle(R.string.acknowledgements);
-                builder.setMessage(R.string.ack_contents);
+                builder.setMessage(R.string.ack_dictionary);
 
                 builder.setCancelable(false);
                 builder.setPositiveButton(R.string.ok_label,
