@@ -1,118 +1,128 @@
 package dylanwight.madcourse.neu.edu.numad16s_dylanwight.communication;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings.Secure;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.firebase.client.AuthData;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+
+import java.util.Map;
 
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.R;
-import dylanwight.madcourse.neu.edu.numad16s_dylanwight.scraggle.ScraggleMenuActivity;
-import dylanwight.madcourse.neu.edu.numad16s_dylanwight.tictactoe.TicTacToeActivity;
-import dylanwight.madcourse.neu.edu.numad16s_dylanwight.wordDictionary.TestDictionaryActivity;
 
 
-/**
- * A placeholder fragment containing a simple view.
- */
 public class CommunicationFragment extends Fragment {
 
-    private AlertDialog mDialog;
+    GameSingleton gameSingleton = GameSingleton.getInstance();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        Firebase.setAndroidContext(getContext());
+        final Firebase myFirebaseRef = new Firebase("https://blinding-fire-3321.firebaseio.com/");
 
         View rootView =
-                inflater.inflate(R.layout.fragment_main, container, false);
-        // Handle buttons here...
-        View aboutButton = rootView.findViewById(R.id.about);
-        View errorButton = rootView.findViewById(R.id.generate_error);
-        View tictactoeButton = rootView.findViewById(R.id.tictactoe);
-        View dictionaryButton = rootView.findViewById(R.id.dictionary);
-        View scraggleButton = rootView.findViewById(R.id.scraggle);
-        View communicationButton = rootView.findViewById(R.id.communication);
-        View quitButton = rootView.findViewById(R.id.quit);
-        final String android_id =  Secure.getString(getContext().getContentResolver(), Secure.ANDROID_ID);
+                inflater.inflate(R.layout.fragment_communication, container, false);
 
-        aboutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        final View loginButton = rootView.findViewById(R.id.login);
+        final View registerButton = rootView.findViewById(R.id.register);
+        final View usernameLabel =  rootView.findViewById(R.id.usernameLabel);
+        final View passwordLabel =  rootView.findViewById(R.id.passwordLabel);
+        final EditText usernameInput = (EditText) rootView.findViewById(R.id.username);
+        final EditText passwordInput = (EditText) rootView.findViewById(R.id.password);
 
-                String message = getString(R.string.about_dylan);
-                message = message + android_id;
+        final View findMatchButton = rootView.findViewById(R.id.findMatch);
+        final ListView listView = (ListView) rootView.findViewById(R.id.listView);
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle(R.string.my_name);
-                builder.setIcon(R.drawable.dylan_wight_id);
-                builder.setMessage(message);
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                myFirebaseRef.authWithPassword(usernameInput.getText().toString(), passwordInput.getText().toString(), new Firebase.AuthResultHandler() {
+                    @Override
+                    public void onAuthenticated(AuthData authData) {
+                        Toast.makeText(getContext(), "logged in", Toast.LENGTH_LONG).show();
+                        loginButton.setVisibility(View.GONE);
+                        registerButton.setVisibility(View.GONE);
+                        usernameLabel.setVisibility(View.GONE);
+                        passwordLabel.setVisibility(View.GONE);
+                        usernameInput.setVisibility(View.GONE);
+                        passwordInput.setVisibility(View.GONE);
 
-                builder.setCancelable(false);
-                builder.setPositiveButton(R.string.ok_label,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                // nothing
-                            }
-                        });
-                mDialog = builder.show();
-            }
-        });
-        errorButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                throw new InternalError();
-            }
-        });
-        tictactoeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), TicTacToeActivity.class);
-                getActivity().startActivity(intent);
-            }
-        });
-        dictionaryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), TestDictionaryActivity.class);
-                getActivity().startActivity(intent);
-            }
-        });
-        scraggleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), ScraggleMenuActivity.class);
-                getActivity().startActivity(intent);
-            }
-        });
-        communicationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //////////////////TODO czx
+                        findMatchButton.setVisibility(View.VISIBLE);
+                        listView.setVisibility(View.VISIBLE);
+                    }
 
-            }
-        });
-        quitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().finish();
-                System.exit(0);
+                    @Override
+                    public void onAuthenticationError(FirebaseError firebaseError) {
+                        Toast.makeText(getContext(), firebaseError.toString(), Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         });
 
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                myFirebaseRef.createUser(usernameInput.getText().toString(), passwordInput.getText().toString(), new Firebase.ValueResultHandler<Map<String, Object>>() {
+                    @Override
+                    public void onSuccess(Map<String, Object> result) {
+                        Toast.makeText(getContext(), result.toString(), Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onError(FirebaseError firebaseError) {
+                        Toast.makeText(getContext(), firebaseError.toString(), Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
+
+        findMatchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gameSingleton.setCurrentGame(myFirebaseRef.child("currentMatch"));
+            }
+        });
+
+        String[] values = new String[]{"Android List View",};
+
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_list_item_1, android.R.id.text1, values);
+
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+                // ListView Clicked item index
+                int itemPosition = position;
+
+                // ListView Clicked item value
+                String itemValue = (String) listView.getItemAtPosition(position);
+
+                // Show Alert
+                Toast.makeText(getContext(),
+                        "Position :" + itemPosition + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
+                        .show();
+            }
+
+        });
         return rootView;
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        // Get rid of the about dialog if it's still up
-        if (mDialog != null)
-            mDialog.dismiss();
     }
 }

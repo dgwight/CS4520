@@ -55,6 +55,13 @@
         android:layout_gravity="center"/>
 
     <Button
+        android:id="@+id/communication"
+        android:text="@string/communication"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
+
+    <Button
         android:id="@+id/quit"
         android:text="Quit"
         android:layout_width="match_parent"

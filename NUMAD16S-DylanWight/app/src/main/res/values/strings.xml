@@ -1,4 +1,5 @@
 <resources>
+    <string name="communication">Communication</string>
     <string name="about_scraggle">How To Play</string>
     <string name="resume_game">Resume Game</string>
     <string name="word_game">Word Game</string>
@@ -59,5 +60,12 @@ both sides in the larger game.
             to pass arguments into Fragments/Activities.
             The Background image and the sounds are taken from the Ultimate Tictactoe game.
         </string>
+
+    <string name="ack_com">
+            I used www.stackoverflow.com and http://developer.android.com for genral java and android help.
+            http://androidexample.com/Create_A_Simple_Listview_-_Android_Example/index.php?view=article_discription&amp;aid=65&amp;aaid=90
+            http://www.tutorialspoint.com/java/java_using_singleton.htm
+        </string>
+
 
 </resources>

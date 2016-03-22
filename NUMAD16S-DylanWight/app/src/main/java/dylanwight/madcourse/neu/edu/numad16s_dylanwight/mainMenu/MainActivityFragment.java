@@ -3,17 +3,18 @@ package dylanwight.madcourse.neu.edu.numad16s_dylanwight.mainMenu;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.provider.Settings.Secure;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.provider.Settings.Secure;
 
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.R;
+import dylanwight.madcourse.neu.edu.numad16s_dylanwight.communication.CommunicationActivity;
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.scraggle.ScraggleMenuActivity;
-import dylanwight.madcourse.neu.edu.numad16s_dylanwight.wordDictionary.TestDictionaryActivity;
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.tictactoe.TicTacToeActivity;
+import dylanwight.madcourse.neu.edu.numad16s_dylanwight.wordDictionary.TestDictionaryActivity;
 
 
 /**
@@ -27,6 +28,7 @@ public class MainActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+
         View rootView =
                 inflater.inflate(R.layout.fragment_main, container, false);
         // Handle buttons here...
@@ -35,14 +37,14 @@ public class MainActivityFragment extends Fragment {
         View tictactoeButton = rootView.findViewById(R.id.tictactoe);
         View dictionaryButton = rootView.findViewById(R.id.dictionary);
         View scraggleButton = rootView.findViewById(R.id.scraggle);
+        View communicationButton = rootView.findViewById(R.id.communication);
         View quitButton = rootView.findViewById(R.id.quit);
-
+        final String android_id =  Secure.getString(getContext().getContentResolver(), Secure.ANDROID_ID);
 
         aboutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                String android_id =  Secure.getString(getContext().getContentResolver(),Secure.ANDROID_ID);
                 String message = getString(R.string.about_dylan);
                 message = message + android_id;
 
@@ -86,6 +88,13 @@ public class MainActivityFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), ScraggleMenuActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
+        communicationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), CommunicationActivity.class);
                 getActivity().startActivity(intent);
             }
         });

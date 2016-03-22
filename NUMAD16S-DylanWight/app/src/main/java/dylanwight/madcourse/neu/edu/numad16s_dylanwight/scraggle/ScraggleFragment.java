@@ -4,20 +4,31 @@ package dylanwight.madcourse.neu.edu.numad16s_dylanwight.scraggle;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.R;
+import dylanwight.madcourse.neu.edu.numad16s_dylanwight.communication.GameSingleton;
 
 public class ScraggleFragment extends Fragment {
 
@@ -33,23 +44,26 @@ public class ScraggleFragment extends Fragment {
     private Button unMuteButton;
     private TextView foundWords;
     private CountDownTimer countDownTimer;
+    private MediaPlayer mMediaPlayer;
+    private int wordGameSong;
 
-    private int mSoundO, mSoundRewind;
+    private int mSoundO;
     private SoundPool mSoundPool;
     private float mVolume = 1f;
+    Firebase myFirebaseRef;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        Firebase.setAndroidContext(getContext());
+        myFirebaseRef = new Firebase("https://blinding-fire-3321.firebaseio.com/");
+
         SharedPreferences preferences = getContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
         String gameState = preferences.getString("scraggleGameState", "NoGame");
-        if (gameState.equals("NoGame")) {
-            this.model = new ScraggleModel();
-        } else {
-            this.model = new ScraggleModel(gameState);
-        }
+
+        this.model = new ScraggleModel(gameState);
 
         View rootView = inflater.inflate(R.layout.fragment_scraggle, container, false);
 
@@ -93,7 +107,7 @@ public class ScraggleFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 model.addWord();
-                update();
+                update(true);
             }
         });
 
@@ -120,11 +134,31 @@ public class ScraggleFragment extends Fragment {
         addLetterButtons(rootView.findViewById(R.id.large8), 7);
         addLetterButtons(rootView.findViewById(R.id.large9), 8);
 
-        this.update();
+        this.update(false);
 
         mSoundPool = new SoundPool(3, AudioManager.STREAM_MUSIC, 0);
         mSoundO = mSoundPool.load(getActivity(), R.raw.sergenious_moveo, 1);
-        mSoundRewind = mSoundPool.load(getActivity(), R.raw.joanne_rewind, 1);
+
+        wordGameSong = R.raw.into_battle_4;
+        mMediaPlayer = MediaPlayer.create(getContext(), wordGameSong);
+        mMediaPlayer.setLooping(true);
+        mMediaPlayer.start();
+
+
+        myFirebaseRef.child("currentGame").addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                model = new ScraggleModel(snapshot.child("gameState").getValue().toString());
+                update(false);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError error) {
+            }
+        });
+
+
 
         return rootView;
     }
@@ -144,11 +178,12 @@ public class ScraggleFragment extends Fragment {
 
     public void tileClicked(Integer letterButtonIndex) {
         model.clickTile(letterButtonIndex);
-        update();
+        update(true);
         mSoundPool.play(mSoundO, mVolume, mVolume, 1, 0, 1f);
     }
 
-    private final void update() {
+    private final void update(Boolean updateOnline) {
+
         for (Integer i = 0; i < scraggleTileButtons.size(); i++) {
             scraggleTileButtons.get(i).setButton((model.getScraggleTileAt(i)));
         }
@@ -162,7 +197,11 @@ public class ScraggleFragment extends Fragment {
         } else {
             this.addWord.setVisibility(View.INVISIBLE);
         }
+        if (updateOnline) {
+            myFirebaseRef.child("currentGame").child("gameState").setValue(model.gameStateToString());
+        }
     }
+
 
     private final void pause() {
         for (ScraggleTileButton scraggleTileButton : scraggleTileButtons) {
@@ -172,8 +211,8 @@ public class ScraggleFragment extends Fragment {
         this.countDownTimer.cancel();
         resumeButton.setVisibility(View.VISIBLE);
         pauseButton.setVisibility(View.GONE);
-        mSoundPool.play(mSoundRewind, mVolume, mVolume, 1, 0, 1f);
-    }
+        mVolume = 0f;
+   }
 
     private final void resume() {
 
@@ -183,14 +222,22 @@ public class ScraggleFragment extends Fragment {
         this.countDownTimer = this.newCountDown(model.secondsLeft * 1000);
         resumeButton.setVisibility(View.GONE);
         pauseButton.setVisibility(View.VISIBLE);
-        mSoundPool.play(mSoundRewind, mVolume, mVolume, 1, 0, 1f);
+        mVolume = 1f;
     }
 
     private final void quitGame() {
+
         SharedPreferences preferences = getContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("scraggleGameState", model.gameStateToString());
         editor.commit();
+
+        if (mVolume == 1f) {
+            mMediaPlayer.stop();
+            mMediaPlayer.reset();
+            mMediaPlayer.release();
+        }
+
         getActivity().finish();
         System.exit(0);
     }
@@ -209,13 +256,11 @@ public class ScraggleFragment extends Fragment {
                     if (millisUntilFinished < 10000) {
                         timer.setTextColor(0xffff0000);
                     }
+                    update(true);
                 }
 
                 public void onFinish() {
-                    timer.setText("Game Over!");
-                    model.endGame();
-                    timer.setTextColor(0xff000000);
-                    update();
+                    gameOver();
                 }
             }.start();
         } else {
@@ -231,22 +276,33 @@ public class ScraggleFragment extends Fragment {
                 public void onFinish() {
                     model.toPhaseTwo();
                     timer.setTextColor(0xff000000);
-                    update();
+                    update(true);
                     newCountDown(90000);
                 }
             }.start();
         }
     }
 
+    private final void gameOver() {
+        myFirebaseRef.child("leaderboard").push().setValue(myFirebaseRef.getAuth().getProviderData().get("email").toString() + " " + model.getScore().toString());
+
+        timer.setText("Game Over!");
+        model.endGame();
+        timer.setTextColor(0xff000000);
+        update(true);
+    }
+
     private final void mute() {
         mVolume = 0f;
         muteButton.setVisibility(View.GONE);
         unMuteButton.setVisibility(View.VISIBLE);
+        mMediaPlayer.stop();
     }
 
     private  final void unmute() {
         mVolume = 1f;
         muteButton.setVisibility(View.VISIBLE);
         unMuteButton.setVisibility(View.GONE);
+        mMediaPlayer.start();
     }
 }

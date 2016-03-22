@@ -1,8 +1,8 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".communication.CommunicationActivity"
-    tools:showIn="@layout/activity_communication"
+    tools:context=".scraggle.LeaderboardActivity"
+    tools:showIn="@layout/activity_leaderboard"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/menu_background"
@@ -10,83 +10,19 @@
     android:orientation="vertical"
     android:padding="@dimen/menu_padding">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/usernameLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Username:"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:textAppearance="?android:textAppearanceMedium"/>
-
-        <EditText
-            android:id="@+id/username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:inputType="textEmailAddress" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/passwordLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Password:"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:textAppearance="?android:textAppearanceMedium"/>
-
-        <EditText
-            android:id="@+id/password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:inputType="textPassword" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/login"
-            android:text="Login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
-
-        <Button
-            android:id="@+id/register"
-            android:text="Register"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/findMatch"
-        android:text="Find Match"
+    <TextView
+        android:id="@+id/leaderboardLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Leaderboard"
         android:layout_gravity="center"
-        android:visibility="gone"/>
+        android:gravity="center"
+        android:textAppearance="?android:textAppearanceMedium"/>
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/listView"
-        android:visibility="gone"/>
+        android:id="@+id/listView" />
 
 </LinearLayout>
 

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:clipChildren="false"
     android:background="@color/colorPrimary"
-    tools:context=".mainMenu.MainActivity">
+    tools:context=".communication.CommunicationActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -25,9 +25,10 @@
 
     <fragment
         android:id="@+id/main_fragment"
-        class="dylanwight.madcourse.neu.edu.numad16s_dylanwight.mainMenu.MainActivityFragment"
+        class="dylanwight.madcourse.neu.edu.numad16s_dylanwight.communication.CommunicationFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        tools:layout="@layout/fragment_main"/>
+        tools:layout="@layout/fragment_communication">
+    </fragment>
 </FrameLayout>

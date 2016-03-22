@@ -11,8 +11,8 @@ public class LeaderboardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scraggle_menu);
+        setContentView(R.layout.activity_leaderboard);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.word_game);
+        toolbar.setTitle("Leader Board");
     }
 }

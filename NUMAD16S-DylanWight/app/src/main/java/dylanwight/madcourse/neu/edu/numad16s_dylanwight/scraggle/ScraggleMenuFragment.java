@@ -30,6 +30,7 @@ public class ScraggleMenuFragment extends Fragment {
 
         View newGameButton = rootView.findViewById(R.id.new_game);
         View resumeGameButton = rootView.findViewById(R.id.resume_game);
+        View leaderboardButton = rootView.findViewById(R.id.leaderboard);
         View aboutScraggleButton = rootView.findViewById(R.id.about_scraggle);
         View acknowledgementsButton = rootView.findViewById(R.id.acknowledgements);
         View quitButton = rootView.findViewById(R.id.quit);
@@ -57,6 +58,14 @@ public class ScraggleMenuFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), ScraggleActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
+
+        leaderboardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), LeaderboardActivity.class);
                 getActivity().startActivity(intent);
             }
         });
