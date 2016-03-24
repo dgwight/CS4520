@@ -1,7 +1,7 @@
 package dylanwight.madcourse.neu.edu.numad16s_dylanwight.communication;
 
 /**
- * Created by DylanWight on 3/23/16.
+ * Created by DylanWight on 3/24/16.
  */
-public class User {
+public class FirebaseConnection {
 }

@@ -20,12 +20,12 @@
             <Button
                 android:id="@+id/communication_registor_button"
                 android:onClick="onClick"
-                android:text="@string/register" />
+                android:text="register" />
 
             <Button
                 android:id="@+id/communication_unregistor_button"
                 android:onClick="onClick"
-                android:text="@string/unregister" />
+                android:text="unregister" />
         </TableRow>
     </TableLayout>
 
@@ -50,13 +50,17 @@
             <Button
                 android:id="@+id/communication_send"
                 android:onClick="onClick"
-                android:text="@string/send_label" />
+                android:text="send" />
 
             <Button
                 android:id="@+id/communication_clear"
                 android:onClick="onClick"
-                android:text="@string/clear_label" />
+                android:text="clear" />
         </TableRow>
     </TableLayout>
 
+    <ListView
+        android:id="@+id/user_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </LinearLayout>

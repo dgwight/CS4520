@@ -26,7 +26,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CommunicationMain extends Activity implements OnClickListener {
+import dylanwight.madcourse.neu.edu.numad16s_dylanwight.R;
+
+public class CommunicationMessagesActivity extends Activity implements OnClickListener {
 
 	public static final String EXTRA_MESSAGE = "message";
 	public static final String PROPERTY_REG_ID = "registration_id";
@@ -76,7 +78,7 @@ public class CommunicationMain extends Activity implements OnClickListener {
 	}
 
 	private SharedPreferences getGCMPreferences(Context context) {
-		return getSharedPreferences(CommunicationMain.class.getSimpleName(), Context.MODE_PRIVATE);
+		return getSharedPreferences(CommunicationMessagesActivity.class.getSimpleName(), Context.MODE_PRIVATE);
 	}
 
 	private static int getAppVersion(Context context) {
@@ -264,7 +266,7 @@ public class CommunicationMain extends Activity implements OnClickListener {
                 regIds.clear();
                 regIds.add(reg_device);
                 gcmNotification.sendNotification(msgParams, regIds,
-                        edu.neu.madcourse.gcmsampledemo.CommunicationMain.this);
+						getApplicationContext());
 				msg = "sending information...";
 				return msg;
 			}
