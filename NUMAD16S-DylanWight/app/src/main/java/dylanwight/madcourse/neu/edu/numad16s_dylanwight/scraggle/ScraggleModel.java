@@ -45,7 +45,7 @@ public class ScraggleModel {
             this.gameType = GameType.SINGLE_PLAYER;
         }
         if (readState.length == 1){
-            this.secondsLeft = 90;
+            this.secondsLeft = 60;
             this.phaseTwo = false;
             AssetManager am = NUMAD16s_DylanWight.getContext().getAssets();
             List <String> nineLetterWordList = new ArrayList<>();
@@ -62,7 +62,6 @@ public class ScraggleModel {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
 
             for (Integer board = 0; board < 9; board++) {
                 String randomWord = nineLetterWordList.get(

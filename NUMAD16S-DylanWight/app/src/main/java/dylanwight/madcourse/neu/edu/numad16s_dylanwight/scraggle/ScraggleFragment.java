@@ -288,21 +288,21 @@ public class ScraggleFragment extends Fragment {
     private void gameOver() {
         switch (model.getGameType()) {
             case SINGLE_PLAYER:
-                // TODO set leaderboard with username
+                // TODO set leaderboard with username, from firebase linked to gcm id
                 //myFirebaseRef.child("leaderboard").push().setValue(myFirebaseRef.getAuth().getProviderData().get("email").toString() + " " + model.getScore().toString());
                 break;
             case LIVE_COOP:
                 //myFirebaseRef.child("leaderboard").push().setValue("Coop" + " "+ model.getScore().toString());
                 break;
             case CHALLENGE_PLAYER_1:
-                sendMessage("You've been challenged  by  "
-                        + myFirebaseRef.getAuth().getProviderData().get("email").toString() +
-                        "with a score of " + model.getScore(), opponentId);
+                sendMessage("You've been challenged " + "with a score of " + model.getScore(), opponentId);
+
+                //+ myFirebaseRef.getAuth().getProviderData().get("email").toString() +
 
                 //myFirebaseRef.child("leaderboard").push().setValue(myFirebaseRef.getAuth().getProviderData().get("email").toString() + " "+ model.getScore().toString());
                 break;
             case CHALLENGE_PLAYER_2:
-                sendMessage(myFirebaseRef.getAuth().getProviderData().get("email").toString() +
+                sendMessage(//myFirebaseRef.getAuth().getProviderData().get("email").toString() +
                         "completeded your challenge with a score of " + model.getScore(), opponentId);
                 //myFirebaseRef.child("leaderboard").push().setValue(myFirebaseRef.getAuth().getProviderData().get("email").toString() + " " + model.getScore().toString());
         }
