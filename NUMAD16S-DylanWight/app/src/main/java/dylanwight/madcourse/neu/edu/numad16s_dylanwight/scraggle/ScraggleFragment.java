@@ -24,7 +24,11 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,7 +57,10 @@ public class ScraggleFragment extends Fragment {
     private float mVolume = 1f;
     Firebase myFirebaseRef;
     String opponentId = "noOpponent";
+    String username;
 
+
+    private SharedPreferences preferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,8 +69,9 @@ public class ScraggleFragment extends Fragment {
         Firebase.setAndroidContext(getContext());
         myFirebaseRef = new Firebase("https://blinding-fire-3321.firebaseio.com/");
 
-        SharedPreferences preferences = getContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        preferences = getContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
         String gameState = preferences.getString("scraggleGameState", "NoGame");
+        username = preferences.getString("username", "Anonymous");
 
         this.model = new ScraggleModel(gameState);
 
@@ -286,25 +294,26 @@ public class ScraggleFragment extends Fragment {
     }
 
     private void gameOver() {
+
+        String timeStamp = DateFormat.getDateTimeInstance().format(new Date());
         switch (model.getGameType()) {
             case SINGLE_PLAYER:
-                // TODO set leaderboard with username, from firebase linked to gcm id
-                //myFirebaseRef.child("leaderboard").push().setValue(myFirebaseRef.getAuth().getProviderData().get("email").toString() + " " + model.getScore().toString());
+                myFirebaseRef.child("leaderboard").push().setValue(model.getScore().toString()
+                        + " " + username + " " + timeStamp);
                 break;
             case LIVE_COOP:
-                //myFirebaseRef.child("leaderboard").push().setValue("Coop" + " "+ model.getScore().toString());
+                myFirebaseRef.child("leaderboard").push().setValue(model.getScore().toString()
+                        + " " + username + " " + timeStamp);
                 break;
             case CHALLENGE_PLAYER_1:
-                sendMessage("You've been challenged " + "with a score of " + model.getScore(), opponentId);
-
-                //+ myFirebaseRef.getAuth().getProviderData().get("email").toString() +
-
-                //myFirebaseRef.child("leaderboard").push().setValue(myFirebaseRef.getAuth().getProviderData().get("email").toString() + " "+ model.getScore().toString());
+                myFirebaseRef.child("leaderboard").push().setValue(model.getScore().toString()
+                        + " " + username + " " + timeStamp);
+                sendMessage("You've been challenged by " + username + " with a score of " + model.getScore(), opponentId);
                 break;
             case CHALLENGE_PLAYER_2:
-                sendMessage(//myFirebaseRef.getAuth().getProviderData().get("email").toString() +
-                        "completeded your challenge with a score of " + model.getScore(), opponentId);
-                //myFirebaseRef.child("leaderboard").push().setValue(myFirebaseRef.getAuth().getProviderData().get("email").toString() + " " + model.getScore().toString());
+                myFirebaseRef.child("leaderboard").push().setValue(model.getScore().toString()
+                        + " " + username + " " + timeStamp);
+                sendMessage(username + " completed your challenge with a score of " + model.getScore(), opponentId);
         }
 
         timer.setText(R.string.game_over);

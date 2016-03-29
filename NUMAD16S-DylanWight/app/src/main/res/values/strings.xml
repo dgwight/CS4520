@@ -80,12 +80,13 @@ both sides in the larger game.
     <string name="input_username_here">Input username here</string>
     <string name="gcm_intructions">Click user to send them a message, Register to allow messages to be send to you</string>
     <string name="reg_to_challenge">Register to challenge opponent</string>
-    <string name="live_coop">Live Coop</string>
-    <string name="leaderboard">Leaderboard</string>
-    <string name="challenge_player">Challenge Player</string>
+    <string name="live_coop">Join Live Coop</string>
+    <string name="leaderboard">View Leaderboard</string>
+    <string name="challenge_player">Challenge a Friend</string>
     <string name="game_over">Game Over!</string>
     <string name="phase_1">"Phase One: "</string>
     <string name="phase_2">"Phase Two: "</string>
+    <string name="single_player">Start Single Player</string>
 
 
 </resources>

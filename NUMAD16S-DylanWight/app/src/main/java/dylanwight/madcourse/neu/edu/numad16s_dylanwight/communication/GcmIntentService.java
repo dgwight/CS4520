@@ -83,13 +83,9 @@ public class GcmIntentService extends IntentService {
 				.setAutoCancel(true);
 		mBuilder.setContentIntent(intent);
 
-		Log.d("before", contentText);
 
 
 		mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
-
-
-		Log.d("after", contentText);
 
 		Looper.loop();
 

@@ -20,7 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.google.android.gms.common.ConnectionResult;
@@ -35,7 +34,6 @@ import java.util.List;
 import java.util.Map;
 
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.R;
-import dylanwight.madcourse.neu.edu.numad16s_dylanwight.scraggle.Leaderboard;
 
 public class CommunicationMessagesActivity extends Activity implements OnClickListener {
 

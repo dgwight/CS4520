@@ -184,7 +184,7 @@ public class ChallengeActivity extends Activity implements OnClickListener {
 
                     msg = "Device registered, registration ID=" + regid;
 					sendRegistrationIdToBackend();
-					storeRegistrationId(context, regid);
+					storeRegistrationId(context, regid, username);
 				} catch (IOException ex) {
 					msg = "Error :" + ex.getMessage();
 				}
@@ -207,12 +207,13 @@ public class ChallengeActivity extends Activity implements OnClickListener {
 		// Your implementation here.
 	}
 
-	private void storeRegistrationId(Context context, String regId) {
+	private void storeRegistrationId(Context context, String regId, String username) {
 		final SharedPreferences prefs = getGCMPreferences(context);
 		int appVersion = getAppVersion(context);
 		Log.i(TAG, "Saving regId on app version " + appVersion);
 		SharedPreferences.Editor editor = prefs.edit();
 		editor.putString(PROPERTY_REG_ID, regId);
+		editor.putString("username", username);
 		editor.putInt(PROPERTY_APP_VERSION, appVersion);
 		editor.commit();
 	}
@@ -234,19 +235,7 @@ public class ChallengeActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(final View view) {
-		/*
-		if (view = R.id.communication_send) {
-
-			String message = ((EditText) findViewById(R.id.communication_edit_message))
-					.getText().toString();
-			if (message != "") {
-				sendMessage(message);
-			} else {
-				Toast.makeText(context, "Sending Context Empty!",
-						Toast.LENGTH_LONG).show();
-			}
-
-		} else */ if (view == findViewById(R.id.communication_clear)) {
+		if (view == findViewById(R.id.communication_clear)) {
 			mMessage.setText("");
 		} else if (view == findViewById(R.id.communication_unregistor_button)) {
 			unregister();
@@ -296,45 +285,4 @@ public class ChallengeActivity extends Activity implements OnClickListener {
 		regid = null;
 	}
 
-	@SuppressLint("NewApi")
-	private void sendMessage(final String message, final String clickedId) {
-		if (regid == null || regid.equals("")) {
-			Toast.makeText(this, "You must register first", Toast.LENGTH_LONG)
-					.show();
-			return;
-		}
-		if (message.isEmpty()) {
-			Toast.makeText(this, "Empty Message", Toast.LENGTH_LONG).show();
-			return;
-		}
-
-		new AsyncTask<Void, Void, String>() {
-			@Override
-			protected String doInBackground(Void... params) {
-				String msg = "";
-				List<String> regIds = new ArrayList<String>();
-				String reg_device = clickedId;
-				int nType = CommunicationConstants.SIMPLE_NOTIFICATION;
-				Map<String, String> msgParams;
-				msgParams = new HashMap<String, String>();
-				msgParams.put("data.alertText", "Notification");
-				msgParams.put("data.titleText", "Notification Title");
-				msgParams.put("data.contentText", message);
-				msgParams.put("data.nType", String.valueOf(nType));
-                setSendMessageValues(message);
-                GcmNotification gcmNotification = new GcmNotification();
-                regIds.clear();
-                regIds.add(reg_device);
-                gcmNotification.sendNotification(msgParams, regIds,
-						getApplicationContext());
-				msg = "sending information...";
-				return msg;
-			}
-
-			@Override
-			protected void onPostExecute(String msg) {
-				Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
-			}
-		}.execute(null, null, null);
-	}
 }
