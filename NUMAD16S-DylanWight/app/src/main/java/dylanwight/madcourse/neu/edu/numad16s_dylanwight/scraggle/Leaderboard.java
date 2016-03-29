@@ -1,6 +1,7 @@
 package dylanwight.madcourse.neu.edu.numad16s_dylanwight.scraggle;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -8,10 +9,11 @@ import java.util.List;
  */
 public class Leaderboard {
 
-    String[] leaderboard;
+    List<String> leaderboard = new ArrayList<>();
 
     Leaderboard(String string) {
-        leaderboard = string.split("\n");
+        Collections.addAll(leaderboard, string.split("\n"));
+        Collections.sort(leaderboard);
     }
 
     public String toString() {

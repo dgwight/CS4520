@@ -11,14 +11,6 @@
     android:padding="@dimen/menu_padding">
 
     <Button
-        android:id="@+id/new_game"
-        android:text="@string/new_game_label"
-        android:layout_width="@dimen/menu_width"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/menu_button_margin"
-        android:layout_gravity="center"/>
-
-    <Button
         android:id="@+id/resume_game"
         android:text="@string/resume_game"
         android:layout_width="@dimen/menu_width"
@@ -27,8 +19,32 @@
         android:layout_gravity="center"/>
 
     <Button
+        android:id="@+id/single_player"
+        android:text="@string/new_game_label"
+        android:layout_width="@dimen/menu_width"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/menu_button_margin"
+        android:layout_gravity="center"/>
+
+    <Button
+        android:id="@+id/live_coop"
+        android:text="@string/live_coop"
+        android:layout_width="@dimen/menu_width"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/menu_button_margin"
+        android:layout_gravity="center"/>
+
+    <Button
+        android:id="@+id/challenge_mode"
+        android:text="@string/challenge_player"
+        android:layout_width="@dimen/menu_width"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/menu_button_margin"
+        android:layout_gravity="center"/>
+
+    <Button
         android:id="@+id/leaderboard"
-        android:text="Leaderboard"
+        android:text="@string/leaderboard"
         android:layout_width="@dimen/menu_width"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/menu_button_margin"

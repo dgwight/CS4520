@@ -17,6 +17,5 @@ public class ScraggleActivity extends AppCompatActivity {
 
         ScraggleFragment scraggleFragment = new ScraggleFragment();
         scraggleFragment.setArguments(savedInstanceState);
-
     }
 }

@@ -5,9 +5,15 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.Toast;
+
+import dylanwight.madcourse.neu.edu.numad16s_dylanwight.R;
+import dylanwight.madcourse.neu.edu.numad16s_dylanwight.scraggle.ScraggleActivity;
 
 public class GcmIntentService extends IntentService {
 	public static final int NOTIFICATION_ID = 1;
@@ -30,6 +36,8 @@ public class GcmIntentService extends IntentService {
 		if (!extras.isEmpty()) {
 			sendNotification(alertText, titleText, contentText);
 		}
+
+
 		// Release the wake lock provided by the WakefulBroadcastReceiver.
 		GcmBroadcastReceiver.completeWakefulIntent(intent);
 	}
@@ -39,17 +47,31 @@ public class GcmIntentService extends IntentService {
 	// a GCM message.
 	public void sendNotification(String alertText, String titleText,
 			String contentText) {
+
+
+		Toast.makeText(GcmIntentService.this, "sendNotification", Toast.LENGTH_SHORT).show();
+
 		mNotificationManager = (NotificationManager) this
 				.getSystemService(Context.NOTIFICATION_SERVICE);
 		Intent notificationIntent;
 		notificationIntent = new Intent(this,
-				edu.neu.madcourse.gcmsampledemo.CommunicationMain.class);
+				CommunicationMessagesActivity.class);
+
+
+
 		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		notificationIntent.putExtra("show_response", "show_response");
-		PendingIntent intent = PendingIntent.getActivity(this, 0, new Intent(
-				this, CommunicationMain.class),
-				PendingIntent.FLAG_UPDATE_CURRENT);
 
+		final SharedPreferences preferences = getApplicationContext()
+				.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = preferences.edit();
+		editor.putString("scraggleGameState", "CHALLENGE_PLAYER_1");
+		//editor.putString("opponentId", userIds.get(position)); TODO send oppent id with message
+		editor.commit();
+
+		PendingIntent intent = PendingIntent.getActivity(this, 0, new Intent(
+				this, ScraggleActivity.class),
+				PendingIntent.FLAG_UPDATE_CURRENT);
 		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
 				this)
 				.setSmallIcon(R.drawable.ic_stat_cloud)
@@ -60,7 +82,17 @@ public class GcmIntentService extends IntentService {
 				.setContentText(contentText).setTicker(alertText)
 				.setAutoCancel(true);
 		mBuilder.setContentIntent(intent);
+
+		Log.d("before", contentText);
+
+
 		mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+
+
+		Log.d("after", contentText);
+
+		Looper.loop();
+
 	}
 
 }

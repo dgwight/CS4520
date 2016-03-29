@@ -1,11 +1,13 @@
 package dylanwight.madcourse.neu.edu.numad16s_dylanwight.scraggle;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
@@ -28,7 +30,8 @@ import java.util.List;
 import java.util.Map;
 
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.R;
-import dylanwight.madcourse.neu.edu.numad16s_dylanwight.communication.GameSingleton;
+import dylanwight.madcourse.neu.edu.numad16s_dylanwight.communication.CommunicationConstants;
+import dylanwight.madcourse.neu.edu.numad16s_dylanwight.communication.GcmNotification;
 
 public class ScraggleFragment extends Fragment {
 
@@ -39,18 +42,17 @@ public class ScraggleFragment extends Fragment {
     private Button addWord;
     private Button pauseButton;
     private Button resumeButton;
-    private Button quitButton;
     private Button muteButton;
     private Button unMuteButton;
     private TextView foundWords;
     private CountDownTimer countDownTimer;
     private MediaPlayer mMediaPlayer;
-    private int wordGameSong;
 
     private int mSoundO;
     private SoundPool mSoundPool;
     private float mVolume = 1f;
     Firebase myFirebaseRef;
+    String opponentId = "noOpponent";
 
 
     @Override
@@ -66,18 +68,18 @@ public class ScraggleFragment extends Fragment {
         this.model = new ScraggleModel(gameState);
 
         View rootView = inflater.inflate(R.layout.fragment_scraggle, container, false);
-
+        Button quitButton = (Button) rootView.findViewById(R.id.quit);
+        TextView gameType = (TextView) rootView.findViewById(R.id.gameType);
         timer = (TextView) rootView.findViewById(R.id.timer);
         wordDisplay = (TextView) rootView.findViewById(R.id.wordDisplay);
         addWord = (Button) rootView.findViewById(R.id.addWord);
         pauseButton = (Button) rootView.findViewById(R.id.pause);
         resumeButton = (Button) rootView.findViewById(R.id.resume);
-        quitButton = (Button) rootView.findViewById(R.id.quit);
         muteButton = (Button) rootView.findViewById(R.id.mute);
         unMuteButton = (Button) rootView.findViewById(R.id.unmute);
-
         foundWords = (TextView) rootView.findViewById(R.id.foundWordsList);
 
+        gameType.setText(model.getGameType().toString());
         this.countDownTimer = this.newCountDown(model.secondsLeft * 1000);
 
         foundWords.setText("");
@@ -88,29 +90,18 @@ public class ScraggleFragment extends Fragment {
                 quitGame();
             }
         });
-
         pauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 pause();
             }
         });
-
         resumeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 resume();
             }
         });
-
-        addWord.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                model.addWord();
-                update(true);
-            }
-        });
-
         muteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,6 +112,13 @@ public class ScraggleFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 unmute();
+            }
+        });
+        addWord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                model.addWord();
+                update(true);
             }
         });
 
@@ -139,32 +137,36 @@ public class ScraggleFragment extends Fragment {
         mSoundPool = new SoundPool(3, AudioManager.STREAM_MUSIC, 0);
         mSoundO = mSoundPool.load(getActivity(), R.raw.sergenious_moveo, 1);
 
-        wordGameSong = R.raw.into_battle_4;
+        int wordGameSong = R.raw.into_battle_4;
         mMediaPlayer = MediaPlayer.create(getContext(), wordGameSong);
         mMediaPlayer.setLooping(true);
         mMediaPlayer.start();
 
 
-        myFirebaseRef.child("currentGame").addValueEventListener(new ValueEventListener() {
+        if (model.getGameType() == GameType.CHALLENGE_PLAYER_1
+                || model.getGameType() == GameType.CHALLENGE_PLAYER_2) {
+            this.opponentId = preferences.getString("opponentId", "noOpponent");
+            Log.d("Opponent", opponentId);
+        }
 
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                model = new ScraggleModel(snapshot.child("gameState").getValue().toString());
-                update(false);
-            }
+        if (model.getGameType() == GameType.LIVE_COOP) {
+            myFirebaseRef.child("currentGame").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    model = new ScraggleModel(snapshot.child("gameState").getValue().toString());
+                    update(false);
+                }
 
-            @Override
-            public void onCancelled(FirebaseError error) {
-            }
-        });
-
-
-
+                @Override
+                public void onCancelled(FirebaseError error) {
+                }
+            });
+        }
         return rootView;
     }
 
-    private final void addLetterButtons(View large, Integer gridIndex) {
-        scraggleTileButtons.add(new ScraggleTileButton((Button) large.findViewById(R.id.button), 0 + gridIndex * 9, this));
+    private void addLetterButtons(View large, Integer gridIndex) {
+        scraggleTileButtons.add(new ScraggleTileButton((Button) large.findViewById(R.id.button1), 0 + gridIndex * 9, this));
         scraggleTileButtons.add(new ScraggleTileButton((Button) large.findViewById(R.id.button2), 1 + gridIndex * 9, this));
         scraggleTileButtons.add(new ScraggleTileButton((Button) large.findViewById(R.id.button3), 2 + gridIndex * 9, this));
         scraggleTileButtons.add(new ScraggleTileButton((Button) large.findViewById(R.id.button4), 3 + gridIndex * 9, this));
@@ -175,14 +177,13 @@ public class ScraggleFragment extends Fragment {
         scraggleTileButtons.add(new ScraggleTileButton((Button) large.findViewById(R.id.button9), 8 + gridIndex * 9, this));
     }
 
-
     public void tileClicked(Integer letterButtonIndex) {
         model.clickTile(letterButtonIndex);
         update(true);
         mSoundPool.play(mSoundO, mVolume, mVolume, 1, 0, 1f);
     }
 
-    private final void update(Boolean updateOnline) {
+    private void update(Boolean updateOnline) {
 
         for (Integer i = 0; i < scraggleTileButtons.size(); i++) {
             scraggleTileButtons.get(i).setButton((model.getScraggleTileAt(i)));
@@ -197,13 +198,14 @@ public class ScraggleFragment extends Fragment {
         } else {
             this.addWord.setVisibility(View.INVISIBLE);
         }
-        if (updateOnline) {
+
+        if (updateOnline && model.getGameType() == GameType.LIVE_COOP) {
             myFirebaseRef.child("currentGame").child("gameState").setValue(model.gameStateToString());
         }
     }
 
 
-    private final void pause() {
+    private void pause() {
         for (ScraggleTileButton scraggleTileButton : scraggleTileButtons) {
             scraggleTileButton.button.setText("");
             scraggleTileButton.button.setClickable(false);
@@ -214,7 +216,7 @@ public class ScraggleFragment extends Fragment {
         mVolume = 0f;
    }
 
-    private final void resume() {
+    private void resume() {
 
         for (Integer i = 0; i < scraggleTileButtons.size(); i++) {
             scraggleTileButtons.get(i).setButton((model.getScraggleTileAt(i)));
@@ -225,7 +227,7 @@ public class ScraggleFragment extends Fragment {
         mVolume = 1f;
     }
 
-    private final void quitGame() {
+    private void quitGame() {
 
         SharedPreferences preferences = getContext().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
@@ -242,7 +244,7 @@ public class ScraggleFragment extends Fragment {
         System.exit(0);
     }
 
-    private final CountDownTimer newCountDown(final long timeLeft) {
+    private CountDownTimer newCountDown(final long timeLeft) {
         if (this.countDownTimer != null) {
             this.countDownTimer.cancel();
         }
@@ -251,7 +253,7 @@ public class ScraggleFragment extends Fragment {
             return this.countDownTimer = new CountDownTimer(timeLeft, 1000) {
                 public void onTick(long millisUntilFinished) {
                     model.secondsLeft = millisUntilFinished / 1000;
-                    timer.setText("Phase Two: " + model.secondsLeft);
+                    timer.setText(getString(R.string.phase_2) + model.secondsLeft);
 
                     if (millisUntilFinished < 10000) {
                         timer.setTextColor(0xffff0000);
@@ -267,7 +269,7 @@ public class ScraggleFragment extends Fragment {
             return this.countDownTimer = new CountDownTimer(timeLeft, 1000) {
                 public void onTick(long millisUntilFinished) {
                     model.secondsLeft = millisUntilFinished / 1000;
-                    timer.setText("Phase One: " + model.secondsLeft);
+                    timer.setText(getString(R.string.phase_1) + model.secondsLeft);
                     if (millisUntilFinished < 10000) {
                         timer.setTextColor(0xffff0000);
                     }
@@ -277,32 +279,90 @@ public class ScraggleFragment extends Fragment {
                     model.toPhaseTwo();
                     timer.setTextColor(0xff000000);
                     update(true);
-                    newCountDown(90000);
+                    newCountDown(60000);
                 }
             }.start();
         }
     }
 
-    private final void gameOver() {
-        myFirebaseRef.child("leaderboard").push().setValue(myFirebaseRef.getAuth().getProviderData().get("email").toString() + " " + model.getScore().toString());
+    private void gameOver() {
+        switch (model.getGameType()) {
+            case SINGLE_PLAYER:
+                // TODO set leaderboard with username
+                //myFirebaseRef.child("leaderboard").push().setValue(myFirebaseRef.getAuth().getProviderData().get("email").toString() + " " + model.getScore().toString());
+                break;
+            case LIVE_COOP:
+                //myFirebaseRef.child("leaderboard").push().setValue("Coop" + " "+ model.getScore().toString());
+                break;
+            case CHALLENGE_PLAYER_1:
+                sendMessage("You've been challenged  by  "
+                        + myFirebaseRef.getAuth().getProviderData().get("email").toString() +
+                        "with a score of " + model.getScore(), opponentId);
 
-        timer.setText("Game Over!");
+                //myFirebaseRef.child("leaderboard").push().setValue(myFirebaseRef.getAuth().getProviderData().get("email").toString() + " "+ model.getScore().toString());
+                break;
+            case CHALLENGE_PLAYER_2:
+                sendMessage(myFirebaseRef.getAuth().getProviderData().get("email").toString() +
+                        "completeded your challenge with a score of " + model.getScore(), opponentId);
+                //myFirebaseRef.child("leaderboard").push().setValue(myFirebaseRef.getAuth().getProviderData().get("email").toString() + " " + model.getScore().toString());
+        }
+
+        timer.setText(R.string.game_over);
         model.endGame();
         timer.setTextColor(0xff000000);
         update(true);
     }
 
-    private final void mute() {
+    private void mute() {
         mVolume = 0f;
         muteButton.setVisibility(View.GONE);
         unMuteButton.setVisibility(View.VISIBLE);
         mMediaPlayer.stop();
     }
 
-    private  final void unmute() {
+    private void unmute() {
         mVolume = 1f;
         muteButton.setVisibility(View.VISIBLE);
         unMuteButton.setVisibility(View.GONE);
         mMediaPlayer.start();
+    }
+
+
+    @SuppressLint("NewApi")
+    private void sendMessage(final String message, final String clickedId) {
+        new AsyncTask<Void, Void, String>() {
+            @Override
+            protected String doInBackground(Void... params) {
+                String msg = "";
+                List<String> regIds = new ArrayList<String>();
+                String reg_device = clickedId;
+                int nType = CommunicationConstants.SIMPLE_NOTIFICATION;
+                Map<String, String> msgParams;
+                msgParams = new HashMap<String, String>();
+                msgParams.put("data.alertText", "Notification");
+                msgParams.put("data.titleText", "Notification Title");
+                msgParams.put("data.contentText", message);
+                msgParams.put("data.nType", String.valueOf(nType));
+                setSendMessageValues(message);
+                GcmNotification gcmNotification = new GcmNotification();
+                regIds.clear();
+                regIds.add(reg_device);
+                gcmNotification.sendNotification(msgParams, regIds,
+                        getContext());
+                msg = "sending information...";
+                return msg;
+            }
+
+            @Override
+            protected void onPostExecute(String msg) {
+                Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+            }
+        }.execute(null, null, null);
+    }
+
+    private static void setSendMessageValues(String msg) {
+        CommunicationConstants.alertText = "Message Notification";
+        CommunicationConstants.titleText = "Sending Message";
+        CommunicationConstants.contentText = msg;
     }
 }

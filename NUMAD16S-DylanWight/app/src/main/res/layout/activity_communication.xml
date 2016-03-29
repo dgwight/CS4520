@@ -24,7 +24,7 @@
 
 
     <fragment
-        android:id="@+id/main_fragment"
+        android:id="@+id/communication_fragment"
         class="dylanwight.madcourse.neu.edu.numad16s_dylanwight.communication.CommunicationFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -5,9 +5,10 @@
     android:orientation="vertical" >
 
     <TextView
-        android:text="@string/gcm_intructions"
+        android:text="@string/reg_to_challenge"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="20sp"/>
 
     <TableLayout
         android:layout_width="wrap_content"
@@ -35,33 +36,8 @@
             <Button
                 android:id="@+id/communication_unregistor_button"
                 android:onClick="onClick"
-                android:text="@string/unregister" />
-        </TableRow>
-    </TableLayout>
-
-
-    <TableLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:stretchColumns="*" >
-
-        <TableRow>
-
-            <EditText
-                android:id="@+id/communication_edit_message"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/input_message_here"
-                android:imeOptions="actionDone"
-                android:inputType="text"
-                android:textColorHint="#238745"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/communication_clear"
-                android:onClick="onClick"
-                android:text="@string/clear" />
+                android:text="@string/unregister"
+                android:visibility="gone"/>
         </TableRow>
     </TableLayout>
 

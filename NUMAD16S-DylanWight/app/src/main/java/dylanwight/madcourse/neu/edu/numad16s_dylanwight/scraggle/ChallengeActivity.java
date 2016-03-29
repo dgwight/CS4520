@@ -3,6 +3,7 @@ package dylanwight.madcourse.neu.edu.numad16s_dylanwight.scraggle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -40,23 +41,14 @@ import dylanwight.madcourse.neu.edu.numad16s_dylanwight.communication.GcmNotific
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.communication.User;
 
 public class ChallengeActivity extends Activity implements OnClickListener {
-
-	public static final String EXTRA_MESSAGE = "message";
 	public static final String PROPERTY_REG_ID = "registration_id";
 	private static final String PROPERTY_APP_VERSION = "appVersion";
-	public static final String PROPERTY_ALERT_TEXT = "alertText";
-	public static final String PROPERTY_TITLE_TEXT = "titleText";
-	public static final String PROPERTY_CONTENT_TEXT = "contentText";
-	public static final String PROPERTY_NTYPE = "nType";
-
 	private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 	static final String TAG = "GCM Sample Demo";
 	TextView usernameInput;
-	TextView mDisplay;
 	EditText mMessage;
 	ListView userList;
 	GoogleCloudMessaging gcm;
-	SharedPreferences prefs;
 	Context context;
 	String regid;
 	List<String> userIds = new ArrayList<>();
@@ -65,13 +57,12 @@ public class ChallengeActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_send_cloud_message);
+		setContentView(R.layout.activity_challenge_player);
 		usernameInput = (EditText) findViewById(R.id.username_input);
 		mMessage = (EditText) findViewById(R.id.communication_edit_message);
 		userList = (ListView) findViewById(R.id.user_list);
 		gcm = GoogleCloudMessaging.getInstance(this);
 		context = getApplicationContext();
-
 
 		FirebaseConnection.getInstance().getFirebaseRef(getApplicationContext()).child("users")
 				.addValueEventListener(new ValueEventListener() {
@@ -97,7 +88,7 @@ public class ChallengeActivity extends Activity implements OnClickListener {
 							@Override
 							public void onItemClick(AdapterView<?> parent, View view,
 													int position, long id) {
-								sendMessage(mMessage.getText().toString(), userIds.get(position));
+								challengePlayer(position);
 							}
 						});
 					}
@@ -107,6 +98,20 @@ public class ChallengeActivity extends Activity implements OnClickListener {
 					}
 				});
 
+	}
+
+	private void challengePlayer(Integer position) {
+		final SharedPreferences preferences = getApplicationContext()
+				.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = preferences.edit();
+		editor.putString("scraggleGameState", "CHALLENGE_PLAYER_1");
+		editor.putString("opponentId", userIds.get(position));
+		editor.commit();
+
+		Intent intent = new Intent(getApplicationContext(), ScraggleActivity.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		getApplicationContext().startActivity(intent);
+		// sendMessage(mMessage.getText().toString(), userIds.get(position));
 	}
 
 	@SuppressLint("NewApi")
@@ -309,14 +314,12 @@ public class ChallengeActivity extends Activity implements OnClickListener {
 				String msg = "";
 				List<String> regIds = new ArrayList<String>();
 				String reg_device = clickedId;
-				int nIcon = R.drawable.ic_stat_cloud;
 				int nType = CommunicationConstants.SIMPLE_NOTIFICATION;
 				Map<String, String> msgParams;
 				msgParams = new HashMap<String, String>();
 				msgParams.put("data.alertText", "Notification");
 				msgParams.put("data.titleText", "Notification Title");
 				msgParams.put("data.contentText", message);
-				msgParams.put("data.nIcon", String.valueOf(nIcon));
 				msgParams.put("data.nType", String.valueOf(nType));
                 setSendMessageValues(message);
                 GcmNotification gcmNotification = new GcmNotification();

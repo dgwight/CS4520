@@ -21,12 +21,15 @@ import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.R;
 
 
 public class LeaderboardFragment extends Fragment {
 
-    String[] values = new String[]{};
+    List<String> values = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

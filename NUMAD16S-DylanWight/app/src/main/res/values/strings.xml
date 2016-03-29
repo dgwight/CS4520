@@ -61,11 +61,31 @@ both sides in the larger game.
             The Background image and the sounds are taken from the Ultimate Tictactoe game.
         </string>
 
-    <string name="ack_com">
-            I used www.stackoverflow.com and http://developer.android.com for genral java and android help.
-            http://androidexample.com/Create_A_Simple_Listview_-_Android_Example/index.php?view=article_discription&amp;aid=65&amp;aaid=90
-            http://www.tutorialspoint.com/java/java_using_singleton.htm
+    <string name="ack_communication">
+            I used www.stackoverflow.com for general java and android help. \n
+            http://androidexample.com/Create_A_Simple_Listview_-_Android_Example/index.php?view=article_discription&amp;aid=65&amp;aaid=90 \n
+            https://developers.google.com/cloud-messaging/android/client#add-config
         </string>
+    <string name="send_google_message">Send Google Message</string>
+    <string name="quit">Quit</string>
+    <string name="tictactoe">TicTacToe</string>
+    <string name="generate_error">Generate Error</string>
+    <string name="global_firebase_message">Global Firebase Message</string>
+    <string name="send">send</string>
+    <string name="register">register</string>
+    <string name="unregister">unregister</string>
+    <string name="input_message_here">input message here ...</string>
+    <string name="set_message">set message</string>
+    <string name="global_message">Global Message</string>
+    <string name="input_username_here">Input username here</string>
+    <string name="gcm_intructions">Click user to send them a message, Register to allow messages to be send to you</string>
+    <string name="reg_to_challenge">Register to challenge opponent</string>
+    <string name="live_coop">Live Coop</string>
+    <string name="leaderboard">Leaderboard</string>
+    <string name="challenge_player">Challenge Player</string>
+    <string name="game_over">Game Over!</string>
+    <string name="phase_1">"Phase One: "</string>
+    <string name="phase_2">"Phase Two: "</string>
 
 
 </resources>

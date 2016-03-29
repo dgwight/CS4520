@@ -28,8 +28,10 @@ public class ScraggleMenuFragment extends Fragment {
         View rootView =
                 inflater.inflate(R.layout.fragment_scraggle_menu, container, false);
 
-        View newGameButton = rootView.findViewById(R.id.new_game);
         View resumeGameButton = rootView.findViewById(R.id.resume_game);
+        View singlePlayerButton = rootView.findViewById(R.id.single_player);
+        View liveCoopButton = rootView.findViewById(R.id.live_coop);
+        View challengeModeButton = rootView.findViewById(R.id.challenge_mode);
         View leaderboardButton = rootView.findViewById(R.id.leaderboard);
         View aboutScraggleButton = rootView.findViewById(R.id.about_scraggle);
         View acknowledgementsButton = rootView.findViewById(R.id.acknowledgements);
@@ -42,22 +44,43 @@ public class ScraggleMenuFragment extends Fragment {
             resumeGameButton.setVisibility(View.GONE);
         }
 
-        newGameButton.setOnClickListener(new View.OnClickListener() {
+        resumeGameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ScraggleActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
+
+        singlePlayerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("scraggleGameState", "NoGame");
+                editor.putString("scraggleGameState", "SINGLE_PLAYER");
                 editor.commit();
 
                 Intent intent = new Intent(getActivity(), ScraggleActivity.class);
                 getActivity().startActivity(intent);
             }
         });
-        resumeGameButton.setOnClickListener(new View.OnClickListener() {
+
+        liveCoopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("scraggleGameState", "LIVE_COOP");
+                editor.commit();
+
                 Intent intent = new Intent(getActivity(), ScraggleActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
+
+        challengeModeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ChallengeActivity.class);
                 getActivity().startActivity(intent);
             }
         });
@@ -69,6 +92,7 @@ public class ScraggleMenuFragment extends Fragment {
                 getActivity().startActivity(intent);
             }
         });
+
         aboutScraggleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

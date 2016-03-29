@@ -5,7 +5,7 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/communication_display"
+        android:text="@string/gcm_intructions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -17,27 +17,28 @@
 
         <TableRow>
 
+            <EditText
+                android:id="@+id/username_input"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/input_username_here"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:textColorHint="#238745"
+                android:textSize="16sp" />
+
             <Button
                 android:id="@+id/communication_registor_button"
                 android:onClick="onClick"
-                android:text="register" />
+                android:text="@string/register" />
 
             <Button
                 android:id="@+id/communication_unregistor_button"
                 android:onClick="onClick"
-                android:text="unregister" />
+                android:text="@string/unregister" />
         </TableRow>
     </TableLayout>
 
-    <EditText
-        android:id="@+id/communication_edit_message"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="input message here ..."
-        android:imeOptions="actionDone"
-        android:inputType="text"
-        android:textColorHint="#238745"
-        android:textSize="16sp" />
 
     <TableLayout
         android:layout_width="wrap_content"
@@ -47,20 +48,26 @@
 
         <TableRow>
 
-            <Button
-                android:id="@+id/communication_send"
-                android:onClick="onClick"
-                android:text="send" />
+            <EditText
+                android:id="@+id/communication_edit_message"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/input_message_here"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:textColorHint="#238745"
+                android:textSize="16sp" />
 
             <Button
                 android:id="@+id/communication_clear"
                 android:onClick="onClick"
-                android:text="clear" />
+                android:text="@string/clear" />
         </TableRow>
     </TableLayout>
 
     <ListView
         android:id="@+id/user_list"
+        android:background="#000000"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </LinearLayout>

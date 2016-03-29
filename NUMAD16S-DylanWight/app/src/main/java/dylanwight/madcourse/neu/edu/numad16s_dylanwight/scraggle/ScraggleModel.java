@@ -1,7 +1,7 @@
 package dylanwight.madcourse.neu.edu.numad16s_dylanwight.scraggle;
 
 import android.content.res.AssetManager;
-import android.widget.Toast;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,7 +19,7 @@ import dylanwight.madcourse.neu.edu.numad16s_dylanwight.wordDictionary.WordDicti
  */
 public class ScraggleModel {
 
-
+    private final GameType gameType;
     private Boolean gameOver = false;
     private Boolean[] finishedGrids = { false, false, false, false, false, false, false, false, false };
     public Boolean isWord = false;
@@ -33,6 +33,17 @@ public class ScraggleModel {
 
     public ScraggleModel(String gameState) {
         String[] readState = gameState.split("-");
+
+        Log.d("game type: ", readState[0]);
+        if (readState[0].equals("LIVE_COOP")) {
+            this.gameType = GameType.LIVE_COOP;
+        } else if (readState[0].equals("CHALLENGE_PLAYER_1")) {
+            this.gameType = GameType.CHALLENGE_PLAYER_1;
+        } else if (readState[0].equals("CHALLENGE_PLAYER_2")) {
+            this.gameType = GameType.CHALLENGE_PLAYER_2;
+        } else {
+            this.gameType = GameType.SINGLE_PLAYER;
+        }
         if (readState.length == 1){
             this.secondsLeft = 90;
             this.phaseTwo = false;
@@ -70,18 +81,17 @@ public class ScraggleModel {
 
         } else {
 
-            if (readState[0].toLowerCase().equals("true")) {
+            if (readState[1].toLowerCase().equals("true")) {
                 this.phaseTwo = true;
             } else {
                 this.phaseTwo = false;
             }
 
-            this.secondsLeft = Long.parseLong(readState[1], 10);
-
-            this.currentWord = readState[2];
+            this.secondsLeft = Long.parseLong(readState[2], 10);
+            this.currentWord = readState[3];
 
             for (Integer grid = 0; grid < 9; grid++) {
-                if (readState[3].charAt(grid) == 't') {
+                if (readState[4].charAt(grid) == 't') {
                     finishedGrids[grid] = true;
                 } else {
                     finishedGrids[grid] = false;
@@ -89,10 +99,10 @@ public class ScraggleModel {
             }
 
             for (Integer tileIndex = 0; tileIndex < 81; tileIndex++) {
-                lettersOnBoard[tileIndex] = new ScraggleTile(readState[4 + tileIndex], tileIndex / 9);
+                lettersOnBoard[tileIndex] = new ScraggleTile(readState[5 + tileIndex], tileIndex / 9);
             }
 
-            for (Integer wordIndex = 85; wordIndex < readState.length; wordIndex++) {
+            for (Integer wordIndex = 86; wordIndex < readState.length; wordIndex++) {
                 foundWords.add(new FoundWord(readState[wordIndex]));
             }
 
@@ -105,8 +115,25 @@ public class ScraggleModel {
             return "NoGame";
         }
 
-        String gameState = phaseTwo + "-" + secondsLeft + "-";
+        String gameState = "";
 
+        switch (this.gameType) {
+            case SINGLE_PLAYER:
+                gameState += "SINGLE_PLAYER-";
+                break;
+            case LIVE_COOP:
+                gameState += "LIVE_COOP-";
+                break;
+            case CHALLENGE_PLAYER_1:
+                gameState += "CHALLENGE_PLAYER_1-";
+                break;
+            case CHALLENGE_PLAYER_2:
+                gameState += "CHALLENGE_PLAYER_1-";
+                break;
+        }
+
+        gameState += phaseTwo + "-";
+        gameState += secondsLeft + "-";
         gameState += currentWord + "-";
 
         for (Boolean grid : finishedGrids) {
@@ -345,4 +372,6 @@ public class ScraggleModel {
     public final Boolean isPhaseTwo() {
         return phaseTwo;
     }
+
+    public GameType getGameType() { return this.gameType; }
 }
