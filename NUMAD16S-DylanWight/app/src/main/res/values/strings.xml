@@ -87,6 +87,7 @@ both sides in the larger game.
     <string name="phase_1">"Phase One: "</string>
     <string name="phase_2">"Phase Two: "</string>
     <string name="single_player">Start Single Player</string>
+    <string name="food_grouper">Food Grouper</string>
 
 
 </resources>

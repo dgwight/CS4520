@@ -20,7 +20,6 @@ import com.wordpress.priyankvex.easyocrscannerdemo.EasyOcrScanner;
 import com.wordpress.priyankvex.easyocrscannerdemo.EasyOcrScannerListener;
 
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.R;
-import dylanwight.madcourse.neu.edu.numad16s_dylanwight.mainMenu.MainActivity;
 
 
 public class ScannerActivity extends AppCompatActivity implements EasyOcrScannerListener {
@@ -38,7 +37,7 @@ public class ScannerActivity extends AppCompatActivity implements EasyOcrScanner
 
         // initialize EasyOcrScanner instance.
         mEasyOcrScanner = new EasyOcrScanner(ScannerActivity.this, "EasyOcrScanner",
-                1, "eng");
+                com.wordpress.priyankvex.easyocrscannerdemo.Config.REQUEST_CODE_CAPTURE_IMAGE, "eng");
 
         // Set ocrScannerListener
         mEasyOcrScanner.setOcrScannerListener(this);
@@ -56,8 +55,7 @@ public class ScannerActivity extends AppCompatActivity implements EasyOcrScanner
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // Call onImageTaken() in onActivityResult.
-        Log.d("ResutCode: ", " " + resultCode);
-        if (resultCode == RESULT_OK && requestCode == 0){
+        if (resultCode == RESULT_OK && requestCode == com.wordpress.priyankvex.easyocrscannerdemo.Config.REQUEST_CODE_CAPTURE_IMAGE){
             mEasyOcrScanner.onImageTaken();
         }
     }
@@ -82,8 +80,6 @@ public class ScannerActivity extends AppCompatActivity implements EasyOcrScanner
      */
     @Override
     public void onOcrScanFinished(Bitmap bitmap, String recognizedText) {
-        Toast.makeText(getApplicationContext(), "onOcrScanFinished", Toast.LENGTH_LONG);
-
         textView.setText(recognizedText);
         if (mProgressDialog.isShowing()){
             mProgressDialog.dismiss();

@@ -62,8 +62,15 @@
         android:layout_gravity="center"/>
 
     <Button
+        android:id="@+id/foodGrouper"
+        android:text="@string/food_grouper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
+
+    <Button
         android:id="@+id/quit"
-        android:text="Quit"
+        android:text="@string/quit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"/>

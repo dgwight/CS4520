@@ -39,6 +39,7 @@ public class MainActivityFragment extends Fragment {
         View dictionaryButton = rootView.findViewById(R.id.dictionary);
         View scraggleButton = rootView.findViewById(R.id.scraggle);
         View communicationButton = rootView.findViewById(R.id.communication);
+        View foodGrouperButton = rootView.findViewById(R.id.foodGrouper);
         View quitButton = rootView.findViewById(R.id.quit);
         final String android_id =  Secure.getString(getContext().getContentResolver(), Secure.ANDROID_ID);
 
@@ -92,6 +93,14 @@ public class MainActivityFragment extends Fragment {
                 getActivity().startActivity(intent);
             }
         });
+        foodGrouperButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ScannerActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
+
         communicationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,12 +111,8 @@ public class MainActivityFragment extends Fragment {
         quitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), ScannerActivity.class);
-                getActivity().startActivity(intent);
-
-
-                //getActivity().finish();
-                //System.exit(0);
+                getActivity().finish();
+                System.exit(0);
             }
         });
 
