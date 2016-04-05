@@ -10,9 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import dylanwight.madcourse.neu.edu.numad16s_dylanwight.FoodGrouper.ScannerActivity;
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.R;
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.communication.CommunicationActivity;
-import dylanwight.madcourse.neu.edu.numad16s_dylanwight.communication.CommunicationMessagesActivity;
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.scraggle.ScraggleMenuActivity;
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.tictactoe.TicTacToeActivity;
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.wordDictionary.TestDictionaryActivity;
@@ -102,8 +102,12 @@ public class MainActivityFragment extends Fragment {
         quitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getActivity().finish();
-                System.exit(0);
+                Intent intent = new Intent(getActivity(), ScannerActivity.class);
+                getActivity().startActivity(intent);
+
+
+                //getActivity().finish();
+                //System.exit(0);
             }
         });
 
