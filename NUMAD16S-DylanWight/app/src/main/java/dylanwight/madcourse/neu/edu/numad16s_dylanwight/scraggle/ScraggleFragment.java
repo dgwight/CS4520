@@ -193,6 +193,8 @@ public class ScraggleFragment extends Fragment {
 
     private void update(Boolean updateOnline) {
 
+        Log.d("gameStae: ", model.gameStateToString());
+
         for (Integer i = 0; i < scraggleTileButtons.size(); i++) {
             scraggleTileButtons.get(i).setButton((model.getScraggleTileAt(i)));
         }

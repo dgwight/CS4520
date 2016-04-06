@@ -8,16 +8,21 @@ package dylanwight.madcourse.neu.edu.numad16s_dylanwight.FoodGrouper;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Config;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.googlecode.tesseract.android.TessBaseAPI;
+import com.wordpress.priyankvex.easyocrscannerdemo.Config;
 import com.wordpress.priyankvex.easyocrscannerdemo.EasyOcrScanner;
 import com.wordpress.priyankvex.easyocrscannerdemo.EasyOcrScannerListener;
+import com.wordpress.priyankvex.easyocrscannerdemo.FileUtils;
+
+import java.io.File;
 
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.R;
 
@@ -27,6 +32,7 @@ public class ScannerActivity extends AppCompatActivity implements EasyOcrScanner
     EasyOcrScanner mEasyOcrScanner;
     TextView textView;
     ProgressDialog mProgressDialog;
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +40,7 @@ public class ScannerActivity extends AppCompatActivity implements EasyOcrScanner
         setContentView(R.layout.activity_scan);
 
         textView = (TextView) findViewById(R.id.textView);
+        imageView = (ImageView) findViewById(R.id.imageView);
 
         // initialize EasyOcrScanner instance.
         mEasyOcrScanner = new EasyOcrScanner(ScannerActivity.this, "EasyOcrScanner",
@@ -42,12 +49,24 @@ public class ScannerActivity extends AppCompatActivity implements EasyOcrScanner
         // Set ocrScannerListener
         mEasyOcrScanner.setOcrScannerListener(this);
 
-        findViewById(R.id.button).setOnClickListener(new View.OnClickListener(){
+        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mEasyOcrScanner.takePicture();
             }
         });
+
+
+        TessBaseAPI baseApi = new TessBaseAPI();
+        baseApi.init(FileUtils.getDirectory("EasyOcrScanner") + "/", "eng");
+
+        Bitmap xando = BitmapFactory.decodeResource(getApplicationContext().getResources(),
+                R.drawable.img_3280);
+        baseApi.setImage(xando);
+        String recognizedText = baseApi.getUTF8Text();
+        baseApi.end();
+        imageView.setImageBitmap(xando);
+        textView.setText(recognizedText);
 
     }
 
@@ -70,6 +89,12 @@ public class ScannerActivity extends AppCompatActivity implements EasyOcrScanner
         mProgressDialog = new ProgressDialog(ScannerActivity.this);
         mProgressDialog.setMessage("Scanning...");
         mProgressDialog.show();
+
+        File imgFile = new  File(filePath);
+        if(imgFile.exists()){
+            Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+            imageView.setImageBitmap(myBitmap);
+        }
     }
 
     /**
