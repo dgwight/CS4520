@@ -1,1 +1,1 @@
-include ':app', ':tess-two', ':easy_ocr_library'
+include ':app'
