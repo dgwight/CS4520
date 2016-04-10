@@ -14,9 +14,26 @@
         android:id="@+id/listen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Listen"
+        android:layout_marginTop="@dimen/scan_top_margin"
+        android:text="@string/listen_button_label"
         android:layout_gravity="center_horizontal" />
+
+    <ProgressBar
+        android:id="@+id/listen_progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/scan_top_margin"
+        android:visibility="gone"
+        android:indeterminate="true" />
+
+    <TextView
+        android:id="@+id/listen_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/scan_directions_margin"
+        android:text="@string/listen_button_instructions"
+        android:textColor="@android:color/white"
+        android:textAlignment="center"/>
 
     <ListView
         android:id="@+id/item_list"

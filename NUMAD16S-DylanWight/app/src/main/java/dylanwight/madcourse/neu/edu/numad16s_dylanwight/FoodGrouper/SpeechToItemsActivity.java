@@ -15,6 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.util.Log;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,13 +32,20 @@ public class SpeechToItemsActivity extends Activity
     private ListView itemListView;
     private SpeechRecognizer sr;
     private List<ItemPossibilities> itemList;
+    private ProgressBar progressBar;
+    private TextView instructions;
+    private Button speakButton;
 
     @Override
     public final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan);
 
-        Button speakButton = (Button) findViewById(R.id.listen);
+        progressBar = (ProgressBar)findViewById(R.id.listen_progressbar);
+
+        instructions = (TextView) findViewById(R.id.listen_details);
+
+        speakButton = (Button) findViewById(R.id.listen);
         speakButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,10 +60,14 @@ public class SpeechToItemsActivity extends Activity
         itemList = new ArrayList<>();
 
         this.addMockData(new ArrayList<>(Arrays.asList("one and two and three", "1 and 2 and 3", "one and two and tree")));
-
     }
 
     private void listen() {
+        // start showing the progress bar, hide speak button, update text
+        progressBar.setVisibility(View.VISIBLE);
+        speakButton.setVisibility(View.GONE);
+        instructions.setText(getString(R.string.listening));
+
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, "voice.recognition.test");
@@ -84,6 +97,11 @@ public class SpeechToItemsActivity extends Activity
                 editItem(position);
             }
         });
+
+        // hide progress bar
+        progressBar.setVisibility(View.GONE);
+        speakButton.setVisibility(View.VISIBLE);
+        instructions.setText(getString(R.string.listen_button_instructions));
     }
 
     private void editItem(final Integer position) {

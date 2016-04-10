@@ -87,7 +87,12 @@ both sides in the larger game.
     <string name="phase_1">"Phase One: "</string>
     <string name="phase_2">"Phase Two: "</string>
     <string name="single_player">Start Single Player</string>
-    <string name="food_grouper">Food Grouper</string>
 
+    <!-- Food Grouper strings -->
+    <string name="food_grouper">Food Grouper</string>
+    <string name="listen_button_label">Start Reading</string>
+    <string name="listen_button_instructions">Click to start reading in your food items. Make
+        sure to say \"and\" between each item for the most accurate results.</string>
+    <string name="listening">Listening...</string>
 
 </resources>

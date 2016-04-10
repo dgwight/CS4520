@@ -25,5 +25,7 @@
     <dimen name="scraggle_button_height">35dp</dimen>
     <dimen name="scraggle_text">20sp</dimen>
 
-
+    <!-- Dimensions for Food Grouper -->
+    <dimen name="scan_top_margin">20dp</dimen>
+    <dimen name="scan_directions_margin">5dp</dimen>
 </resources>
