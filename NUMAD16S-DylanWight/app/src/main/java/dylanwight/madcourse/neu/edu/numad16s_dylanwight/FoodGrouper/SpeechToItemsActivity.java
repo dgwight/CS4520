@@ -109,7 +109,14 @@ public class SpeechToItemsActivity extends Activity
                         setText();
                     }
                 });
-
+        builder.setNegativeButton("Delete",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        itemList.remove((int) position);
+                        setText();
+                    }
+                });
         mDialog = builder.show();
     }
 

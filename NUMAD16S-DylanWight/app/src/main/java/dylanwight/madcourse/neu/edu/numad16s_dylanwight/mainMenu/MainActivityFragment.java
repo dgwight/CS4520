@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import dylanwight.madcourse.neu.edu.numad16s_dylanwight.FoodGrouper.ScannerActivity;
+import dylanwight.madcourse.neu.edu.numad16s_dylanwight.FoodGrouper.SpeechToItemsActivity;
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.R;
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.communication.CommunicationActivity;
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.scraggle.ScraggleMenuActivity;
@@ -96,7 +96,7 @@ public class MainActivityFragment extends Fragment {
         foodGrouperButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), ScannerActivity.class);
+                Intent intent = new Intent(getActivity(), SpeechToItemsActivity.class);
                 getActivity().startActivity(intent);
             }
         });

@@ -6,7 +6,6 @@ import android.speech.SpeechRecognizer;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -14,15 +13,43 @@ import java.util.List;
  */
 public class VoiceListener implements RecognitionListener {
     private static final String TAG = "MyStt3Activity";
-    private final ScannerActivity scannerActivity;
+    private final SpeechToItemsActivity speechToItemsActivity;
 
-    VoiceListener(ScannerActivity scannerActivity) {
-        this.scannerActivity = scannerActivity;
+    VoiceListener(SpeechToItemsActivity scannerActivity) {
+        this.speechToItemsActivity = scannerActivity;
+    }
+
+    public void onResults(Bundle results)
+    {
+        ArrayList data = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+        List<String[]> possibleTexts = new ArrayList<>();
+        for (Object textObject : data) {
+            String textString = (String) textObject;
+            possibleTexts.add(textString.split("and "));
+        }
+
+        // Matrix transpose  adapted from
+        // http://stackoverflow.com/questions/28057683/transpose-arraylistarrayliststring-in-java
+        List<ItemPossibilities> ItemPossibilitiesList = new ArrayList();
+
+        if (!possibleTexts.isEmpty()) {
+            int noOfOptions = possibleTexts.get(0).length;
+            for (int i = 0; i < noOfOptions; i++) {
+                ItemPossibilities item = new ItemPossibilities();
+                for (String[] row : possibleTexts) {
+                    if (i < row.length) {
+                        item.addPossibility(row[i]);
+                    }
+                }
+                ItemPossibilitiesList.add(item);
+            }
+            speechToItemsActivity.addPossibleItems(ItemPossibilitiesList);
+        }
     }
 
     public void onReadyForSpeech(Bundle params)
     {
-        Log.d(TAG, "onReadyForSpeech");
+        //Log.d(TAG, "onReadyForSpeech");
     }
     public void onBeginningOfSpeech()
     {
@@ -30,11 +57,11 @@ public class VoiceListener implements RecognitionListener {
     }
     public void onRmsChanged(float rmsdB)
     {
-        Log.d(TAG, "onRmsChanged");
+        //Log.d(TAG, "onRmsChanged");
     }
     public void onBufferReceived(byte[] buffer)
     {
-        Log.d(TAG, "onBufferReceived");
+        //Log.d(TAG, "onBufferReceived");
     }
     public void onEndOfSpeech()
     {
@@ -43,33 +70,13 @@ public class VoiceListener implements RecognitionListener {
     public void onError(int error)
     {
         Log.d(TAG,  "error " +  error);
-        List<String> itemList = new ArrayList<>();
-        itemList.add("error " + error);
-        this.setScannerActivityList(itemList);
     }
-    public void onResults(Bundle results)
-    {
-        Log.d(TAG, "onResults " + results);
-        ArrayList data = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-        if (data != null) {
-            String list = (String) data.get(0);
-            list = list.replaceAll("and ", "\n");
-
-            List<String> itemList = new ArrayList<>();
-            Collections.addAll(itemList, list.split("\n"));
-            this.setScannerActivityList(itemList);
-        }
-    }
-
     public void onPartialResults(Bundle partialResults)
     {
-        Log.d(TAG, "onPartialResults");
+        //Log.d(TAG, "onPartialResults");
     }
     public void onEvent(int eventType, Bundle params)
     {
-        Log.d(TAG, "onEvent " + eventType);
-    }
-    private void setScannerActivityList(List<String> itemList) {
-        scannerActivity.setText(itemList);
+        //Log.d(TAG, "onEvent " + eventType);
     }
 }
