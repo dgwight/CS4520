@@ -137,18 +137,8 @@ public class SpeechToItemsActivity extends Activity
     }
 
     public final void  errorPopup(int error) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Voice Recognition Error");
-        builder.setMessage("error code: " + error);
-
-        builder.setCancelable(false);
-        builder.setPositiveButton(R.string.ok_label,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        // nothing
-                    }
-                });
-        mDialog = builder.show();
+        progressBar.setVisibility(View.GONE);
+        speakButton.setVisibility(View.VISIBLE);
+        instructions.setText("Voice Recognition Error " + error);
     }
 }
