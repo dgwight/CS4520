@@ -58,8 +58,6 @@ public class SpeechToItemsActivity extends Activity
         sr = SpeechRecognizer.createSpeechRecognizer(this);
         sr.setRecognitionListener(new VoiceListener(this));
         itemList = new ArrayList<>();
-
-        this.addMockData(new ArrayList<>(Arrays.asList("one and two and three", "1 and 2 and 3", "one and two and tree")));
     }
 
     private void listen() {
@@ -136,29 +134,5 @@ public class SpeechToItemsActivity extends Activity
                     }
                 });
         mDialog = builder.show();
-    }
-
-
-    private void addMockData(List<String> mockData) {
-        List<String[]> possibleTexts = new ArrayList<>();
-        for (String textString : mockData) {
-            possibleTexts.add(textString.split("and "));
-        }
-
-        // Matrix transpose  adapted from
-        // http://stackoverflow.com/questions/28057683/transpose-arraylistarrayliststring-in-java
-        List<ItemPossibilities> ItemPossibilitiesList = new ArrayList();
-
-        if (!possibleTexts.isEmpty()) {
-            int noOfOptions = possibleTexts.get(0).length;
-            for (int i = 0; i < noOfOptions; i++) {
-                ItemPossibilities item = new ItemPossibilities();
-                for (String[] row : possibleTexts) {
-                    item.addPossibility(row[i]);
-                }
-                ItemPossibilitiesList.add(item);
-            }
-            this.addPossibleItems(ItemPossibilitiesList);
-        }
     }
 }

@@ -21,35 +21,12 @@ public class VoiceListener implements RecognitionListener {
 
     public void onResults(Bundle results)
     {
-        ArrayList data = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-        List<String[]> possibleTexts = new ArrayList<>();
-        for (Object textObject : data) {
-            String textString = (String) textObject;
-            possibleTexts.add(textString.split("and "));
-        }
-
-        // Matrix transpose  adapted from
-        // http://stackoverflow.com/questions/28057683/transpose-arraylistarrayliststring-in-java
-        List<ItemPossibilities> ItemPossibilitiesList = new ArrayList();
-
-        if (!possibleTexts.isEmpty()) {
-            int noOfOptions = possibleTexts.get(0).length;
-            for (int i = 0; i < noOfOptions; i++) {
-                ItemPossibilities item = new ItemPossibilities();
-                for (String[] row : possibleTexts) {
-                    if (i < row.length) {
-                        item.addPossibility(row[i]);
-                    }
-                }
-                ItemPossibilitiesList.add(item);
-            }
-            speechToItemsActivity.addPossibleItems(ItemPossibilitiesList);
-        }
+        this.processSpeech(results);
     }
 
     public void onReadyForSpeech(Bundle params)
     {
-        //Log.d(TAG, "onReadyForSpeech");
+        Log.d(TAG, "onReadyForSpeech");
     }
     public void onBeginningOfSpeech()
     {
@@ -73,10 +50,39 @@ public class VoiceListener implements RecognitionListener {
     }
     public void onPartialResults(Bundle partialResults)
     {
-        //Log.d(TAG, "onPartialResults");
+        Log.d(TAG, "onPartialResults ");
+
+        this.processSpeech(partialResults);
     }
     public void onEvent(int eventType, Bundle params)
     {
-        //Log.d(TAG, "onEvent " + eventType);
+        Log.d(TAG, "onEvent " + eventType);
+    }
+
+    private void processSpeech(Bundle results) {
+        ArrayList data = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+        List<String[]> possibleTexts = new ArrayList<>();
+        for (Object textObject : data) {
+            String textString = SpeechProcessor.replaceNumberWords((String) textObject);
+            possibleTexts.add(textString.split("and "));
+        }
+
+        // Matrix transpose  adapted from
+        // http://stackoverflow.com/questions/28057683/transpose-arraylistarrayliststring-in-java
+        List<ItemPossibilities> ItemPossibilitiesList = new ArrayList();
+
+        if (!possibleTexts.isEmpty()) {
+            int noOfOptions = possibleTexts.get(0).length;
+            for (int i = 0; i < noOfOptions; i++) {
+                ItemPossibilities item = new ItemPossibilities();
+                for (String[] row : possibleTexts) {
+                    if (i < row.length) {
+                        item.addPossibility(row[i]);
+                    }
+                }
+                ItemPossibilitiesList.add(item);
+            }
+            speechToItemsActivity.addPossibleItems(ItemPossibilitiesList);
+        }
     }
 }
