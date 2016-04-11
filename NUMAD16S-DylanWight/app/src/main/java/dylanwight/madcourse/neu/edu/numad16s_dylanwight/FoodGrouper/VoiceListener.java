@@ -46,13 +46,11 @@ public class VoiceListener implements RecognitionListener {
     }
     public void onError(int error)
     {
-        Log.d(TAG,  "error " +  error);
+        speechToItemsActivity.errorPopup(error);
     }
+
     public void onPartialResults(Bundle partialResults)
     {
-        Log.d(TAG, "onPartialResults ");
-
-        this.processSpeech(partialResults);
     }
     public void onEvent(int eventType, Bundle params)
     {
@@ -63,8 +61,7 @@ public class VoiceListener implements RecognitionListener {
         ArrayList data = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
         List<String[]> possibleTexts = new ArrayList<>();
         for (Object textObject : data) {
-            String textString = SpeechProcessor.replaceNumberWords((String) textObject);
-            possibleTexts.add(textString.split("and "));
+            possibleTexts.add(SpeechProcessor.replaceNumberWords((String) textObject));
         }
 
         // Matrix transpose  adapted from
