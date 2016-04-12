@@ -91,8 +91,8 @@ both sides in the larger game.
     <!-- Food Grouper strings -->
     <string name="food_grouper">Trickiest Part</string>
     <string name="listen_button_label">Start Reading</string>
-    <string name="listen_button_instructions">Click to start reading in your food items. Make
-        sure to say \"and\" between each item for the most accurate results.</string>
+    <string name="listen_button_instructions">Click to start reading in your food items including
+    the quantity. For example, 5 apples, 2 cartons of eggs, etc.</string>
     <string name="listening">Listening...</string>
 
 </resources>
