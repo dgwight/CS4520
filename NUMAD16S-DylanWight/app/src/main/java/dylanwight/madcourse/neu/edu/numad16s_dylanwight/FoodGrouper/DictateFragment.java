@@ -1,0 +1,20 @@
+package dylanwight.madcourse.neu.edu.numad16s_dylanwight.FoodGrouper;
+
+import android.app.Fragment;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import dylanwight.madcourse.neu.edu.numad16s_dylanwight.R;
+
+/**
+ * Created by Katie on 4/12/2016.
+ */
+public class DictateFragment extends Fragment {
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_dictate, container, false);
+    }
+}
