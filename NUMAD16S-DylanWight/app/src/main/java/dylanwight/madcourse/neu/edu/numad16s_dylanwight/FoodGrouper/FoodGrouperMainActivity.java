@@ -18,15 +18,20 @@ public class FoodGrouperMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_grouper_main);
+
+        // toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Food Grouper");
 
+        // tab layout
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Diet"));
         tabLayout.addTab(tabLayout.newTab().setText("Sort"));
         tabLayout.addTab(tabLayout.newTab().setText("Dictate"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
+        // allow movement between tabs
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final PagerAdapter adapter = new PagerAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount());
@@ -49,7 +54,7 @@ public class FoodGrouperMainActivity extends AppCompatActivity {
             }
         });
     }
-
+/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -64,5 +69,5 @@ public class FoodGrouperMainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 }
