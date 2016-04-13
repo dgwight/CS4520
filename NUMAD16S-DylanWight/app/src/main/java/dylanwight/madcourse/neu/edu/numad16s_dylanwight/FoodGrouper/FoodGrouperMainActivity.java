@@ -22,13 +22,13 @@ public class FoodGrouperMainActivity extends AppCompatActivity {
         // toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Food Grouper");
+        getSupportActionBar().setTitle(getString(R.string.app_title));
 
         // tab layout
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Diet"));
-        tabLayout.addTab(tabLayout.newTab().setText("Sort"));
-        tabLayout.addTab(tabLayout.newTab().setText("Dictate"));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.diet_tab_title)));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.sort_tab_title)));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.dictate_tab_title)));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         // allow movement between tabs
@@ -54,7 +54,8 @@ public class FoodGrouperMainActivity extends AppCompatActivity {
             }
         });
     }
-/*
+
+/* bring this back if we want 3 dot indicator at top
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
