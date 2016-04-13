@@ -3,9 +3,9 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <com.jjoe64.graphview.GraphView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Diet Page"/>
+        android:id="@+id/diet_graph" />
 
 </LinearLayout>
