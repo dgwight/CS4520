@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SeekBar;
+import android.widget.Toast;
 
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
@@ -25,49 +27,49 @@ import dylanwight.madcourse.neu.edu.numad16s_dylanwight.R;
 public class DietFragment extends Fragment {
 
     private String TAG = "DietFragment: ";
+    private GraphView dietGraph;
+    private SeekBar seekBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_diet, container, false);
 
-        GraphView dietGraph = (GraphView)rootView.findViewById(R.id.diet_graph);
-        GridLabelRenderer gr = dietGraph.getGridLabelRenderer();
-        gr.setNumHorizontalLabels(6);
-
-        /*
-        gr.setLabelFormatter(new DefaultLabelFormatter() {
-            @Override
-            public String formatLabel(double value, boolean isValueX){
-                if (isValueX){
-                    Log.d(TAG, value + "");
-                    return super.formatLabel(value, isValueX);
-                } else {
-                    return super.formatLabel(value, isValueX);
-                }
-            }
-        });*/
-
-        StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(dietGraph);
-        staticLabelsFormatter.setHorizontalLabels(new String[] { "", "Grains", "Vegs", "Fruits", "Dairy", "Protein", "Fats", ""});
-        gr.setLabelFormatter(staticLabelsFormatter);
-
-        gr.setGridStyle(GridLabelRenderer.GridStyle.NONE);
-        gr.setVerticalLabelsVisible(false);
-        Viewport vp = dietGraph.getViewport();
-        vp.setXAxisBoundsManual(true);
-        vp.setYAxisBoundsManual(true);
-        vp.setMinX(0);
-        vp.setMaxX(7);
-        vp.setMinY(0);
-        vp.setMaxY(100);
-
+        dietGraph = (GraphView)rootView.findViewById(R.id.diet_graph);
         setupDietGraph(dietGraph);
+
+        seekBar = (SeekBar)rootView.findViewById(R.id.diet_graph_view_seekbar);
+        setupSeekBar(seekBar);
 
         return rootView;
     }
 
     // Create the graph to show the user
     private void setupDietGraph(GraphView dietGraph){
+        GridLabelRenderer gr = dietGraph.getGridLabelRenderer();
+
+        // six labels for each of the food groups
+        gr.setNumHorizontalLabels(6);
+
+        StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(dietGraph);
+        staticLabelsFormatter.setHorizontalLabels(new String[] { "", "Grains", "Vegs", "Fruits", "Dairy", "Protein", "Fats", ""});
+        gr.setLabelFormatter(staticLabelsFormatter);
+
+        // do not show grids
+        gr.setGridStyle(GridLabelRenderer.GridStyle.NONE);
+
+        // do not show y axis values
+        gr.setVerticalLabelsVisible(false);
+
+        // setup axes
+        Viewport vp = dietGraph.getViewport();
+        vp.setXAxisBoundsManual(true);
+        vp.setYAxisBoundsManual(true);
+        vp.setMinX(0);
+        vp.setMaxX(7);
+        vp.setMinY(0);
+        vp.setMaxY(110);
+
+        // add data, this will be dynamic
         BarGraphSeries<DataPoint> series = new BarGraphSeries<DataPoint>(new DataPoint[] {
                 new DataPoint(1, 100),
                 new DataPoint(2, 30),
@@ -105,5 +107,24 @@ public class DietFragment extends Fragment {
         });
 
         dietGraph.addSeries(series);
+    }
+
+    private void setupSeekBar(SeekBar seekBar){
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                Toast.makeText(getContext(), "Changing seekbar's progress", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                Toast.makeText(getContext(), "Started tracking seekbar's progress", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                Toast.makeText(getContext(), "Stopped tracking seekbar's progress", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
