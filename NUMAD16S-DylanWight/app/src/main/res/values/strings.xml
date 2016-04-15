@@ -98,5 +98,8 @@ both sides in the larger game.
     <string name="diet_tab_title">Diet</string>
     <string name="sort_tab_title">Sort</string>
     <string name="dictate_tab_title">Dictate</string>
+    <string name="this_month_label">This Month</string>
+    <string name="last_month_label">Last Month</string>
+    <string name="all_label">All</string>
 
 </resources>

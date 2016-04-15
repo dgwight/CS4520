@@ -75,12 +75,12 @@ public class DietFragment extends Fragment {
                 new DataPoint(2, 30),
                 new DataPoint(3, 40),
                 new DataPoint(4, 20),
-                new DataPoint(5, 0),
+                new DataPoint(5, 1),
                 new DataPoint(6, 74)
         });
 
         // spacing between each bar
-        series.setSpacing(2);
+        series.setSpacing(12);
 
         // show the y value on top
         series.setDrawValuesOnTop(true);
