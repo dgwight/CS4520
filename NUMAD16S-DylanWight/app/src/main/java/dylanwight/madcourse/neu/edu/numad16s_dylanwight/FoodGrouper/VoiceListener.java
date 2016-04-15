@@ -13,10 +13,10 @@ import java.util.List;
  */
 public class VoiceListener implements RecognitionListener {
     private static final String TAG = "MyStt3Activity";
-    private final SpeechToItemsActivity speechToItemsActivity;
+    private final SpeechToItemsFragment speechToItemsFragment;
 
-    VoiceListener(SpeechToItemsActivity scannerActivity) {
-        this.speechToItemsActivity = scannerActivity;
+    VoiceListener(SpeechToItemsFragment speechFragment) {
+        this.speechToItemsFragment = speechFragment;
     }
 
     public void onResults(Bundle results)
@@ -46,7 +46,7 @@ public class VoiceListener implements RecognitionListener {
     }
     public void onError(int error)
     {
-        speechToItemsActivity.errorPopup(error);
+        speechToItemsFragment.errorPopup(error);
     }
 
     public void onPartialResults(Bundle partialResults)
@@ -79,7 +79,7 @@ public class VoiceListener implements RecognitionListener {
                 }
                 ItemPossibilitiesList.add(item);
             }
-            speechToItemsActivity.addPossibleItems(ItemPossibilitiesList);
+            speechToItemsFragment.addPossibleItems(ItemPossibilitiesList);
         }
     }
 }

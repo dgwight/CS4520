@@ -28,8 +28,8 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
                 SortFragment sortFragment = new SortFragment();
                 return sortFragment;
             case 2:
-                DictateFragment dictateFragment = new DictateFragment();
-                return dictateFragment;
+                SpeechToItemsFragment speechToItemsFragment = new SpeechToItemsFragment();
+                return speechToItemsFragment;
             default:
                 return null;
         }

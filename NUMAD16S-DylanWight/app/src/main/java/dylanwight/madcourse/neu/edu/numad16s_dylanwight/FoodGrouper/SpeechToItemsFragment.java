@@ -5,10 +5,13 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -25,9 +28,11 @@ import java.util.List;
 
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.R;
 
+/**
+ * Created by Katie on 4/12/2016.
+ */
 // http://stackoverflow.com/questions/4975443/is-there-a-way-to-use-the-speechrecognizer-api-directly-for-speech-input
-public class SpeechToItemsActivity extends Activity
-{
+public class SpeechToItemsFragment extends Fragment {
     private AlertDialog mDialog;
     private ListView itemListView;
     private SpeechRecognizer sr;
@@ -37,15 +42,15 @@ public class SpeechToItemsActivity extends Activity
     private Button speakButton;
 
     @Override
-    public final void onCreate(Bundle savedInstanceState) {
+    public  View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scan);
+        View rootView = inflater.inflate(R.layout.activity_scan, container, false);
 
-        progressBar = (ProgressBar)findViewById(R.id.listen_progressbar);
+        progressBar = (ProgressBar) rootView.findViewById(R.id.listen_progressbar);
 
-        instructions = (TextView) findViewById(R.id.listen_details);
+        instructions = (TextView) rootView.findViewById(R.id.listen_details);
 
-        speakButton = (Button) findViewById(R.id.listen);
+        speakButton = (Button) rootView.findViewById(R.id.listen);
         speakButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,11 +58,13 @@ public class SpeechToItemsActivity extends Activity
             }
         });
 
-        itemListView = (ListView) findViewById(R.id.item_list);
+        itemListView = (ListView) rootView.findViewById(R.id.item_list);
 
-        sr = SpeechRecognizer.createSpeechRecognizer(this);
-        //sr.setRecognitionListener(new VoiceListener(this));
+        sr = SpeechRecognizer.createSpeechRecognizer(getContext());
+        sr.setRecognitionListener(new VoiceListener(this));
         itemList = new ArrayList<>();
+
+        return rootView;
     }
 
     private void listen() {
@@ -84,7 +91,7 @@ public class SpeechToItemsActivity extends Activity
             mostLikelyItems.add(item.getMostLikelyItem());
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(),
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_list_item_1, android.R.id.text1, mostLikelyItems);
         itemListView.setAdapter(adapter);
         itemListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -104,7 +111,7 @@ public class SpeechToItemsActivity extends Activity
 
     private void editItem(final Integer position) {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         builder.setTitle("Edit Item");
         builder.setCancelable(true);
@@ -136,7 +143,7 @@ public class SpeechToItemsActivity extends Activity
         mDialog = builder.show();
     }
 
-    public final void  errorPopup(int error) {
+    public final void errorPopup(int error) {
         progressBar.setVisibility(View.GONE);
         speakButton.setVisibility(View.VISIBLE);
         instructions.setText("Voice Recognition Error " + error);
