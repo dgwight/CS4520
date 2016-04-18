@@ -60,17 +60,21 @@
         <activity
             android:name=".communication.CommunicationMessagesActivity"
             android:screenOrientation="portrait" >
-        android:label="@string/app_name" >
         </activity>
         <activity
-            android:name=".FoodGrouper.SpeechToItemsActivity"
+            android:name=".hardestPart.SpeechToItemsActivity"
             android:screenOrientation="portrait" >
-        android:label="@string/app_name" >
         </activity>
 
         <activity
-            android:name=".FoodGrouper.FoodGrouperMainActivity"
+            android:name=".hardestPart.FoodGrouperMainActivity"
             android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".foodGrouper.AddFoodActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Dialog">
         </activity>
 
         <receiver

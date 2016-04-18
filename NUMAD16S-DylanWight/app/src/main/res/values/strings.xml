@@ -89,7 +89,7 @@ both sides in the larger game.
     <string name="single_player">Start Single Player</string>
 
     <!-- Food Grouper strings -->
-    <string name="food_grouper">Trickiest Part</string>
+    <string name="food_grouper">Food Grouper</string>
     <string name="listen_button_label">Start Reading</string>
     <string name="listen_button_instructions">Click to start reading in your food items including
     the quantity. For example, 5 apples, 2 cartons of eggs, etc.</string>
@@ -101,5 +101,6 @@ both sides in the larger game.
     <string name="this_month_label">This Month</string>
     <string name="last_month_label">Last Month</string>
     <string name="all_label">All</string>
+    <string name="trickiest_part">Trickiest Part</string>
 
 </resources>

@@ -17,4 +17,18 @@
     <color name="see_through_grey">#88888888</color>
 
 
+    //food group colors
+    <color name="fruits">#D0021B</color>
+    <color name="fruitsBorder">#590202</color>
+    <color name="vegetables">#417505</color>
+    <color name="vegetablesBorder">#1A2F01</color>
+    <color name="grains">#F19601</color>
+    <color name="grainsBorder">#A86B07</color>
+    <color name="dairy">#077CD3</color>
+    <color name="dairyBorder">#0D366A</color>
+    <color name="proteins">#4C3192</color>
+    <color name="proteinsBorder">#0A0126</color>
+    <color name="fats">#EEE246</color>
+    <color name="fatsBorder">#A69D2B</color>
+
 </resources>

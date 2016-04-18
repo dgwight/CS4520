@@ -62,6 +62,13 @@
         android:layout_gravity="center"/>
 
     <Button
+        android:id="@+id/trickestPart"
+        android:text="@string/trickiest_part"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
+
+    <Button
         android:id="@+id/foodGrouper"
         android:text="@string/food_grouper"
         android:layout_width="match_parent"

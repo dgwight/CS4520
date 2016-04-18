@@ -10,8 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import dylanwight.madcourse.neu.edu.numad16s_dylanwight.FoodGrouper.FoodGrouperMainActivity;
-import dylanwight.madcourse.neu.edu.numad16s_dylanwight.FoodGrouper.SpeechToItemsActivity;
+import dylanwight.madcourse.neu.edu.numad16s_dylanwight.foodGrouper.AddFoodActivity;
+import dylanwight.madcourse.neu.edu.numad16s_dylanwight.hardestPart.FoodGrouperMainActivity;
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.R;
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.communication.CommunicationActivity;
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.scraggle.ScraggleMenuActivity;
@@ -40,6 +40,7 @@ public class MainActivityFragment extends Fragment {
         View dictionaryButton = rootView.findViewById(R.id.dictionary);
         View scraggleButton = rootView.findViewById(R.id.scraggle);
         View communicationButton = rootView.findViewById(R.id.communication);
+        View trickiestPartButton = rootView.findViewById(R.id.trickestPart);
         View foodGrouperButton = rootView.findViewById(R.id.foodGrouper);
         View quitButton = rootView.findViewById(R.id.quit);
         final String android_id =  Secure.getString(getContext().getContentResolver(), Secure.ANDROID_ID);
@@ -94,7 +95,15 @@ public class MainActivityFragment extends Fragment {
                 getActivity().startActivity(intent);
             }
         });
-        foodGrouperButton.setOnClickListener(new View.OnClickListener() {
+        communicationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), CommunicationActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
+
+        trickiestPartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Intent intent = new Intent(getActivity(), SpeechToItemsActivity.class);
@@ -103,13 +112,15 @@ public class MainActivityFragment extends Fragment {
             }
         });
 
-        communicationButton.setOnClickListener(new View.OnClickListener() {
+        foodGrouperButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), CommunicationActivity.class);
+                //Intent intent = new Intent(getActivity(), SpeechToItemsActivity.class);
+                Intent intent = new Intent(getActivity(), AddFoodActivity.class);
                 getActivity().startActivity(intent);
             }
         });
+
         quitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
