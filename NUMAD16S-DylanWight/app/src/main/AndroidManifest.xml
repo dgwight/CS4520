@@ -11,6 +11,8 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
 
     <permission
         android:name="dylanwight.madcourse.neu.edu.numad16s_dylanwight.C2D_MESSAGE"
@@ -89,6 +91,23 @@
         </receiver>
 
         <service android:name=".communication.GcmIntentService" />
+
+
+        ...
+        <receiver android:name=".foodGrouper.AutoStart">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".foodGrouper.AlarmService"
+            android:enabled="true"
+            android:process=":your_service" >
+        </service>
+
+        <receiver  android:process=":remote" android:name=".foodGrouper.Alarm"></receiver>
+
     </application>
 
 </manifest>

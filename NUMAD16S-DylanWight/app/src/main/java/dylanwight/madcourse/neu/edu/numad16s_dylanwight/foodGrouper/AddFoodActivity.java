@@ -135,8 +135,10 @@ public class AddFoodActivity extends Activity {
         FoodEntry newEntry = new FoodEntry(servings.get(0), servings.get(1), servings.get(2),
                 servings.get(3), servings.get(4), servings.get(5));
 
-        saveText(newEntry);
-        readFile();
+        //saveText(newEntry);
+        //readFile();
+        Alarm a = new Alarm();
+        a.setAlarm(this);
         //this.finish();
     }
 
