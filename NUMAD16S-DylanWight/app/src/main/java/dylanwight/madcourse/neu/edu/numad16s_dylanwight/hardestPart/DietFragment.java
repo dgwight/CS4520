@@ -17,7 +17,10 @@ import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 
+import java.util.Date;
+
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.R;
+import dylanwight.madcourse.neu.edu.numad16s_dylanwight.foodGrouper.FoodEntry;
 
 /**
  * Created by Katie on 4/12/2016.
@@ -27,6 +30,7 @@ public class DietFragment extends Fragment {
     private String TAG = "DietFragment: ";
     private GraphView dietGraph;
     private SeekBar seekBar;
+    private FoodEntry foodEntry = new FoodEntry(new Date(), 0, 0, 0, 0, 0, 0);
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -69,12 +73,12 @@ public class DietFragment extends Fragment {
 
         // add data, this will be dynamic
         BarGraphSeries<DataPoint> series = new BarGraphSeries<DataPoint>(new DataPoint[] {
-                new DataPoint(1, 100),
-                new DataPoint(2, 30),
-                new DataPoint(3, 40),
-                new DataPoint(4, 20),
-                new DataPoint(5, 1),
-                new DataPoint(6, 74)
+                new DataPoint(1, foodEntry.getGrains()),
+                new DataPoint(2, foodEntry.getVegetables()),
+                new DataPoint(3, foodEntry.getFruits()),
+                new DataPoint(4, foodEntry.getDairy()),
+                new DataPoint(5, foodEntry.getProteins()),
+                new DataPoint(6, foodEntry.getFats())
         });
 
         // spacing between each bar
@@ -124,5 +128,9 @@ public class DietFragment extends Fragment {
                 Toast.makeText(getContext(), "Stopped tracking seekbar's progress", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void setFoodEntry(FoodEntry foodEntry) {
+        this.foodEntry = foodEntry;
     }
 }

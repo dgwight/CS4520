@@ -25,23 +25,32 @@ public class Alarm extends BroadcastReceiver {
     }
 
     public void setAlarm(Context context) {
-        Intent intent = new Intent(context, Alarm.class);
-        PendingIntent sender = PendingIntent.getBroadcast(context, 192837, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
         AlarmManager am = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
 
-        am.cancel(sender);  // cancel previous alarms
+        Intent intent = new Intent(context, Alarm.class);
 
-        calendar.set(Calendar.HOUR_OF_DAY, 10);
-        am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, sender);
+        PendingIntent alarm1 = PendingIntent.getBroadcast(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        am.cancel(alarm1);
+        am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, 5000, AlarmManager.INTERVAL_FIFTEEN_MINUTES, alarm1);
 
-        calendar.set(Calendar.HOUR_OF_DAY, 14);
-        am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, sender);
+        /*
+        PendingIntent alarm1 = PendingIntent.getBroadcast(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        am.cancel(alarm1);
+        calendar.set(Calendar.HOUR_OF_DAY, 19);
+        am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, alarm1);
 
-        calendar.set(Calendar.HOUR_OF_DAY, 22);
-        am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, sender);
+        PendingIntent alarm2 = PendingIntent.getBroadcast(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        am.cancel(alarm2);
+        calendar.set(Calendar.HOUR_OF_DAY, 20);
+        am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, alarm2);
+
+        PendingIntent alarm3 = PendingIntent.getBroadcast(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        am.cancel(alarm3);
+        calendar.set(Calendar.HOUR_OF_DAY, 21);
+        am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, alarm3);
+        */
     }
 
     private void sendMessage(Context context) {

@@ -11,6 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.Button;
 
+import java.util.Date;
+
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.R;
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.hardestPart.PagerAdapter;
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.scraggle.ScraggleActivity;
@@ -19,12 +21,16 @@ import dylanwight.madcourse.neu.edu.numad16s_dylanwight.scraggle.ScraggleActivit
  * Created by Katie on 4/13/2016.
  */
 public class FoodGrouperActivity extends AppCompatActivity {
+    PagerAdapter adapter;
+    FoodData data;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_grouper_main);
 
-        FoodData data = new FoodData(this, "data.txt");
+        data = new FoodData(this, "data.txt");
         Log.d("Data Count: ", data.getFoodData().size() + "");
 
         final SharedPreferences preferences = getApplicationContext().getSharedPreferences("FoodGrouper", Context.MODE_PRIVATE);
@@ -34,8 +40,6 @@ public class FoodGrouperActivity extends AppCompatActivity {
             Intent intent = new Intent(this, WelcomeActivity.class);
             this.startActivity(intent);
         }
-
-        
 
         // toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -50,8 +54,7 @@ public class FoodGrouperActivity extends AppCompatActivity {
 
         // allow movement between tabs
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        final PagerAdapter adapter = new PagerAdapter
-                (getSupportFragmentManager(), tabLayout.getTabCount());
+        adapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -70,5 +73,18 @@ public class FoodGrouperActivity extends AppCompatActivity {
 
             }
         });
+
+        setFoodEntry();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        setFoodEntry();
+    }
+
+    private void setFoodEntry() {
+        adapter.setFoodEntry(data.getFoodBetween(
+                new Date(System.currentTimeMillis() - 24 * 60 * 60 * 1000), new Date()));
     }
 }

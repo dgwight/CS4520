@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.R;
@@ -127,7 +128,7 @@ public class AddFoodActivity extends Activity {
     }
 
     private void finishActivity() {
-        FoodEntry newEntry = new FoodEntry(servings.get(0), servings.get(1), servings.get(2),
+        FoodEntry newEntry = new FoodEntry(new Date(), servings.get(0), servings.get(1), servings.get(2),
                 servings.get(3), servings.get(4), servings.get(5));
 
         NotificationManager mNotificationManager =
