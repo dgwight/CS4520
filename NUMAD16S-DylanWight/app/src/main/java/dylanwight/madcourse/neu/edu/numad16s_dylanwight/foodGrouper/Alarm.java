@@ -13,6 +13,8 @@ import android.content.Intent;
 import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 
+import java.util.Calendar;
+
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.R;
 
 //http://stackoverflow.com/questions/4459058/alarm-manager-example
@@ -27,7 +29,19 @@ public class Alarm extends BroadcastReceiver {
         PendingIntent sender = PendingIntent.getBroadcast(context, 192837, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager am = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
-        am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), 30000, sender);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+
+        am.cancel(sender);  // cancel previous alarms
+
+        calendar.set(Calendar.HOUR_OF_DAY, 10);
+        am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, sender);
+
+        calendar.set(Calendar.HOUR_OF_DAY, 14);
+        am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, sender);
+
+        calendar.set(Calendar.HOUR_OF_DAY, 22);
+        am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, sender);
     }
 
     private void sendMessage(Context context) {
@@ -42,6 +56,7 @@ public class Alarm extends BroadcastReceiver {
         mBuilder.setContentIntent(pendingIntent);
         NotificationManager mNotificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
         mNotificationManager.notify(1, mBuilder.build());
     }
 }

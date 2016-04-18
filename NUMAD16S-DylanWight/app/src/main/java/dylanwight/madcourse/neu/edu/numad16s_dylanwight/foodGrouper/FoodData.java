@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -41,5 +42,20 @@ public class FoodData {
 
     public List<FoodEntry> getFoodData() {
         return foodData;
+    }
+
+    public FoodEntry getFoodInInterval(Date start, Date end) {
+        Integer fruit = 0, vegetables = 0, grains = 0, dairy = 0, protein = 0, fats = 0;
+        for (FoodEntry foodEntry : foodData) {
+            if (foodEntry.getTimeStamp().after(start) && foodEntry.getTimeStamp().before(end)) {
+                fruit       += foodEntry.getFruits();
+                vegetables  += foodEntry.getVegetables();
+                grains      += foodEntry.getGrains();
+                dairy       += foodEntry.getDairy();
+                protein     += foodEntry.getProteins();
+                fats        += foodEntry.getProteins();
+            }
+        }
+        return new FoodEntry(start, fruit, vegetables, grains, dairy, protein, fats);
     }
 }

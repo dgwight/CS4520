@@ -1,6 +1,8 @@
 package dylanwight.madcourse.neu.edu.numad16s_dylanwight.foodGrouper;
 
 import android.app.Activity;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -128,6 +130,10 @@ public class AddFoodActivity extends Activity {
         FoodEntry newEntry = new FoodEntry(servings.get(0), servings.get(1), servings.get(2),
                 servings.get(3), servings.get(4), servings.get(5));
 
+        NotificationManager mNotificationManager =
+                (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.cancelAll();
+
         saveText(newEntry);
         this.finish();
     }
@@ -143,6 +149,4 @@ public class AddFoodActivity extends Activity {
             Log.d("error writing to file", t.toString());
         }
     }
-
-
 }

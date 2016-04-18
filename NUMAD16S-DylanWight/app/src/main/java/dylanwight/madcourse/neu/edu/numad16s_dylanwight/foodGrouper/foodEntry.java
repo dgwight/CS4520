@@ -21,8 +21,8 @@ public class FoodEntry {
     private Integer fats;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
 
-    public FoodEntry(Integer fruits, Integer vegetables, Integer grains, Integer dairy, Integer proteins, Integer fats) {
-        this.timeStamp = new Date();
+    public FoodEntry(Date timeStamp, Integer fruits, Integer vegetables, Integer grains, Integer dairy, Integer proteins, Integer fats) {
+        this.timeStamp = timeStamp;
         this.fruits = fruits;
         this.vegetables = vegetables;
         this.grains = grains;
