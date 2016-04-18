@@ -44,7 +44,7 @@ public class FoodData {
         return foodData;
     }
 
-    public FoodEntry getFoodInInterval(Date start, Date end) {
+    public FoodEntry getFoodBetween(Date start, Date end) {
         Integer fruit = 0, vegetables = 0, grains = 0, dairy = 0, protein = 0, fats = 0;
         for (FoodEntry foodEntry : foodData) {
             if (foodEntry.getTimeStamp().after(start) && foodEntry.getTimeStamp().before(end)) {
