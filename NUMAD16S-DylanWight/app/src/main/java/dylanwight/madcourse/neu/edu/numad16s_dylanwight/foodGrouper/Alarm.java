@@ -35,7 +35,7 @@ public class Alarm extends BroadcastReceiver {
                 new NotificationCompat.Builder(context)
                         .setSmallIcon(R.drawable.ic_stat_cloud)
                         .setContentTitle("Food Grouper")
-                        .setContentText("Time to log your meal");
+        .setContentText("Time to log your meal");
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, new Intent(
                 context, AddFoodActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);

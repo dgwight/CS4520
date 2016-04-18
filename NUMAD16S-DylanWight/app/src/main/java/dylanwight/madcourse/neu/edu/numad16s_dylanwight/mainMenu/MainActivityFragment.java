@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.foodGrouper.AddFoodActivity;
+import dylanwight.madcourse.neu.edu.numad16s_dylanwight.foodGrouper.FoodGrouperActivity;
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.hardestPart.FoodGrouperMainActivity;
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.R;
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.communication.CommunicationActivity;
@@ -116,7 +117,7 @@ public class MainActivityFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //Intent intent = new Intent(getActivity(), SpeechToItemsActivity.class);
-                Intent intent = new Intent(getActivity(), AddFoodActivity.class);
+                Intent intent = new Intent(getActivity(), FoodGrouperActivity.class);
                 getActivity().startActivity(intent);
             }
         });

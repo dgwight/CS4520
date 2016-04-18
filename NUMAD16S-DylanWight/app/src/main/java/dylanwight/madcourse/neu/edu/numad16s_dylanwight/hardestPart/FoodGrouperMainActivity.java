@@ -20,7 +20,6 @@ public class FoodGrouperMainActivity extends AppCompatActivity {
         // toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(getString(R.string.app_title));
 
         // tab layout
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);

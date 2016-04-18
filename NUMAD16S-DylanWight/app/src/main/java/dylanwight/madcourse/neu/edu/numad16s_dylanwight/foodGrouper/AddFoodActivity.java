@@ -1,23 +1,14 @@
 package dylanwight.madcourse.neu.edu.numad16s_dylanwight.foodGrouper;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +31,8 @@ public class AddFoodActivity extends Activity {
         getWindow().setBackgroundDrawable(new ColorDrawable(0));
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_input_food);
+
+
 
         TextView promptText = (TextView) findViewById(R.id.promptText);
         Button doneButton = (Button) findViewById(R.id.doneButton);
@@ -135,11 +128,8 @@ public class AddFoodActivity extends Activity {
         FoodEntry newEntry = new FoodEntry(servings.get(0), servings.get(1), servings.get(2),
                 servings.get(3), servings.get(4), servings.get(5));
 
-        //saveText(newEntry);
-        //readFile();
-        Alarm a = new Alarm();
-        a.setAlarm(this);
-        //this.finish();
+        saveText(newEntry);
+        this.finish();
     }
 
     //http://stackoverflow.com/questions/28755934/android-studio-writing-text-to-a-file-using-a-save-button-in-the-menu
@@ -154,27 +144,5 @@ public class AddFoodActivity extends Activity {
         }
     }
 
-    private void readFile() {
-        String yourFilePath = getApplicationContext().getFilesDir() + "/" + "data.txt";
-        FileInputStream fis = null;
-        try {
-            fis = new FileInputStream(new File(yourFilePath));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        InputStreamReader isr = new InputStreamReader(fis);
-        BufferedReader bufferedReader = new BufferedReader(isr);
-        StringBuilder sb = new StringBuilder();
-        String line;
 
-        try {
-            while ((line = bufferedReader.readLine()) != null) {
-                sb.append(line + "\n");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Toast.makeText(getApplicationContext(), sb.toString(), Toast.LENGTH_LONG).show();
-    }
 }
