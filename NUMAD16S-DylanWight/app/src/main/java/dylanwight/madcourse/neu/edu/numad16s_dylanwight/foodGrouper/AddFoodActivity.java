@@ -1,13 +1,24 @@
 package dylanwight.madcourse.neu.edu.numad16s_dylanwight.foodGrouper;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +43,12 @@ public class AddFoodActivity extends Activity {
 
         TextView promptText = (TextView) findViewById(R.id.promptText);
         Button doneButton = (Button) findViewById(R.id.doneButton);
+        doneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finishActivity();
+            }
+        });
 
         this.loadLists();
 
@@ -45,13 +62,14 @@ public class AddFoodActivity extends Activity {
         }
     }
 
-   private void loadView(Integer group) {
-       View groupView = groupViews.get(group);
-       groupView.setBackgroundResource(drawables.get(group));
-       groupLabels.add((TextView) groupView.findViewById(R.id.groupLabel));
-       minusButtons.add((Button) groupView.findViewById(R.id.minusButton));
-       plusButtons.add((Button) groupView.findViewById(R.id.plusButton));
-   }
+    private void loadView(Integer group) {
+        View groupView = groupViews.get(group);
+        groupView.setBackgroundResource(drawables.get(group));
+        groupLabels.add((TextView) groupView.findViewById(R.id.groupLabel));
+        minusButtons.add((Button) groupView.findViewById(R.id.minusButton));
+        plusButtons.add((Button) groupView.findViewById(R.id.plusButton));
+    }
+
     private void updateLabel(Integer group) {
         groupLabels.get(group).setText(foodGroups.get(group) + "\n(" + servings.get(group) + ")");
         if (servings.get(group) == 0) {
@@ -111,5 +129,50 @@ public class AddFoodActivity extends Activity {
         drawables.add(R.drawable.dairy);
         drawables.add(R.drawable.proteins);
         drawables.add(R.drawable.fats);
+    }
+
+    private void finishActivity() {
+        FoodEntry newEntry = new FoodEntry(servings.get(0), servings.get(1), servings.get(2),
+                servings.get(3), servings.get(4), servings.get(5));
+
+        saveText(newEntry);
+        readFile();
+        //this.finish();
+    }
+
+    //http://stackoverflow.com/questions/28755934/android-studio-writing-text-to-a-file-using-a-save-button-in-the-menu
+    public void saveText(FoodEntry newEntry) {
+        try {
+            OutputStreamWriter out = new OutputStreamWriter(openFileOutput("data.txt", MODE_APPEND));
+            out.write(newEntry.toString());
+            out.write('\n');
+            out.close();
+        } catch (Throwable t) {
+            Log.d("error writing to file", t.toString());
+        }
+    }
+
+    private void readFile() {
+        String yourFilePath = getApplicationContext().getFilesDir() + "/" + "data.txt";
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(new File(yourFilePath));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        InputStreamReader isr = new InputStreamReader(fis);
+        BufferedReader bufferedReader = new BufferedReader(isr);
+        StringBuilder sb = new StringBuilder();
+        String line;
+
+        try {
+            while ((line = bufferedReader.readLine()) != null) {
+                sb.append(line + "\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Toast.makeText(getApplicationContext(), sb.toString(), Toast.LENGTH_LONG).show();
     }
 }
