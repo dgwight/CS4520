@@ -103,5 +103,14 @@ both sides in the larger game.
     <string name="all_label">All</string>
     <string name="trickiest_part">Trickiest Part</string>
     <string name="add_food_label">Add Servings</string>
+    <string name="grain">Grain</string>
+    <string name="veg">Veg</string>
+    <string name="fruit">Fruit</string>
+    <string name="protein">Protein</string>
+    <string name="dairy">Dairy</string>
+    <string name="fat">Fat</string>
+    <string name="month">Month</string>
+    <string name="week">Week</string>
+    <string name="day">Day</string>
 
 </resources>

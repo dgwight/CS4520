@@ -17,12 +17,13 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_gravity="start"
-        android:layout_margin="10dp"
-        android:layout_below="@id/toolbar"/>
+    <fragment
+        android:layout_below="@id/toolbar"
+        android:id="@+id/food_grouper_fragment"
+        class="dylanwight.madcourse.neu.edu.numad16s_dylanwight.foodGrouper.FoodGrouperFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        tools:layout="@layout/fragment_food_grouper"/>
 
 </RelativeLayout>

@@ -22,7 +22,6 @@ import dylanwight.madcourse.neu.edu.numad16s_dylanwight.R;
  * http://stackoverflow.com/questions/18413309/how-to-implement-a-viewpager-with-different-fragments-layouts
  */
 public class FoodGrouperActivity extends AppCompatActivity {
-    PagerAdapter adapter;
     FoodData data;
 
     @Override
@@ -44,10 +43,6 @@ public class FoodGrouperActivity extends AppCompatActivity {
         // toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        // allow movement between tabs
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager(), 3));
 
         setFoodEntry();
     }
