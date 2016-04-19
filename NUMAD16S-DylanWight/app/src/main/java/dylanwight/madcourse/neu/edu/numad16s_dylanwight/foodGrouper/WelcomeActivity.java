@@ -33,7 +33,7 @@ public class WelcomeActivity extends AppCompatActivity {
         setUserAsNotNew();
         this.finish();
 
-        Intent intent = new Intent(this, AddFoodActivity.class);
+        Intent intent = new Intent(this, FoodGrouperActivity.class);
         this.startActivity(intent);
     }
 
