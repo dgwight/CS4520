@@ -1,7 +1,9 @@
 package dylanwight.madcourse.neu.edu.numad16s_dylanwight.foodGrouper;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
+import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +16,11 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.R;
 
@@ -22,7 +28,6 @@ import dylanwight.madcourse.neu.edu.numad16s_dylanwight.R;
  * Created by Katie on 4/19/2016.
  */
 public class FoodGrouperFragment extends Fragment{
-    private FoodEntry foodEntry;
     private BarChart dietChart;
     private int [] colorTemplate;
     private enum CurrentView {MONTH, WEEK, DAY};
@@ -30,6 +35,13 @@ public class FoodGrouperFragment extends Fragment{
     private Button monthButton;
     private Button weekButton;
     private Button dayButton;
+    private BarData barData;
+    private BarDataSet barDataSet;
+    private FoodData foodData;
+    private FoodEntry foodEntry;
+    private Date currentDate;
+    private Date targetDate;
+    private GregorianCalendar gc; // help with data manipulation
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,16 +55,26 @@ public class FoodGrouperFragment extends Fragment{
         // get the buttons
         setupButtons(rootView);
 
+        // set the current date
+        currentDate = new Date();
+
+        // initialize
+        gc = new GregorianCalendar();
+
         // get the chart and set up
         dietChart = (BarChart)rootView.findViewById(R.id.diet_chart);
         setupBarChart();
+
+        return rootView;
+    }
+
+    public void setFoodData(FoodData foodData){
+        this.foodData = foodData;
 
         // set the current view to day
         currentView = CurrentView.DAY;
         setupDayView();
         updateButtons();
-
-        return rootView;
     }
 
     // when a button is pressed, set the current view to what
@@ -136,17 +158,9 @@ public class FoodGrouperFragment extends Fragment{
     }
 
     private void setupMonthView(){
-
-    }
-
-    private void setupWeekView(){
-
-    }
-
-    private void setupDayView(){
         ArrayList<BarEntry> entries = new ArrayList<>();
         entries.add(new BarEntry(new float[]{1f, 3f, 4f, 6f, 7f, 10f}, 0));
-        entries.add(new BarEntry(100f, 1));
+        entries.add(new BarEntry(0f, 1));
         entries.add(new BarEntry(6f, 2));
         entries.add(new BarEntry(12f, 3));
         entries.add(new BarEntry(18f, 4));
@@ -154,28 +168,120 @@ public class FoodGrouperFragment extends Fragment{
         entries.add(new BarEntry(9f, 6));
         entries.add(new BarEntry(new float[]{33f, 20f, 13f, 12f, 15f, 7f}, 7));
 
-        BarDataSet dataset = new BarDataSet(entries, "");
-        dataset.setColors(colorTemplate);
-        dataset.setDrawValues(false);
+        barDataSet = new BarDataSet(entries, "");
+        barDataSet.setColors(colorTemplate);
+        barDataSet.setDrawValues(false);
 
         ArrayList<String> labels = new ArrayList<String>();
-        labels.add("4/19/16");
-        labels.add("4/19/16");
-        labels.add("4/19/16");
-        labels.add("4/19/16");
-        labels.add("4/19/16");
-        labels.add("4/19/16");
-        labels.add("4/19/16");
-        labels.add("Target");
+        labels.add("test");
+        labels.add(getString(R.string.monday));
+        labels.add(getString(R.string.tuesday));
+        labels.add(getString(R.string.wednesday));
+        labels.add(getString(R.string.thursday));
+        labels.add(getString(R.string.friday));
+        labels.add(getString(R.string.saturday));
+        labels.add(getString(R.string.target));
 
         XAxis xLabels = dietChart.getXAxis();
         xLabels.setLabelsToSkip(0);
 
-        BarData data = new BarData(labels, dataset);
-        dietChart.setData(data); // set the data and list of lables into chart
+        barData = new BarData(labels, barDataSet);
+        barData.notifyDataChanged();
+
+        dietChart.setData(barData); // set the data and list of lables into chart
+        dietChart.notifyDataSetChanged();
+        dietChart.invalidate();
     }
 
-    public void setFoodEntry(FoodEntry foodEntry) {
-        this.foodEntry = foodEntry;
+    private void setupWeekView(){
+        ArrayList<BarEntry> entries = new ArrayList<>();
+        entries.add(new BarEntry(new float[]{1f, 3f, 4f, 6f, 7f, 10f}, 0));
+        entries.add(new BarEntry(0f, 1));
+        entries.add(new BarEntry(6f, 2));
+        entries.add(new BarEntry(12f, 3));
+        entries.add(new BarEntry(18f, 4));
+        entries.add(new BarEntry(9f, 5));
+        entries.add(new BarEntry(9f, 6));
+        entries.add(new BarEntry(new float[]{33f, 20f, 13f, 12f, 15f, 7f}, 7));
+
+        barDataSet = new BarDataSet(entries, "");
+        barDataSet.setColors(colorTemplate);
+        barDataSet.setDrawValues(false);
+
+        ArrayList<String> labels = new ArrayList<String>();
+        labels.add("test");
+        labels.add(getString(R.string.monday));
+        labels.add(getString(R.string.tuesday));
+        labels.add(getString(R.string.wednesday));
+        labels.add(getString(R.string.thursday));
+        labels.add(getString(R.string.friday));
+        labels.add(getString(R.string.saturday));
+        labels.add(getString(R.string.target));
+
+        XAxis xLabels = dietChart.getXAxis();
+        xLabels.setLabelsToSkip(0);
+
+        barData = new BarData(labels, barDataSet);
+        barData.notifyDataChanged();
+
+        dietChart.setData(barData); // set the data and list of lables into chart
+        dietChart.notifyDataSetChanged();
+        dietChart.invalidate();
+    }
+
+    private void setupDayView(){
+        ArrayList<BarEntry> entries = new ArrayList<>();
+        ArrayList<String> labels = new ArrayList<>();
+
+        String label;
+        float grain, veg, fruit, dairy, protein, fat;
+
+        for (int i = 6; i >= 0; i--){
+            gc.setTime(currentDate);
+            gc.add(Calendar.DAY_OF_YEAR, -i);
+            targetDate = gc.getTime();
+
+            Log.d("FoodGrouperFrag ", targetDate.toString());
+            label = new SimpleDateFormat("EE").format(targetDate);
+            labels.add(label);
+            Log.d("FoodGrouperFrag ", label);
+
+            foodEntry = foodData.getFoodBetween(targetDate, targetDate);
+
+            grain = foodEntry.getGrains();
+            veg = foodEntry.getVegetables();
+            fruit = foodEntry.getFruits();
+            dairy = foodEntry.getDairy();
+            protein = foodEntry.getProteins();
+            fat = foodEntry.getFats();
+
+            entries.add(new BarEntry(new float[]{grain, veg, fruit, protein, dairy, fat}, 0));
+        }
+
+        entries.add(new BarEntry(new float[]{33f, 20f, 13f, 12f, 15f, 7f}, 7));
+        labels.add(getString(R.string.target));
+
+        barDataSet = new BarDataSet(entries, "");
+        barDataSet.setColors(colorTemplate);
+        barDataSet.setDrawValues(false);
+
+/*        labels.add(getString(R.string.sunday));
+        labels.add(getString(R.string.monday));
+        labels.add(getString(R.string.tuesday));
+        labels.add(getString(R.string.wednesday));
+        labels.add(getString(R.string.thursday));
+        labels.add(getString(R.string.friday));
+        labels.add(getString(R.string.saturday));
+        labels.add(getString(R.string.target));*/
+
+        XAxis xLabels = dietChart.getXAxis();
+        xLabels.setLabelsToSkip(0);
+
+        barData = new BarData(labels, barDataSet);
+        barData.notifyDataChanged();
+
+        dietChart.setData(barData); // set the data and list of lables into chart
+        dietChart.notifyDataSetChanged();
+        dietChart.invalidate();
     }
 }
