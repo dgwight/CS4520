@@ -42,6 +42,8 @@ public class FoodGrouperFragment extends Fragment{
     private Date currentDate;
     private Date targetDate;
     private GregorianCalendar gc; // help with data manipulation
+    private ArrayList<BarEntry> entries;
+    private ArrayList<String> labels;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -73,7 +75,7 @@ public class FoodGrouperFragment extends Fragment{
 
         // set the current view to day
         currentView = CurrentView.DAY;
-        setupDayView();
+        updateChartView();
         updateButtons();
     }
 
@@ -85,7 +87,7 @@ public class FoodGrouperFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 currentView = CurrentView.MONTH;
-                setupMonthView();
+                updateChartView();
                 updateButtons();
             }
         });
@@ -95,7 +97,7 @@ public class FoodGrouperFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 currentView = CurrentView.WEEK;
-                setupWeekView();
+                updateChartView();
                 updateButtons();
             }
         });
@@ -105,7 +107,7 @@ public class FoodGrouperFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 currentView = CurrentView.DAY;
-                setupDayView();
+                updateChartView();
                 updateButtons();
             }
         });
@@ -129,9 +131,9 @@ public class FoodGrouperFragment extends Fragment{
         xLabels.setDrawGridLines(false);
 
         Legend l = dietChart.getLegend();
-        l.setCustom(colorTemplate, new String[] { getString(R.string.grain), getString(R.string.veg),
+        l.setCustom(colorTemplate, new String[]{getString(R.string.grain), getString(R.string.veg),
                 getString(R.string.fruit), getString(R.string.protein), getString(R.string.dairy),
-                getString(R.string.fat) });
+                getString(R.string.fat)});
 
     }
 
@@ -157,10 +159,41 @@ public class FoodGrouperFragment extends Fragment{
         }
     }
 
-    private void setupMonthView(){
-        ArrayList<BarEntry> entries = new ArrayList<>();
-        ArrayList<String> labels = new ArrayList<>();
+    private void updateChartView(){
+        entries = new ArrayList<>();
+        labels = new ArrayList<>();
 
+        switch(currentView){
+            case MONTH:
+                setupMonthView();
+                break;
+            case WEEK:
+                setupWeekView();
+                break;
+            case DAY:
+                setupDayView();
+                break;
+        }
+
+        entries.add(new BarEntry(new float[]{33f, 20f, 13f, 12f, 15f, 7f}, 7));
+        labels.add(getString(R.string.target));
+
+        barDataSet = new BarDataSet(entries, "");
+        barDataSet.setColors(colorTemplate);
+        barDataSet.setDrawValues(false);
+
+        XAxis xLabels = dietChart.getXAxis();
+        xLabels.setLabelsToSkip(0);
+
+        barData = new BarData(labels, barDataSet);
+        barData.notifyDataChanged();
+
+        dietChart.setData(barData); // set the data and list of lables into chart
+        dietChart.notifyDataSetChanged();
+        dietChart.invalidate();
+    }
+
+    private void setupMonthView(){
         String label;
         float grain, veg, fruit, dairy, protein, fat;
 
@@ -169,10 +202,8 @@ public class FoodGrouperFragment extends Fragment{
             gc.add(Calendar.MONTH, -i);
             targetDate = gc.getTime();
 
-            Log.d("FoodGrouperFrag ", targetDate.toString());
             label = new SimpleDateFormat("MMM").format(targetDate);
             labels.add(label);
-            Log.d("FoodGrouperFrag ", label);
 
             foodEntry = foodData.getFoodBetween(targetDate, targetDate);
 
@@ -185,29 +216,9 @@ public class FoodGrouperFragment extends Fragment{
 
             entries.add(new BarEntry(new float[]{grain, veg, fruit, protein, dairy, fat}, 0));
         }
-
-        entries.add(new BarEntry(new float[]{33f, 20f, 13f, 12f, 15f, 7f}, 7));
-        labels.add(getString(R.string.target));
-
-        barDataSet = new BarDataSet(entries, "");
-        barDataSet.setColors(colorTemplate);
-        barDataSet.setDrawValues(false);
-
-        XAxis xLabels = dietChart.getXAxis();
-        xLabels.setLabelsToSkip(0);
-
-        barData = new BarData(labels, barDataSet);
-        barData.notifyDataChanged();
-
-        dietChart.setData(barData); // set the data and list of lables into chart
-        dietChart.notifyDataSetChanged();
-        dietChart.invalidate();
     }
 
     private void setupWeekView(){
-        ArrayList<BarEntry> entries = new ArrayList<>();
-        ArrayList<String> labels = new ArrayList<>();
-
         String label;
         float grain, veg, fruit, dairy, protein, fat;
 
@@ -216,10 +227,8 @@ public class FoodGrouperFragment extends Fragment{
             gc.add(Calendar.WEEK_OF_MONTH, -i);
             targetDate = gc.getTime();
 
-            Log.d("FoodGrouperFrag ", targetDate.toString());
             label = new SimpleDateFormat("MM/dd").format(targetDate);
             labels.add(label);
-            Log.d("FoodGrouperFrag ", label);
 
             foodEntry = foodData.getFoodBetween(targetDate, targetDate);
 
@@ -232,29 +241,9 @@ public class FoodGrouperFragment extends Fragment{
 
             entries.add(new BarEntry(new float[]{grain, veg, fruit, protein, dairy, fat}, 0));
         }
-
-        entries.add(new BarEntry(new float[]{33f, 20f, 13f, 12f, 15f, 7f}, 7));
-        labels.add(getString(R.string.target));
-
-        barDataSet = new BarDataSet(entries, "");
-        barDataSet.setColors(colorTemplate);
-        barDataSet.setDrawValues(false);
-
-        XAxis xLabels = dietChart.getXAxis();
-        xLabels.setLabelsToSkip(0);
-
-        barData = new BarData(labels, barDataSet);
-        barData.notifyDataChanged();
-
-        dietChart.setData(barData); // set the data and list of lables into chart
-        dietChart.notifyDataSetChanged();
-        dietChart.invalidate();
     }
 
     private void setupDayView(){
-        ArrayList<BarEntry> entries = new ArrayList<>();
-        ArrayList<String> labels = new ArrayList<>();
-
         String label;
         float grain, veg, fruit, dairy, protein, fat;
 
@@ -263,10 +252,8 @@ public class FoodGrouperFragment extends Fragment{
             gc.add(Calendar.DAY_OF_YEAR, -i);
             targetDate = gc.getTime();
 
-            Log.d("FoodGrouperFrag ", targetDate.toString());
             label = new SimpleDateFormat("EE").format(targetDate);
             labels.add(label);
-            Log.d("FoodGrouperFrag ", label);
 
             foodEntry = foodData.getFoodBetween(targetDate, targetDate);
 
@@ -279,22 +266,5 @@ public class FoodGrouperFragment extends Fragment{
 
             entries.add(new BarEntry(new float[]{grain, veg, fruit, protein, dairy, fat}, 0));
         }
-
-        entries.add(new BarEntry(new float[]{33f, 20f, 13f, 12f, 15f, 7f}, 7));
-        labels.add(getString(R.string.target));
-
-        barDataSet = new BarDataSet(entries, "");
-        barDataSet.setColors(colorTemplate);
-        barDataSet.setDrawValues(false);
-
-        XAxis xLabels = dietChart.getXAxis();
-        xLabels.setLabelsToSkip(0);
-
-        barData = new BarData(labels, barDataSet);
-        barData.notifyDataChanged();
-
-        dietChart.setData(barData); // set the data and list of lables into chart
-        dietChart.notifyDataSetChanged();
-        dietChart.invalidate();
     }
 }
