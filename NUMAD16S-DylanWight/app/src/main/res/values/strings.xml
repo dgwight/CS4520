@@ -102,5 +102,6 @@ both sides in the larger game.
     <string name="last_month_label">Last Month</string>
     <string name="all_label">All</string>
     <string name="trickiest_part">Trickiest Part</string>
+    <string name="add_food_label">Add Servings</string>
 
 </resources>
