@@ -34,7 +34,7 @@ public class FoodEntry {
     public  FoodEntry(String dataLine) {
         String[] dataArray = dataLine.split("~");
         try {
-            this.timeStamp = dateFormat.parse(dataArray[0]);
+            this.timeStamp  =  dateFormat.parse(dataArray[0]);
             this.fruits     =  Integer.valueOf(dataArray[1]);
             this.vegetables =  Integer.valueOf(dataArray[2]);
             this.grains     =  Integer.valueOf(dataArray[3]);
@@ -49,7 +49,7 @@ public class FoodEntry {
 
     public String toString() {
         return dateFormat.format(timeStamp) + "~" + fruits + "~" + vegetables + "~" + grains + "~" + dairy + "~"
-                + proteins + "~" + fats;
+               + proteins + "~" + fats;
     }
 
     public Date getTimeStamp() {

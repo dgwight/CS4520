@@ -16,6 +16,7 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -44,6 +45,7 @@ public class FoodGrouperFragment extends Fragment{
     private GregorianCalendar gc; // help with data manipulation
     private ArrayList<BarEntry> entries;
     private ArrayList<String> labels;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd zzz yyyy");
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -253,13 +255,19 @@ public class FoodGrouperFragment extends Fragment{
             targetDate = gc.getTime();
 
             gc.add(Calendar.DAY_OF_YEAR, 1);
-            Date test = gc.getTime();
+            Date interval = gc.getTime();
 
             label = new SimpleDateFormat("EE").format(targetDate);
             labels.add(label);
 
-            foodEntry = foodData.getFoodBetween(targetDate, test);
-            Log.d("FOODGROUPERFRAG: ", foodEntry.toString());
+            try{
+                targetDate = dateFormat.parse(dateFormat.format(targetDate));
+                interval = dateFormat.parse(dateFormat.format(interval));
+            } catch (ParseException p){
+                Log.d("FoodGrouperFragment", p.toString());
+            }
+
+            foodEntry = foodData.getFoodBetween(targetDate, interval);
 
             grain = foodEntry.getGrains();
             veg = foodEntry.getVegetables();
@@ -270,6 +278,7 @@ public class FoodGrouperFragment extends Fragment{
 
             entries.add(new BarEntry(new float[]{grain, veg, fruit, protein, dairy, fat}, entryIndex));
             entryIndex++;
+
         }
 
     }

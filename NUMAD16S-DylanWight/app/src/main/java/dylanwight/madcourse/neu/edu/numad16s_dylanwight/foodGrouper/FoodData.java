@@ -1,6 +1,7 @@
 package dylanwight.madcourse.neu.edu.numad16s_dylanwight.foodGrouper;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -45,6 +46,8 @@ public class FoodData {
     }
 
     public FoodEntry getFoodBetween(Date start, Date end) {
+        Log.d("FoodData ", start.toString() + " " + end.toString());
+
         Integer fruit = 0, vegetables = 0, grains = 0, dairy = 0, protein = 0, fats = 0;
         for (FoodEntry foodEntry : foodData) {
             if (foodEntry.getTimeStamp().after(start) && foodEntry.getTimeStamp().before(end)) {
