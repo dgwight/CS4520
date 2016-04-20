@@ -246,16 +246,20 @@ public class FoodGrouperFragment extends Fragment{
     private void setupDayView(){
         String label;
         float grain, veg, fruit, dairy, protein, fat;
-
+        int entryIndex = 0;
         for (int i = 6; i >= 0; i--){
             gc.setTime(currentDate);
             gc.add(Calendar.DAY_OF_YEAR, -i);
             targetDate = gc.getTime();
 
+            gc.add(Calendar.DAY_OF_YEAR, 1);
+            Date test = gc.getTime();
+
             label = new SimpleDateFormat("EE").format(targetDate);
             labels.add(label);
 
-            foodEntry = foodData.getFoodBetween(targetDate, targetDate);
+            foodEntry = foodData.getFoodBetween(targetDate, test);
+            Log.d("FOODGROUPERFRAG: ", foodEntry.toString());
 
             grain = foodEntry.getGrains();
             veg = foodEntry.getVegetables();
@@ -264,7 +268,8 @@ public class FoodGrouperFragment extends Fragment{
             protein = foodEntry.getProteins();
             fat = foodEntry.getFats();
 
-            entries.add(new BarEntry(new float[]{grain, veg, fruit, protein, dairy, fat}, 0));
+            entries.add(new BarEntry(new float[]{grain, veg, fruit, protein, dairy, fat}, entryIndex));
+            entryIndex++;
         }
 
     }
