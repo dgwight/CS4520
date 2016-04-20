@@ -266,5 +266,6 @@ public class FoodGrouperFragment extends Fragment{
 
             entries.add(new BarEntry(new float[]{grain, veg, fruit, protein, dairy, fat}, 0));
         }
+
     }
 }
