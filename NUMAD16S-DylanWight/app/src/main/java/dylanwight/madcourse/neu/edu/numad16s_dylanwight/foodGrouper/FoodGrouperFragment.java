@@ -225,11 +225,11 @@ public class FoodGrouperFragment extends Fragment {
             grain = foodEntry.getGrains();
             veg = foodEntry.getVegetables();
             fruit = foodEntry.getFruits();
-            dairy = foodEntry.getDairy();
             protein = foodEntry.getProteins();
+            dairy = foodEntry.getDairy();
             fat = foodEntry.getFats();
 
-            servings = calculatePercentages(grain, veg, fruit, dairy, protein, fat);
+            servings = calculatePercentages(grain, veg, fruit, protein, dairy, fat);
 
             entries.add(new BarEntry(servings, entryIndex));
             entryIndex++;
@@ -268,7 +268,7 @@ public class FoodGrouperFragment extends Fragment {
             dairy = foodEntry.getDairy();
             protein = foodEntry.getProteins();
             fat = foodEntry.getFats();
-            servings = calculatePercentages(grain, veg, fruit, dairy, protein, fat);
+            servings = calculatePercentages(grain, veg, fruit, protein, dairy, fat);
 
             entries.add(new BarEntry(servings, entryIndex));
             entryIndex++;
@@ -308,7 +308,9 @@ public class FoodGrouperFragment extends Fragment {
             protein = foodEntry.getProteins();
             fat = foodEntry.getFats();
 
-            servings = calculatePercentages(grain, veg, fruit, dairy, protein, fat);
+            Log.d("FoodGrouperFragment", fat + "");
+
+            servings = calculatePercentages(grain, veg, fruit, protein, dairy, fat);
 
             entries.add(new BarEntry(servings, entryIndex));
             entryIndex++;
@@ -317,9 +319,10 @@ public class FoodGrouperFragment extends Fragment {
 
     // Calculate the percentage of the user's diet each food group takes up
     // to show in the graph
-    private float[] calculatePercentages(float grain, float veg, float fruit, float dairy,
-                                         float protein, float fat) {
+    private float[] calculatePercentages(float grain, float veg, float fruit, float protein,
+                                         float dairy, float fat) {
         float total = grain + veg + fruit + dairy + protein + fat;
+
         grain = (grain/total) * 100;
         veg = (veg/total) * 100;
         fruit = (fruit/total) * 100;
@@ -327,7 +330,7 @@ public class FoodGrouperFragment extends Fragment {
         protein = (protein/total) * 100;
         fat = (fat/total) * 100;
 
-        float [] results = new float[]{grain, veg, fruit, dairy, protein, fat};
+        float [] results = new float[]{grain, veg, fruit, protein, dairy, fat};
 
         return results;
     }

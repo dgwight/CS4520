@@ -56,7 +56,7 @@ public class FoodData {
                 grains      += foodEntry.getGrains();
                 dairy       += foodEntry.getDairy();
                 protein     += foodEntry.getProteins();
-                fats        += foodEntry.getProteins();
+                fats        += foodEntry.getFats();
             }
         }
         return new FoodEntry(start, fruit, vegetables, grains, dairy, protein, fats);
