@@ -48,7 +48,7 @@ public class FoodGrouperActivity extends AppCompatActivity {
 
         // toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("FoodGrouper");
+        toolbar.setTitle(getString(R.string.food_grouper));
         setSupportActionBar(toolbar);
     }
 
