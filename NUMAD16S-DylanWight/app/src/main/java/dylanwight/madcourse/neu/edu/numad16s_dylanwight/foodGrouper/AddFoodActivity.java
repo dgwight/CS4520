@@ -35,8 +35,6 @@ public class AddFoodActivity extends Activity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_input_food);
 
-
-
         TextView promptText = (TextView) findViewById(R.id.promptText);
         Button doneButton = (Button) findViewById(R.id.doneButton);
         doneButton.setOnClickListener(new View.OnClickListener() {

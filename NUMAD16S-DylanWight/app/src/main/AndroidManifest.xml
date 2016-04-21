@@ -89,6 +89,11 @@
             android:theme="@android:style/Theme.Holo.Dialog">
         </activity>
 
+        <activity
+            android:name=".foodGrouper.SettingsActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
         <receiver
             android:name=".communication.GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >

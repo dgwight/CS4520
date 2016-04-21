@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.audiofx.BassBoost;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -55,6 +56,12 @@ public class FoodGrouperActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume(){
+        super.onResume();
+        Log.d("FoodGrouperActivity ", "on resume");
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.food_grouper_menu, menu);
         return true;
@@ -62,16 +69,20 @@ public class FoodGrouperActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        Intent intent;
+
         switch (item.getItemId()) {
             // show settings
             case R.id.action_settings:
+                intent = new Intent(this, SettingsActivity.class);
+                this.startActivity(intent);
                 return true;
 
             // allow the user to add data
             case R.id.action_add_food_items:
-                Intent intent = new Intent(this, AddFoodActivity.class);
+                intent = new Intent(this, AddFoodActivity.class);
                 this.startActivity(intent);
-
                 return true;
 
             default:
