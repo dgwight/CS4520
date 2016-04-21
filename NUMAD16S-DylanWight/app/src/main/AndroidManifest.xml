@@ -76,6 +76,10 @@
         <activity
             android:name=".foodGrouper.FoodGrouperActivity"
             android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity
@@ -91,6 +95,11 @@
 
         <activity
             android:name=".foodGrouper.SettingsActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".foodGrouper.FoodGrouperStartupActivity"
             android:screenOrientation="portrait">
         </activity>
 

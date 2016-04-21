@@ -135,7 +135,7 @@ public class FoodGrouperFragment extends Fragment {
 
         Legend l = dietChart.getLegend();
         l.setCustom(colorTemplate, new String[]{getString(R.string.grain), getString(R.string.veg),
-                getString(R.string.fruit), getString(R.string.protein), getString(R.string.dairy),
+                getString(R.string.fruit), getString(R.string.protein),getString(R.string.dairy),
                 getString(R.string.fat)});
 
     }

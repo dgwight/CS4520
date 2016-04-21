@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.foodGrouper.AddFoodActivity;
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.foodGrouper.FoodGrouperActivity;
+import dylanwight.madcourse.neu.edu.numad16s_dylanwight.foodGrouper.FoodGrouperStartupActivity;
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.hardestPart.FoodGrouperMainActivity;
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.R;
 import dylanwight.madcourse.neu.edu.numad16s_dylanwight.communication.CommunicationActivity;
@@ -107,7 +108,6 @@ public class MainActivityFragment extends Fragment {
         trickiestPartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent intent = new Intent(getActivity(), SpeechToItemsActivity.class);
                 Intent intent = new Intent(getActivity(), FoodGrouperMainActivity.class);
                 getActivity().startActivity(intent);
             }
@@ -116,8 +116,7 @@ public class MainActivityFragment extends Fragment {
         foodGrouperButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent intent = new Intent(getActivity(), SpeechToItemsActivity.class);
-                Intent intent = new Intent(getActivity(), FoodGrouperActivity.class);
+                Intent intent = new Intent(getActivity(), FoodGrouperStartupActivity.class);
                 getActivity().startActivity(intent);
             }
         });
