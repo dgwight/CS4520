@@ -28,9 +28,9 @@ import dylanwight.madcourse.neu.edu.numad16s_dylanwight.R;
 /**
  * Created by Katie on 4/19/2016.
  */
-public class FoodGrouperFragment extends Fragment{
+public class FoodGrouperFragment extends Fragment {
     private BarChart dietChart;
-    private int [] colorTemplate;
+    private int[] colorTemplate;
     private enum CurrentView {MONTH, WEEK, DAY};
     private CurrentView currentView;
     private Button monthButton;
@@ -55,7 +55,7 @@ public class FoodGrouperFragment extends Fragment{
         // create the color template
         colorTemplate = new int[]{android.graphics.Color.rgb(241, 150, 1), android.graphics.Color.rgb(65, 117, 5),
                 android.graphics.Color.rgb(208, 2, 27), android.graphics.Color.rgb(76, 49, 146),
-                android.graphics.Color.rgb(7, 124, 211), android.graphics.Color.rgb(238,226,70)};
+                android.graphics.Color.rgb(7, 124, 211), android.graphics.Color.rgb(238, 226, 70)};
 
         // get the buttons
         setupButtons(rootView);
@@ -67,13 +67,13 @@ public class FoodGrouperFragment extends Fragment{
         gc = new GregorianCalendar();
 
         // get the chart and set up
-        dietChart = (BarChart)rootView.findViewById(R.id.diet_chart);
+        dietChart = (BarChart) rootView.findViewById(R.id.diet_chart);
         setupBarChart();
 
         return rootView;
     }
 
-    public void setFoodData(FoodData foodData){
+    public void setFoodData(FoodData foodData) {
         this.foodData = foodData;
 
         // set the current view to day
@@ -84,8 +84,8 @@ public class FoodGrouperFragment extends Fragment{
 
     // when a button is pressed, set the current view to what
     // was selected
-    private void setupButtons(View rootView){
-        monthButton = (Button)rootView.findViewById(R.id.month_button);
+    private void setupButtons(View rootView) {
+        monthButton = (Button) rootView.findViewById(R.id.month_button);
         monthButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,7 +95,7 @@ public class FoodGrouperFragment extends Fragment{
             }
         });
 
-        weekButton = (Button)rootView.findViewById(R.id.week_button);
+        weekButton = (Button) rootView.findViewById(R.id.week_button);
         weekButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,7 +105,7 @@ public class FoodGrouperFragment extends Fragment{
             }
         });
 
-        dayButton = (Button)rootView.findViewById(R.id.day_button);
+        dayButton = (Button) rootView.findViewById(R.id.day_button);
         dayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,7 +116,7 @@ public class FoodGrouperFragment extends Fragment{
         });
     }
 
-    private void setupBarChart(){
+    private void setupBarChart() {
         dietChart.setDescription("");
 
         dietChart.setTouchEnabled(false);
@@ -142,8 +142,8 @@ public class FoodGrouperFragment extends Fragment{
 
     // after a button has been chosen, disable what has just been pressed
     // and enable the others
-    private void updateButtons(){
-        switch(currentView){
+    private void updateButtons() {
+        switch (currentView) {
             case MONTH:
                 monthButton.setEnabled(false);
                 weekButton.setEnabled(true);
@@ -162,11 +162,11 @@ public class FoodGrouperFragment extends Fragment{
         }
     }
 
-    private void updateChartView(){
+    private void updateChartView() {
         entries = new ArrayList<>();
         labels = new ArrayList<>();
 
-        switch(currentView){
+        switch (currentView) {
             case MONTH:
                 setupMonthView();
                 break;
@@ -196,12 +196,13 @@ public class FoodGrouperFragment extends Fragment{
         dietChart.invalidate();
     }
 
-    private void setupMonthView(){
+    private void setupMonthView() {
         String label;
         float grain, veg, fruit, dairy, protein, fat;
         int entryIndex = 0;
+        float [] servings;
 
-        for (int i = 6; i >= 0; i--){
+        for (int i = 6; i >= 0; i--) {
             gc.setTime(currentDate);
             gc.add(Calendar.MONTH, -i);
             targetDate = gc.getTime();
@@ -212,15 +213,14 @@ public class FoodGrouperFragment extends Fragment{
             gc.add(Calendar.MONTH, 1);
             Date interval = gc.getTime();
 
-            try{
+            try {
                 targetDate = dateFormatMonth.parse(dateFormatMonth.format(targetDate));
                 interval = dateFormatMonth.parse(dateFormatMonth.format(interval));
-            } catch (ParseException p){
+            } catch (ParseException p) {
                 Log.d("FoodGrouperFragment", p.toString());
             }
 
             foodEntry = foodData.getFoodBetween(targetDate, interval);
-            Log.d("FoodGrouperFragment", targetDate.toString() + interval.toString());
 
             grain = foodEntry.getGrains();
             veg = foodEntry.getVegetables();
@@ -229,17 +229,20 @@ public class FoodGrouperFragment extends Fragment{
             protein = foodEntry.getProteins();
             fat = foodEntry.getFats();
 
-            entries.add(new BarEntry(new float[]{grain, veg, fruit, protein, dairy, fat}, entryIndex));
+            servings = calculatePercentages(grain, veg, fruit, dairy, protein, fat);
+
+            entries.add(new BarEntry(servings, entryIndex));
             entryIndex++;
         }
     }
 
-    private void setupWeekView(){
+    private void setupWeekView() {
         String label;
         float grain, veg, fruit, dairy, protein, fat;
         int entryIndex = 0;
+        float[] servings;
 
-        for (int i = 6; i >= 0; i--){
+        for (int i = 6; i >= 0; i--) {
             gc.setTime(currentDate);
             gc.add(Calendar.WEEK_OF_MONTH, -i);
             targetDate = gc.getTime();
@@ -250,15 +253,14 @@ public class FoodGrouperFragment extends Fragment{
             gc.add(Calendar.WEEK_OF_MONTH, 1);
             Date interval = gc.getTime();
 
-            try{
+            try {
                 targetDate = dateFormatDay.parse(dateFormatDay.format(targetDate));
                 interval = dateFormatDay.parse(dateFormatDay.format(interval));
-            } catch (ParseException p){
+            } catch (ParseException p) {
                 Log.d("FoodGrouperFragment", p.toString());
             }
 
             foodEntry = foodData.getFoodBetween(targetDate, interval);
-            Log.d("FoodGrouperFragment", targetDate.toString() + interval.toString());
 
             grain = foodEntry.getGrains();
             veg = foodEntry.getVegetables();
@@ -266,17 +268,20 @@ public class FoodGrouperFragment extends Fragment{
             dairy = foodEntry.getDairy();
             protein = foodEntry.getProteins();
             fat = foodEntry.getFats();
+            servings = calculatePercentages(grain, veg, fruit, dairy, protein, fat);
 
-            entries.add(new BarEntry(new float[]{grain, veg, fruit, protein, dairy, fat}, entryIndex));
+            entries.add(new BarEntry(servings, entryIndex));
             entryIndex++;
         }
     }
 
-    private void setupDayView(){
+    private void setupDayView() {
         String label;
         float grain, veg, fruit, dairy, protein, fat;
         int entryIndex = 0;
-        for (int i = 6; i >= 0; i--){
+        float[] servings;
+
+        for (int i = 6; i >= 0; i--) {
             gc.setTime(currentDate);
             gc.add(Calendar.DAY_OF_YEAR, -i);
             targetDate = gc.getTime();
@@ -287,10 +292,10 @@ public class FoodGrouperFragment extends Fragment{
             label = new SimpleDateFormat("EE").format(targetDate);
             labels.add(label);
 
-            try{
+            try {
                 targetDate = dateFormatDay.parse(dateFormatDay.format(targetDate));
                 interval = dateFormatDay.parse(dateFormatDay.format(interval));
-            } catch (ParseException p){
+            } catch (ParseException p) {
                 Log.d("FoodGrouperFragment", p.toString());
             }
 
@@ -303,10 +308,29 @@ public class FoodGrouperFragment extends Fragment{
             protein = foodEntry.getProteins();
             fat = foodEntry.getFats();
 
-            entries.add(new BarEntry(new float[]{grain, veg, fruit, protein, dairy, fat}, entryIndex));
+            servings = calculatePercentages(grain, veg, fruit, dairy, protein, fat);
+
+            entries.add(new BarEntry(servings, entryIndex));
             entryIndex++;
-
         }
-
     }
+
+    // Calculate the percentage of the user's diet each food group takes up
+    // to show in the graph
+    private float[] calculatePercentages(float grain, float veg, float fruit, float dairy,
+                                         float protein, float fat) {
+        float total = grain + veg + fruit + dairy + protein + fat;
+        grain = (grain/total) * 100;
+        veg = (veg/total) * 100;
+        fruit = (fruit/total) * 100;
+        dairy = (dairy/total) * 100;
+        protein = (protein/total) * 100;
+        fat = (fat/total) * 100;
+
+        float [] results = new float[]{grain, veg, fruit, dairy, protein, fat};
+
+        return results;
+    }
+
+
 }
