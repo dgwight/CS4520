@@ -75,6 +75,8 @@
 
         <activity
             android:name=".foodGrouper.FoodGrouperActivity"
+            android:label="MAD16S-FoodGrouper"
+            android:icon="@drawable/ic_stat_cloud"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
