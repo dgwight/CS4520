@@ -45,7 +45,8 @@ public class FoodGrouperFragment extends Fragment{
     private GregorianCalendar gc; // help with data manipulation
     private ArrayList<BarEntry> entries;
     private ArrayList<String> labels;
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd zzz yyyy");
+    private SimpleDateFormat dateFormatDay = new SimpleDateFormat("EEE MMM dd zzz yyyy");
+    private SimpleDateFormat dateFormatMonth = new SimpleDateFormat("MMM zzz yyy");
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -198,6 +199,7 @@ public class FoodGrouperFragment extends Fragment{
     private void setupMonthView(){
         String label;
         float grain, veg, fruit, dairy, protein, fat;
+        int entryIndex = 0;
 
         for (int i = 6; i >= 0; i--){
             gc.setTime(currentDate);
@@ -207,7 +209,18 @@ public class FoodGrouperFragment extends Fragment{
             label = new SimpleDateFormat("MMM").format(targetDate);
             labels.add(label);
 
-            foodEntry = foodData.getFoodBetween(targetDate, targetDate);
+            gc.add(Calendar.MONTH, 1);
+            Date interval = gc.getTime();
+
+            try{
+                targetDate = dateFormatMonth.parse(dateFormatMonth.format(targetDate));
+                interval = dateFormatMonth.parse(dateFormatMonth.format(interval));
+            } catch (ParseException p){
+                Log.d("FoodGrouperFragment", p.toString());
+            }
+
+            foodEntry = foodData.getFoodBetween(targetDate, interval);
+            Log.d("FoodGrouperFragment", targetDate.toString() + interval.toString());
 
             grain = foodEntry.getGrains();
             veg = foodEntry.getVegetables();
@@ -216,13 +229,15 @@ public class FoodGrouperFragment extends Fragment{
             protein = foodEntry.getProteins();
             fat = foodEntry.getFats();
 
-            entries.add(new BarEntry(new float[]{grain, veg, fruit, protein, dairy, fat}, 0));
+            entries.add(new BarEntry(new float[]{grain, veg, fruit, protein, dairy, fat}, entryIndex));
+            entryIndex++;
         }
     }
 
     private void setupWeekView(){
         String label;
         float grain, veg, fruit, dairy, protein, fat;
+        int entryIndex = 0;
 
         for (int i = 6; i >= 0; i--){
             gc.setTime(currentDate);
@@ -232,7 +247,18 @@ public class FoodGrouperFragment extends Fragment{
             label = new SimpleDateFormat("MM/dd").format(targetDate);
             labels.add(label);
 
-            foodEntry = foodData.getFoodBetween(targetDate, targetDate);
+            gc.add(Calendar.WEEK_OF_MONTH, 1);
+            Date interval = gc.getTime();
+
+            try{
+                targetDate = dateFormatDay.parse(dateFormatDay.format(targetDate));
+                interval = dateFormatDay.parse(dateFormatDay.format(interval));
+            } catch (ParseException p){
+                Log.d("FoodGrouperFragment", p.toString());
+            }
+
+            foodEntry = foodData.getFoodBetween(targetDate, interval);
+            Log.d("FoodGrouperFragment", targetDate.toString() + interval.toString());
 
             grain = foodEntry.getGrains();
             veg = foodEntry.getVegetables();
@@ -241,7 +267,8 @@ public class FoodGrouperFragment extends Fragment{
             protein = foodEntry.getProteins();
             fat = foodEntry.getFats();
 
-            entries.add(new BarEntry(new float[]{grain, veg, fruit, protein, dairy, fat}, 0));
+            entries.add(new BarEntry(new float[]{grain, veg, fruit, protein, dairy, fat}, entryIndex));
+            entryIndex++;
         }
     }
 
@@ -261,8 +288,8 @@ public class FoodGrouperFragment extends Fragment{
             labels.add(label);
 
             try{
-                targetDate = dateFormat.parse(dateFormat.format(targetDate));
-                interval = dateFormat.parse(dateFormat.format(interval));
+                targetDate = dateFormatDay.parse(dateFormatDay.format(targetDate));
+                interval = dateFormatDay.parse(dateFormatDay.format(interval));
             } catch (ParseException p){
                 Log.d("FoodGrouperFragment", p.toString());
             }
