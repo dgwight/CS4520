@@ -23,7 +23,9 @@ import dylanwight.madcourse.neu.edu.numad16s_dylanwight.R;
  * http://stackoverflow.com/questions/18413309/how-to-implement-a-viewpager-with-different-fragments-layouts
  */
 public class FoodGrouperActivity extends AppCompatActivity {
-    FoodData data;
+    private FoodData data;
+    private boolean updateData;
+    private Fragment foodGrouperFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +35,7 @@ public class FoodGrouperActivity extends AppCompatActivity {
         data = new FoodData(this, "data.txt");
         Log.d("Data Count: ", data.getFoodData().size() + "");
 
-        Fragment foodGrouperFragment = this.getFragmentManager().findFragmentById(R.id.food_grouper_fragment);
+        foodGrouperFragment = this.getFragmentManager().findFragmentById(R.id.food_grouper_fragment);
         ((FoodGrouperFragment)foodGrouperFragment).setFoodData(data);
 
         final SharedPreferences preferences = getApplicationContext().getSharedPreferences("FoodGrouper", Context.MODE_PRIVATE);
@@ -58,7 +60,13 @@ public class FoodGrouperActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
-        Log.d("FoodGrouperActivity ", "on resume");
+
+        if (updateData){
+            Log.d("FoodGrouperActivity ", "Update the food data");
+            data = new FoodData(this, "data.txt");
+            ((FoodGrouperFragment)foodGrouperFragment).setFoodData(data);
+            updateData = false;
+        }
     }
 
     @Override
@@ -83,6 +91,7 @@ public class FoodGrouperActivity extends AppCompatActivity {
             case R.id.action_add_food_items:
                 intent = new Intent(this, AddFoodActivity.class);
                 this.startActivity(intent);
+                updateData = true;
                 return true;
 
             default:
