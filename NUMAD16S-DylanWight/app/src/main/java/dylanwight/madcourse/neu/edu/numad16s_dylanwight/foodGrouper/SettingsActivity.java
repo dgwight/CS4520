@@ -35,6 +35,7 @@ public class SettingsActivity extends Activity {
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                 builder.setTitle(getString(R.string.about_label));
+                builder.setMessage(getString(R.string.about_description));
                 builder.setCancelable(true);
                 builder.setPositiveButton(R.string.ok_label,
                         new DialogInterface.OnClickListener() {
@@ -53,6 +54,7 @@ public class SettingsActivity extends Activity {
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                 builder.setTitle(getString(R.string.acknowledgements));
+                builder.setMessage(getString(R.string.acknowledgements_decscription));
                 builder.setCancelable(true);
                 builder.setPositiveButton(R.string.ok_label,
                         new DialogInterface.OnClickListener() {

@@ -8,9 +8,10 @@
     tools:context=".foodGrouper.FoodGrouperStartupActivity">
 
     <TextView
-        android:text="This is where we'll put the description"
+        android:text="@string/food_grouper_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:layout_gravity="center"/>
 
     <Button
@@ -18,6 +19,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="FoodGrouper"/>
+        android:text="Food Grouper"/>
 
 </LinearLayout>
