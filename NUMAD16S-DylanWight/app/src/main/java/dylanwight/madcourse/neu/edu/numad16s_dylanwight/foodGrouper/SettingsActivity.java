@@ -2,6 +2,7 @@ package dylanwight.madcourse.neu.edu.numad16s_dylanwight.foodGrouper;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -75,6 +76,14 @@ public class SettingsActivity extends Activity {
         targetProteins.setText(preferences.getInt("targetProteins", 15) + "");
         targetDairy.setText(preferences.getInt("targetDairy", 7) + "");
         targetFats.setText(preferences.getInt("targetFats", 7) + "");
+
+        alarm1.setText(preferences.getInt("alarm1", 10) + "");
+        alarm2.setText(preferences.getInt("alarm2", 15) + "");
+        alarm3.setText(preferences.getInt("alarm3", 20) + "");
+
+        alarm1on.setChecked(preferences.getBoolean("alarm1on", true));
+        alarm2on.setChecked(preferences.getBoolean("alarm2on", true));
+        alarm3on.setChecked(preferences.getBoolean("alarm3on", true));
     }
 
     private void setupButtons() {
@@ -135,7 +144,24 @@ public class SettingsActivity extends Activity {
             editor.putInt("targetProteins", Integer.parseInt(targetProteins.getText().toString()));
             editor.putInt("targetDairy", Integer.parseInt(targetDairy.getText().toString()));
             editor.putInt("targetFats", Integer.parseInt(targetFats.getText().toString()));
-            editor.apply();
+
+            editor.putInt("alarm1", Integer.parseInt(alarm1.getText().toString()));
+            editor.putInt("alarm2", Integer.parseInt(alarm2.getText().toString()));
+            editor.putInt("alarm3", Integer.parseInt(alarm3.getText().toString()));
+
+            editor.putBoolean("alarm1on", alarm1on.isChecked());
+            editor.putBoolean("alarm2on", alarm2on.isChecked());
+            editor.putBoolean("alarm3on", alarm3on.isChecked());
+
+            editor.commit();
+
+            Alarm alarm = new Alarm();
+            alarm.setAlarm(this);
+
+            NotificationManager mNotificationManager =
+                    (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+            mNotificationManager.cancelAll();
+
             this.finish();
         } catch (NumberFormatException e) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this.getApplicationContext());

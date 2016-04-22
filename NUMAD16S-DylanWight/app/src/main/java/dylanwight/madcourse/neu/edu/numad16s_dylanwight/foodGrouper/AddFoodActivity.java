@@ -3,6 +3,7 @@ package dylanwight.madcourse.neu.edu.numad16s_dylanwight.foodGrouper;
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -43,6 +45,21 @@ public class AddFoodActivity extends Activity {
                 finishActivity();
             }
         });
+
+        final SharedPreferences preferences = this.getSharedPreferences("FoodGrouper", Context.MODE_PRIVATE);
+        Integer lastEntryTime = preferences.getInt("lastEntryTime", 0);
+
+        Log.d("hour of day: ", lastEntryTime + "");
+
+        String prompt = "What have you eaten since ";
+        if (lastEntryTime == 0) {
+            prompt = "What have you eaten so far today?";
+        } else if (lastEntryTime < 12) {
+            prompt = prompt + lastEntryTime + " AM?";
+        } else {
+            prompt = prompt + (lastEntryTime - 12) + " PM?";
+        }
+        promptText.setText(prompt);
 
         this.loadLists();
 
@@ -132,6 +149,14 @@ public class AddFoodActivity extends Activity {
         NotificationManager mNotificationManager =
                 (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.cancelAll();
+
+        final SharedPreferences preferences = getApplicationContext().getSharedPreferences("FoodGrouper", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        editor.putInt("lastEntryTime", cal.get(Calendar.HOUR_OF_DAY));
+        editor.apply();
 
         saveText(newEntry);
         this.finish();
