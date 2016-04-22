@@ -85,6 +85,7 @@ public class FoodGrouperActivity extends AppCompatActivity {
             case R.id.action_settings:
                 intent = new Intent(this, SettingsActivity.class);
                 this.startActivity(intent);
+                updateData = true;
                 return true;
 
             // allow the user to add data

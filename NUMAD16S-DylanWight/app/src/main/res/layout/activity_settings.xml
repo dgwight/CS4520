@@ -40,11 +40,11 @@
                 android:layout_column="0"/>
 
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="60dip"
                 android:layout_height="wrap_content"
                 android:inputType="time"
-                android:ems="10"
-                android:id="@+id/editText"
+                android:ems="2"
+                android:id="@+id/alarmTime1"
                 android:layout_column="1" />
 
             <CheckBox
@@ -64,11 +64,11 @@
                 android:text="Reminder 2: " />
 
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="60dip"
                 android:layout_height="wrap_content"
                 android:inputType="time"
-                android:ems="10"
-                android:id="@+id/editText2"
+                android:ems="2"
+                android:id="@+id/alarmTime2"
                 android:layout_column="1" />
 
             <CheckBox
@@ -87,11 +87,11 @@
                 android:text="Reminder 3: " />
 
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="60dip"
                 android:layout_height="wrap_content"
                 android:inputType="time"
-                android:ems="10"
-                android:id="@+id/editText3"
+                android:ems="2"
+                android:id="@+id/alarmTime3"
                 android:layout_column="1" />
 
             <CheckBox
@@ -121,10 +121,10 @@
                 android:text="Fruits:  " />
 
             <EditText
-                android:layout_width="40dip"
+                android:layout_width="60dip"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:ems="4"
+                android:ems="3"
                 android:id="@+id/targetFruits" />
 
             <TextView
@@ -134,10 +134,10 @@
                 android:text="  Vegetables: " />
 
             <EditText
-                android:layout_width="40dip"
+                android:layout_width="60dip"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:ems="4"
+                android:ems="3"
                 android:id="@+id/targetVegetables" />
     </LinearLayout>
 
@@ -151,10 +151,10 @@
             android:text="Grains: " />
 
         <EditText
-            android:layout_width="40dip"
+            android:layout_width="60dip"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:ems="4"
+            android:ems="3"
             android:id="@+id/targetGrains" />
 
         <TextView
@@ -164,10 +164,10 @@
             android:text="  Proteins: " />
 
         <EditText
-            android:layout_width="40dip"
+            android:layout_width="60dip"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:ems="4"
+            android:ems="3"
             android:id="@+id/targetProtein" />
     </LinearLayout>
 
@@ -181,10 +181,10 @@
             android:text="Dairy:    " />
 
         <EditText
-            android:layout_width="40dip"
+            android:layout_width="60dip"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:ems="4"
+            android:ems="3"
             android:id="@+id/targetDairy" />
 
         <TextView
@@ -194,10 +194,10 @@
             android:text="  Fats:      " />
 
         <EditText
-            android:layout_width="40dip"
+            android:layout_width="60dip"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:ems="4"
+            android:ems="3"
             android:id="@+id/targetFats" />
     </LinearLayout>
 

@@ -1,5 +1,7 @@
 package dylanwight.madcourse.neu.edu.numad16s_dylanwight.foodGrouper;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.text.format.DateUtils;
@@ -47,6 +49,7 @@ public class FoodGrouperFragment extends Fragment {
     private ArrayList<String> labels;
     private SimpleDateFormat dateFormatDay = new SimpleDateFormat("EEE MMM dd zzz yyyy");
     private SimpleDateFormat dateFormatMonth = new SimpleDateFormat("MMM zzz yyy");
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -178,7 +181,18 @@ public class FoodGrouperFragment extends Fragment {
                 break;
         }
 
-        entries.add(new BarEntry(new float[]{33f, 20f, 13f, 12f, 15f, 7f}, 7));
+        final SharedPreferences preferences = this.getActivity().getSharedPreferences("FoodGrouper", Context.MODE_PRIVATE);
+        Integer targetGrains = preferences.getInt("targetGrains", 33);
+        Integer targetVegetables = preferences.getInt("targetVegetables", 13);
+        Integer targetFruits = preferences.getInt("targetFruits", 12);
+        Integer targetProteins = preferences.getInt("targetProteins", 15);
+        Integer targetDairy = preferences.getInt("targetDairy", 7);
+        Integer targetFats = preferences.getInt("targetFats", 7);
+
+        float[] servings = calculatePercentages(targetGrains, targetVegetables, targetFruits,
+                targetProteins, targetDairy, targetFats);
+
+        entries.add(new BarEntry(servings, 7));
         labels.add(getString(R.string.target));
 
         barDataSet = new BarDataSet(entries, "");
@@ -330,10 +344,6 @@ public class FoodGrouperFragment extends Fragment {
         protein = (protein/total) * 100;
         fat = (fat/total) * 100;
 
-        float [] results = new float[]{grain, veg, fruit, protein, dairy, fat};
-
-        return results;
+        return new float[]{grain, veg, fruit, protein, dairy, fat};
     }
-
-
 }
