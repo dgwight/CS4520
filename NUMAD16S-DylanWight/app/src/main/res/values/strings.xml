@@ -125,5 +125,12 @@ both sides in the larger game.
         Recommended diet information: http://www.newhealthguide.org/The-Eatwell-Plate-Percentages.html,
         Icon: http://www.choosemyplate.gov/</string>
     <string name="food_grouper_description">Food Grouper will help make your diet healthier and more balanced by tracking the amount of each food group you eat each day. It will take in information about how many servings of each type of food you ate and give you a percentage breakdown of how your diet compares to the recommended diet. By tracking servings rather than calories or specific foods, Food Grouper makes tracking your food intake quick and painless. Food Grouper also offers customizable prompts throughout the day to remind you to track your food as well as a customizable target diet. No matter what your goals are, Food Grouper will help you to achieve them!</string>
+    <string name="food_grouper_instructions">\tThree times a day, you\'ll be automatically be reminded to estimate how many servings of each food group you\'ve eaten. We will track your entries and compare your diet breakdown to your target diet.\n\tYou can make additional food entries anytime you want. Your target diet and reminder times can be adjusted in Settings. \n</string>
+    <string name="get_started">Get Started</string>
+    <string name="welcome_food_grouper">Welcome to Food Grouper!</string>
+    <string name="add_entry">Add Entry</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
+    <string name="add_servings">Add Servings</string>
 
 </resources>

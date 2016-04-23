@@ -26,7 +26,7 @@ public class Alarm extends BroadcastReceiver {
     }
 
     public void setAlarm(Context context) {
-        AlarmManager am = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
 
@@ -61,12 +61,35 @@ public class Alarm extends BroadcastReceiver {
         }
     }
 
-    private void sendMessage(Context context) {
+    public final void sendMessage(Context context) {
+
+        final SharedPreferences preferences = context.getSharedPreferences("FoodGrouper", Context.MODE_PRIVATE);
+        Integer lastEntryHour = preferences.getInt("lastEntryHour", 0);
+        Integer lastEntryMin = preferences.getInt("lastEntryMin", 0);
+
+        String prompt = "What have you eaten since ";
+        if (lastEntryHour == 0) {
+            prompt = "What have you eaten so far today?";
+        } else if (lastEntryHour < 12) {
+            if (lastEntryMin < 10) {
+                prompt = prompt + lastEntryHour + ":0" + lastEntryMin + " AM?";
+            } else {
+                prompt = prompt + lastEntryHour + ":" + lastEntryMin + " AM?";
+            }
+        } else {
+            if (lastEntryMin < 10) {
+                prompt = prompt + (lastEntryHour - 12) + ":0" + lastEntryMin + " PM?";
+            } else {
+                prompt = prompt + (lastEntryHour - 12) + ":" + lastEntryMin + " PM?";
+            }
+        }
+
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.drawable.ic_stat_cloud)
+                        .setSmallIcon(R.mipmap.food_grouper_launcher)
                         .setContentTitle("Food Grouper")
-        .setContentText("Time to log your meal");
+
+        .setContentText(prompt);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, new Intent(
                 context, AddFoodActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);

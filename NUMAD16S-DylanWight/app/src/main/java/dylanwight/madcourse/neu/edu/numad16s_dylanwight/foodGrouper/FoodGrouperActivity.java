@@ -24,7 +24,6 @@ import dylanwight.madcourse.neu.edu.numad16s_dylanwight.R;
  */
 public class FoodGrouperActivity extends AppCompatActivity {
     private FoodData data;
-    private boolean updateData;
     private Fragment foodGrouperFragment;
 
     @Override
@@ -32,8 +31,11 @@ public class FoodGrouperActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_grouper);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.food_grouper);
+        setSupportActionBar(toolbar);
+
         data = new FoodData(this, "data.txt");
-        Log.d("Data Count: ", data.getFoodData().size() + "");
 
         foodGrouperFragment = this.getFragmentManager().findFragmentById(R.id.food_grouper_fragment);
         ((FoodGrouperFragment)foodGrouperFragment).setFoodData(data);
@@ -45,11 +47,6 @@ public class FoodGrouperActivity extends AppCompatActivity {
             Intent intent = new Intent(this, WelcomeActivity.class);
             this.startActivity(intent);
         }
-
-        // toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(getString(R.string.food_grouper));
-        setSupportActionBar(toolbar);
     }
 
     @Override
@@ -61,12 +58,9 @@ public class FoodGrouperActivity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
 
-        if (updateData){
             Log.d("FoodGrouperActivity ", "Update the food data");
             data = new FoodData(this, "data.txt");
             ((FoodGrouperFragment)foodGrouperFragment).setFoodData(data);
-            updateData = false;
-        }
     }
 
     @Override
@@ -85,14 +79,12 @@ public class FoodGrouperActivity extends AppCompatActivity {
             case R.id.action_settings:
                 intent = new Intent(this, SettingsActivity.class);
                 this.startActivity(intent);
-                updateData = true;
                 return true;
 
             // allow the user to add data
             case R.id.action_add_food_items:
                 intent = new Intent(this, AddFoodActivity.class);
                 this.startActivity(intent);
-                updateData = true;
                 return true;
 
             default:

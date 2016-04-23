@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -45,6 +46,7 @@ public class SettingsActivity extends Activity {
         // toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.settings_toolbar);
         toolbar.setTitle(getString(R.string.action_settings));
+        toolbar.setTitleTextColor(Color.WHITE);
 
         setupButtons();
         setupFields();

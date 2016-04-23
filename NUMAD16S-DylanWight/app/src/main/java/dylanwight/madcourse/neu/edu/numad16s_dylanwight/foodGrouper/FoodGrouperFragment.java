@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -55,10 +56,13 @@ public class FoodGrouperFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_food_grouper, container, false);
 
-        // create the color template
-        colorTemplate = new int[]{android.graphics.Color.rgb(241, 150, 1), android.graphics.Color.rgb(65, 117, 5),
-                android.graphics.Color.rgb(208, 2, 27), android.graphics.Color.rgb(76, 49, 146),
-                android.graphics.Color.rgb(7, 124, 211), android.graphics.Color.rgb(238, 226, 70)};
+                // create the color template
+        colorTemplate = new int[]{ContextCompat.getColor(this.getActivity(), R.color.grains),
+                ContextCompat.getColor(this.getActivity(), R.color.vegetables),
+                ContextCompat.getColor(this.getActivity(), R.color.fruits),
+                ContextCompat.getColor(this.getActivity(), R.color.proteins),
+                ContextCompat.getColor(this.getActivity(), R.color.dairy),
+                ContextCompat.getColor(this.getActivity(), R.color.fats)};
 
         // get the buttons
         setupButtons(rootView);

@@ -13,9 +13,10 @@
     <color name="red_color">#ff7f7f</color>
     <color name="thinking_background_color">#cfdfdfdf</color>
     <color name="black">#000000</color>
+    <color name="dark_grey">#333333</color>
+
     <color name="white">#ffffff</color>
     <color name="see_through_grey">#88888888</color>
-
 
     //food group colors
     <color name="fruits">#D0021B</color>
@@ -28,7 +29,7 @@
     <color name="dairyBorder">#0D366A</color>
     <color name="proteins">#4C3192</color>
     <color name="proteinsBorder">#0A0126</color>
-    <color name="fats">#EEE246</color>
-    <color name="fatsBorder">#A69D2B</color>
+    <color name="fats">#C5B811</color>
+    <color name="fatsBorder">#C5B811</color>
 
 </resources>

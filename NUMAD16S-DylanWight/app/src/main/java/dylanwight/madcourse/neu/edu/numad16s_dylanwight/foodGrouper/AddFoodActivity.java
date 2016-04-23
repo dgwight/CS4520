@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -47,17 +48,24 @@ public class AddFoodActivity extends Activity {
         });
 
         final SharedPreferences preferences = this.getSharedPreferences("FoodGrouper", Context.MODE_PRIVATE);
-        Integer lastEntryTime = preferences.getInt("lastEntryTime", 0);
-
-        Log.d("hour of day: ", lastEntryTime + "");
+        Integer lastEntryHour = preferences.getInt("lastEntryHour", 0);
+        Integer lastEntryMin = preferences.getInt("lastEntryMin", 0);
 
         String prompt = "What have you eaten since ";
-        if (lastEntryTime == 0) {
+        if (lastEntryHour == 0) {
             prompt = "What have you eaten so far today?";
-        } else if (lastEntryTime < 12) {
-            prompt = prompt + lastEntryTime + " AM?";
+        } else if (lastEntryHour < 12) {
+            if (lastEntryMin < 10) {
+                prompt = prompt + lastEntryHour + ":0" + lastEntryMin + " AM?";
+            } else {
+                prompt = prompt + lastEntryHour + ":" + lastEntryMin + " AM?";
+            }
         } else {
-            prompt = prompt + (lastEntryTime - 12) + " PM?";
+            if (lastEntryMin < 10) {
+                prompt = prompt + (lastEntryHour - 12) + ":0" + lastEntryMin + " PM?";
+            } else {
+                prompt = prompt + (lastEntryHour - 12) + ":" + lastEntryMin + " PM?";
+            }
         }
         promptText.setText(prompt);
 
@@ -155,7 +163,9 @@ public class AddFoodActivity extends Activity {
 
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
-        editor.putInt("lastEntryTime", cal.get(Calendar.HOUR_OF_DAY));
+        editor.putInt("lastEntryHour", cal.get(Calendar.HOUR_OF_DAY));
+        editor.putInt("lastEntryMin", cal.get(Calendar.MINUTE));
+
         editor.apply();
 
         saveText(newEntry);

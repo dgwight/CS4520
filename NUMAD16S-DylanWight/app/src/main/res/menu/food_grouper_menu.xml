@@ -7,7 +7,7 @@
         android:id="@+id/action_add_food_items"
         android:icon="@drawable/plus_34"
         android:title="@string/add_food_label"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="never"/>
 
     <item
         android:id="@+id/action_settings"

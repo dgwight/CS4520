@@ -19,6 +19,10 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome_activity);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(getString(R.string.food_grouper));
+        setSupportActionBar(toolbar);
+
         Button gotItButton = (Button) findViewById(R.id.got_it_button);
         gotItButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,6 +44,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private void startAlarm() {
         Alarm a = new Alarm();
         a.setAlarm(this);
+        a.sendMessage(this);
     }
 
     private void setUserAsNotNew() {
